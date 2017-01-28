@@ -17,6 +17,7 @@ public:
 	virtual bool init();
 
 	void run();
+	void load();
 
 	CREATE_FUNC(LoadingScene);
 private:
@@ -27,6 +28,12 @@ private:
 
 	int currentNum;//当前加载到第几张  
 	int totalNum;//加载总数  
+
+	cocos2d::ProgressTimer* loadProgress;
+	cocos2d::LabelTTF* loadLabel;
+	int  _numberOfSprites=2;
+	int _numberOfLoadedSprites=0;
+	void loadingCallBack(cocos2d::Texture2D *texture);
 };
 
 #endif 
