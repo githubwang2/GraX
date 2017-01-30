@@ -14,50 +14,58 @@ bool StageChooseScene::init(){
 	}
 
 	visibleSize = Director::getInstance()->getWinSize();
-	taskSize = Size(960, 640);
-	int offsetX = (visibleSize.width - taskSize.width) / 2;
-	int offsetY = (visibleSize.height - taskSize.height) / 2;
-	m_screenOffset = Point(offsetX, offsetY);
 
 	addBackgroundSprite();
 	
-	
-
-	m_currentPage = 1;
-	//
 	return true;
 }
 
 void StageChooseScene::addBackgroundSprite(){
-	auto stageChoose = dynamic_cast<Widget*>(GUIReader::getInstance()
+	stageChoose = dynamic_cast<Widget*>(GUIReader::getInstance()
 		->widgetFromJsonFile("StageChoose/StageChoose.json"));
 	stageChoose->setPosition(Point::ZERO);
 	addChild(stageChoose);
 
-	lblStage = dynamic_cast<TextBMFont*>(stageChoose->getChildByName("lblStage"));
-	lblStage->setString("aaa");
-	//addChild(lblStage);
+	addButton("stage1");
+	addButton("stage2");
+	addButton( "stage3");
+	addButton("stage4");
+	//auto label = LabelTTF::create("雄大なる緑の大地", "Meiryo", 24);
+	//label->setPosition(500, 100);
+	//this->addChild(label);
 
-	auto label = LabelTTF::create("雄大なる緑の大地", "Meiryo", 24);
-	label->setPosition(500, 100);
-	this->addChild(label);
-
-	loadPageList(stageChoose);
 }
 
-void StageChooseScene::loadPageList(Widget*uiRoot){
-	m_taskPage = dynamic_cast<PageView*>(uiRoot->getChildByName("ScrollView"));
+void StageChooseScene::addButton( char*name){
+	auto button = dynamic_cast<Button*>(stageChoose->getChildByName("ScrollView")->getChildByName(name));
+	button->addTouchEventListener(this, toucheventselector(StageChooseScene::touchButton));
+}
 
-	char name[32] = { 0 };
-
-	for (int i = 1; i <= STAGE_MAX;++i)
+void StageChooseScene::touchButton(Ref *object, TouchEventType type){
+	if (type == TOUCH_EVENT_ENDED)
 	{
-		memset(name, 0, sizeof(name));
-		sprintf(name, "stage%d.json", i);
-		
+		auto widget = dynamic_cast<Widget*>(object);
+		auto name = widget->getName();
+		if (name.compare("stage1") == 0)
+		{
+			CCLOG("stage1");
+		}
+		else if (name.compare("stage2") == 0)
+		{
+			CCLOG("stage2");
+		}
+		else if (name.compare("stage3") == 0)
+		{
+			CCLOG("stage3");
+		}
+		else if(name.compare("stage4") == 0)
+		{
+			CCLOG("stage4");
+		}
+		else
+		{
+			CCLOG("no stage");
+			return;
+		}
 	}
-
-	m_currentPage = (int)m_taskPage->getCurPageIndex() + 1;
-	CCLOG("m_currentPage");
 }
-

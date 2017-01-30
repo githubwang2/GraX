@@ -17,8 +17,10 @@ USING_NS_CC;
 using namespace ui;
 using namespace cocostudio;
 
+
+
 //
-const int STAGE_MAX = 3;
+const int STAGE_MAX = 4;
 
 
 class StageChooseScene:public Layer
@@ -30,17 +32,14 @@ public:
 
 	void addBackgroundSprite();
 
-	void loadPageList(Widget*uiRoot);
+	void addButton(char*name);
+
+	void touchButton(Ref *object, TouchEventType type);
 private:
 	Size visibleSize;
-	Size taskSize;
-	Point m_screenOffset;
 
-	TextBMFont *lblStage;
+	Widget* stageChoose;
 
-	PageView*m_taskPage;
-
-	int m_currentPage;
 };
 
 #endif
