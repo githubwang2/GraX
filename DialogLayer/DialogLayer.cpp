@@ -78,8 +78,8 @@ void DialogLayer::getDateByIndex(int index){
 		
 		if (i>=array.Size())		//	说明已经显示完全
 		{
-			CCLOG("显示完全 开始游戏内容");
-			this->removeFromParent();
+			CCLOG("end  startgame ");
+			//this->removeFromParent();
 			//node->removeFromParent();
 			return;
 		}
@@ -119,6 +119,8 @@ void DialogLayer::initStudioUI(const char*jsonFile){
 	layout->addTouchEventListener(CC_CALLBACK_2(DialogLayer::touchDownAction, this));
 
 	this->addChild(node);
+
+	icon->setScale(0.5);
 }
 
 void DialogLayer::touchDownAction(Ref*sender, Widget::TouchEventType controlEvent){

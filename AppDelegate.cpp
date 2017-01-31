@@ -29,7 +29,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     director->setAnimationInterval(1.0 / 60);
 
-	auto scene = StageChooseScene::createScene();
+	auto scene = HelloWorld::createScene();
 
     // run
     director->runWithScene(scene);

@@ -28,12 +28,15 @@ void StageChooseScene::addBackgroundSprite(){
 
 	addButton("stage1");
 	addButton("stage2");
-	addButton( "stage3");
+	addButton("stage3");
 	addButton("stage4");
 	//auto label = LabelTTF::create("雄大なる緑の大地", "Meiryo", 24);
 	//label->setPosition(500, 100);
 	//this->addChild(label);
-
+	auto scrollView = dynamic_cast<ScrollView*>(stageChoose->getChildByName("ScrollView"));
+	//scrollView->scrollToPercentHorizontal(17.5,1.0, false);
+//	scrollView->scrollToPercentHorizontal(35, 1.0, false);
+	scrollView->scrollToPercentHorizontal(70, 1.0, false);
 }
 
 void StageChooseScene::addButton( char*name){
