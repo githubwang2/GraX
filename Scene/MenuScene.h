@@ -11,9 +11,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-USING_NS_CC;
-using namespace ui;
-using namespace cocostudio;
+
 
 enum GameState
 {
@@ -25,16 +23,13 @@ enum GameState
 };
 
 
-class MenuScene : public Layer
+class MenuScene : public cocos2d::Layer
 {
 public:
 
-	static Scene* createScene();
+	static cocos2d::Scene* createScene();
 	virtual bool init();
 	
-	void initMenuBtn();
-
-	void touchButton(Ref *object, TouchEventType type);
 
 	CREATE_FUNC(MenuScene);
 	//----gameState
@@ -42,7 +37,14 @@ public:
 	GameState m_gameState;
 
 private:
-	Size visibleSize;
+	void initMenuBG();
+
+	void initMenuBtn(char*btnName);
+
+	void touchButton(Ref *object, cocos2d::ui::TouchEventType type);
+
+	cocos2d::ui::Widget*menuScene;
+	cocos2d::Size visibleSize;
 };
 
 #endif 

@@ -1,5 +1,8 @@
-#include"SplashScene\SplashScene.h"
-#include "LoadingScene.h"
+#include"ConstUtil.h"
+#include"Scene\SplashScene\SplashScene.h"
+#include"Scene\LoadingScene\LoadingScene.h"
+
+USING_NS_CC;
 
 Scene*SplashScene::createScene(){
 	auto scene = Scene::create();
@@ -71,11 +74,10 @@ void SplashScene::spriteFadeOut(){
 	W_Sprite->runAction(fadeout1);
 	A_Sprite->runAction(fadeout2);
 	N_Sprite->runAction(fadeout3);
-	CallFunc*callfunc4 = CallFunc::create(CC_CALLBACK_0(SplashScene::gotoMenuScene, this));
+	CallFunc*callfunc4 = CallFunc::create(CC_CALLBACK_0(SplashScene::gotoLoadingScene, this));
 	G_Sprite->runAction(Sequence::create(fadeout4, callfunc4, NULL));
 }
 
-void SplashScene::gotoMenuScene(){
+void SplashScene::gotoLoadingScene(){
 	Director::getInstance()->replaceScene(LoadingScene::createScene());
-	log("go to Menu");
 }

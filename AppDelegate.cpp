@@ -1,11 +1,8 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
-#include"DialogLayer\DialogLayer.h"
-#include"SplashScene\SplashScene.h"
-#include"GameState.h"
-#include "MenuScene.h"
-#include"MainScene.h"
-#include "StageChooseScene.h"
+#include "Scene\SplashScene\SplashScene.h"
+
+#include "Scene\MenuScene.h"
+
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -29,7 +26,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     director->setAnimationInterval(1.0 / 60);
 
-	auto scene = HelloWorld::createScene();
+	auto scene = SplashScene::createScene();
 
     // run
     director->runWithScene(scene);
