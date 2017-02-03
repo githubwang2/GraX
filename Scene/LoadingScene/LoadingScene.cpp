@@ -52,20 +52,20 @@ void LoadingScene::playOP(){
 }
 
 void LoadingScene::load(){
-	loadLabel = LabelTTF::create("Loading..", "Arial", 20);			//´´½¨ÏÔÊ¾Loading: µÄlabel
+	loadLabel = LabelTTF::create("Loading..", "Arial", 20);			//åˆ›å»ºæ˜¾ç¤ºLoading: çš„label
 	loadLabel->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2 + 30));
 	this->addChild(loadLabel, 1);
 
-	auto loadBg = Sprite::create(PROGRESSBAR_BG);				//½ø¶ÈÌõµ×Í¼
+	auto loadBg = Sprite::create(PROGRESSBAR_BG);				//è¿›åº¦æ¡åº•å›¾
 	loadBg->setPosition(Point(visibleSize / 2));
 	addChild(loadBg, 0);
 	
 	loadProgress = ProgressTimer::create(Sprite::create(PROGRESS_BAR));
-	loadProgress->setBarChangeRate(Point(1, 0));					//ÉèÖÃ½ø³ÌÌõµÄ±ä»¯ËÙÂÊ
-	loadProgress->setType(ProgressTimer::Type::BAR);				//ÉèÖÃ½ø³ÌÌõµÄÀàÐÍ
-	loadProgress->setMidpoint(Point(0, 1));							//ÉèÖÃ½ø¶ÈµÄÔË¶¯·½Ïò
+	loadProgress->setBarChangeRate(Point(1, 0));					//è®¾ç½®è¿›ç¨‹æ¡çš„å˜åŒ–é€ŸçŽ‡
+	loadProgress->setType(ProgressTimer::Type::BAR);				//è®¾ç½®è¿›ç¨‹æ¡çš„ç±»åž‹
+	loadProgress->setMidpoint(Point(0, 1));							//è®¾ç½®è¿›åº¦çš„è¿åŠ¨æ–¹å‘
 	loadProgress->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
-	loadProgress->setPercentage(0.0f);								//ÉèÖÃ³õÊ¼ÖµÎª0
+	loadProgress->setPercentage(0.0f);								//è®¾ç½®åˆå§‹å€¼ä¸º0
 	this->addChild(loadProgress, 1);
 
 	for (int i = 1; i < 182;i++)
@@ -81,16 +81,16 @@ void LoadingScene::loadingCallBack(cocos2d::Texture2D *texture)
 {
 	++_numberOfLoadedSprites;
 
-	float newPercent = 100 - ((float)_numberOfSprites - (float)_numberOfLoadedSprites) / ((float)_numberOfSprites / 100);//¼ÆËã½ø¶ÈÌõµ±Ç°µÄ°Ù·Ö±È
+	float newPercent = 100 - ((float)_numberOfSprites - (float)_numberOfLoadedSprites) / ((float)_numberOfSprites / 100);//è®¡ç®—è¿›åº¦æ¡å½“å‰çš„ç™¾åˆ†æ¯”
 
-	loadProgress->setPercentage(newPercent);//¸üÐÂ½ø¶ÈÌõ
+	loadProgress->setPercentage(newPercent);//æ›´æ–°è¿›åº¦
 
 	char buf[32] = { 0 };
 	sprintf(buf, "Loading.. %d%%", (int)newPercent);
 	loadLabel->setString(buf);
 
 	CCLOG("%d",_numberOfLoadedSprites);
-	//Í¼Æ¬¼ÓÔØÍê³Éºó
+	//å›¾ç‰‡åŠ è½½å®Œæˆ
 	if (_numberOfLoadedSprites == _numberOfSprites)
 	{
 		loadLabel->setString("all loaded");
