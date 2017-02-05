@@ -1,4 +1,5 @@
 #include"Scene/StageChooseScene.h"
+#include"GameState.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -33,24 +34,24 @@ void StageChooseScene::addBackgroundSprite(){
 
 	scrollView = dynamic_cast<ScrollView*>(stageChoose->getChildByName("ScrollView"));
 
-	auto stage1 = addButton("stage1");
-	auto stage2 = addButton("stage2");
-	auto stage3 = addButton("stage3");
-	auto stage4 = addButton("stage4");
+	auto stage1 = addButton("Stage1");
+	auto stage2 = addButton("Stage2");
+	auto stage3 = addButton("Stage3");
+	auto stage4 = addButton("Stage4");
 
-	auto lblstage1 = dynamic_cast<ImageView*>(stage1->getChildByName("lblStage1"));
-	auto lblstage2 = dynamic_cast<ImageView*>(stage2->getChildByName("lblStage2"));
-	auto lblstage3 = dynamic_cast<ImageView*>(stage3->getChildByName("lblStage3"));
-	auto lblstage4 = dynamic_cast<ImageView*>(stage4->getChildByName("lblStage4"));
+	//auto lblstage1 = dynamic_cast<ImageView*>(stage1->getChildByName("lblStage1"));
+	//auto lblstage2 = dynamic_cast<ImageView*>(stage2->getChildByName("lblStage2"));
+	//auto lblstage3 = dynamic_cast<ImageView*>(stage3->getChildByName("lblStage3"));
+	//auto lblstage4 = dynamic_cast<ImageView*>(stage4->getChildByName("lblStage4"));
 
-	stage1->setBright(true);
+	/*stage1->setBright(true);
 	lblstage1->setVisible(true);
 	stage2->setBright(false);
 	lblstage2->setVisible(false);
 	stage3->setBright(false);
 	lblstage3->setVisible(false);
 	stage4->setBright(false);
-	lblstage4->setVisible(false);
+	lblstage4->setVisible(false);*/
 
 	//auto label = LabelTTF::create("雄大なる緑の大地", "Meiryo", 24);
 	//label->setPosition(500, 100);
@@ -60,7 +61,15 @@ void StageChooseScene::addBackgroundSprite(){
 Button*StageChooseScene::addButton(char*name){
 	auto button = dynamic_cast<Button*>(stageChoose->getChildByName("ScrollView")->getChildByName(name));
 	button->addTouchEventListener(this, toucheventselector(StageChooseScene::touchButton));
-	return button;
+	char buf[32] = { 0 };
+	std::sprintf(buf, "lbl%s", name);
+	CCLOG("%s", buf);
+	auto lblstage = dynamic_cast<ImageView*>(button->getChildByName(buf));
+
+	button->setBright(GameState::getStageDate(name));
+	lblstage->setVisible(GameState::getStageDate(name));
+
+	return button;	
 }
 
 void StageChooseScene::touchButton(Ref *object, TouchEventType type){
@@ -68,19 +77,19 @@ void StageChooseScene::touchButton(Ref *object, TouchEventType type){
 	{
 		auto widget = dynamic_cast<Widget*>(object);
 		auto name = widget->getName();
-		if (name.compare("stage1") == 0)
+		if (name.compare("Stage1") == 0)
 		{
 			CCLOG("stage1");
 		}
-		else if (name.compare("stage2") == 0)
+		else if (name.compare("Stage2") == 0)
 		{
 			CCLOG("stage2");
 		}
-		else if (name.compare("stage3") == 0)
+		else if (name.compare("Stage3") == 0)
 		{
 			CCLOG("stage3");
 		}
-		else if(name.compare("stage4") == 0)
+		else if(name.compare("Stage4") == 0)
 		{
 			CCLOG("stage4");
 		}

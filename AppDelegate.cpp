@@ -2,6 +2,7 @@
 #include "Scene\SplashScene\SplashScene.h"
 #include "Scene\MenuScene.h"
 #include "Scene\StageChooseScene.h"
+#include"GameState.h"
 
 USING_NS_CC;
 
