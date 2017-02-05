@@ -1,7 +1,7 @@
 #include "AppDelegate.h"
 #include "Scene\SplashScene\SplashScene.h"
-
 #include "Scene\MenuScene.h"
+#include "Scene\StageChooseScene.h"
 
 USING_NS_CC;
 
@@ -26,7 +26,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     director->setAnimationInterval(1.0 / 60);
 
-	auto scene = SplashScene::createScene();
+	auto scene = StageChooseScene::createScene();
 
     // run
     director->runWithScene(scene);

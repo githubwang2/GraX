@@ -23,4 +23,17 @@ const		int						ONE_SECOND = 1;
 #define		PROGRESSBAR_BG			"ProgressBarBG.png"
 #define		PROGRESS_BAR			"ProgressBar.png"
 
+//-----------------------MenuScene---------------------
+
+#define		BTN_START				"btnGameStart"
+#define		BTN_SETTING				"btnGameSetting"
+#define		BTN_ABOUT				"btnGameAbout"
+#define		BTN_EXIT				"btnGameEnd"
+
+//-----------------------StageChooseScene---------------------
+
+const int STAGE_MAX = 4;
+const int SCROLL_WIDTH = 960;	//滑动区域的大小
+const float ADJUEST_TIME = 0.3f;//滑动校正时间
+
 #endif 

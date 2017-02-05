@@ -1,6 +1,5 @@
 #include "Scene/MenuScene.h"
-//#include "AboutScene.h"
-//#include"MainScene.h"
+#include"GameSceneControl.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -26,10 +25,10 @@ bool MenuScene::init()
 
 	initMenuBG();
 
-	initMenuBtn("btnGameStart");
-	initMenuBtn("btnGameSetting");
-	initMenuBtn("btnGameAbout");
-	initMenuBtn("btnGameEnd");
+	initMenuBtn(BTN_START);
+	initMenuBtn(BTN_SETTING);
+	initMenuBtn(BTN_ABOUT);
+	initMenuBtn(BTN_EXIT);
 
 	return true;
 }
@@ -89,61 +88,23 @@ void MenuScene::touchButton(Ref *object, TouchEventType type){
 	{
 		auto widget = dynamic_cast<Widget*>(object);
 		auto name = widget->getName();
-		if (name.compare("btnGameStart") == 0)
+		if (name.compare(BTN_START) == 0)
 		{
-			gameControl(MainState);
+			GameSceneControl::changeScene(GameSceneControl::MainSceneState);
 		}
-		else if (name.compare("btnGameSetting") == 0)
+		else if (name.compare(BTN_SETTING) == 0)
 		{
-			gameControl(SetttingState);
+			GameSceneControl::changeScene(GameSceneControl::SetttingSceneState);
 		}
-		else if (name.compare("btnGameAbout") == 0)
+		else if (name.compare(BTN_ABOUT) == 0)
 		{
-			gameControl(AboutState);
+			GameSceneControl::changeScene(GameSceneControl::AboutSceneState);
 		}
-		if (name.compare("btnGameEnd") == 0)
+		if (name.compare(BTN_EXIT) == 0)
 		{
-			gameControl(EndState);
+			GameSceneControl::changeScene(GameSceneControl::EndState);
 		}
 	}
 }
 
-//	场景控制
-void MenuScene::gameControl(GameState gamestate){
-	switch (gamestate)
-	{
-	case GameState::MenuState:{
-								  CCLOG("btnGameMenu");
-								  m_gameState = MenuState;
-								  auto transScene = TransitionFade::create(1, MenuScene::createScene());
-								  Director::getInstance()->replaceScene(transScene);
-								  break;
-	}
-	case GameState::MainState:{
-								  CCLOG("btnGameStart");
-								  m_gameState = MainState;
-								//  auto transScene = TransitionFade::create(1, MainScene::createScene());
-								//  Director::getInstance()->replaceScene(transScene);
-								  break;
-	}
-	case GameState::SetttingState:{
-									  CCLOG("btnGameSetting");
-									  m_gameState = SetttingState;
-									  break;
-	}
-	case GameState::AboutState:{
-								   CCLOG("btnGameAbout");
-								   m_gameState = AboutState;
-								//   auto transScene = TransitionFade::create(1, AboutScene::createScene());
-								//   Director::getInstance()->replaceScene(transScene);
-								   break;
-	}
-	case GameState::EndState:{
-								 CCLOG("btnGameEnd");
-								 Director::getInstance()->end();
-								 break;
-	}
-	default: break;
-	}
-}
 	

@@ -11,17 +11,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-
-
-enum GameState
-{
-	MenuState = 0,
-	MainState,
-	SetttingState,
-	AboutState,
-	EndState
-};
-
+#include"ConstUtil.h"
 
 class MenuScene : public cocos2d::Layer
 {
@@ -29,12 +19,7 @@ public:
 
 	static cocos2d::Scene* createScene();
 	virtual bool init();
-	
-
 	CREATE_FUNC(MenuScene);
-	//----gameState
-	void gameControl(GameState gamestate);
-	GameState m_gameState;
 
 private:
 	void initMenuBG();
