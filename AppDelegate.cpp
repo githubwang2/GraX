@@ -1,9 +1,11 @@
 #include "AppDelegate.h"
-#include "Scene\SplashScene\SplashScene.h"
-#include "Scene\MenuScene.h"
-#include "Scene\StageChooseScene.h"
+#include "Scene/SplashScene/SplashScene.h"
+#include "Scene/MenuScene.h"
+#include "Scene/StageChooseScene.h"
 #include"GameState.h"
 #include "PopupLayer/PopupLayer.h"
+#include"Scene/MainScene.h"
+#include"GameMap.h"
 
 USING_NS_CC;
 
@@ -28,7 +30,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     director->setAnimationInterval(1.0 / 60);
 
-	auto scene = PopupLayer::createScene();
+	auto scene = MainScene::createScene();
 
     // run
     director->runWithScene(scene);
