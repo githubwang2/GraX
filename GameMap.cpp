@@ -1,5 +1,10 @@
 #include "GameMap.h"
 
+USING_NS_CC;
+
+TMXTiledMap	* GameMap::m_tileMap;
+TMXLayer	* GameMap::m_bulid;
+
 GameMap *GameMap::createTMXTiledMap(char*tileMap)
 {
 	GameMap* gameMap = new GameMap();
@@ -9,7 +14,7 @@ GameMap *GameMap::createTMXTiledMap(char*tileMap)
 	}
 	else
 	{
-		//CC_SAFE_DELETE(gameMap);
+		CC_SAFE_DELETE(gameMap);
 	}
 	return gameMap;
 }
@@ -20,13 +25,13 @@ bool GameMap::init(char*tileMap)
 	{
 		return false;
 	}
-
-	m_tileMap = TMXTiledMap::create("Tower/TowerTileMap/gate1.tmx");
+	//-----------------2个静态常量的赋值------------------
+	m_tileMap = TMXTiledMap::create(tileMap);
 	addChild(m_tileMap, -1);
-	getWalkPath("Walk");
-
+	//设置能够放置塔的对象层不可见
 	m_bulid = m_tileMap->getLayer("meta");
 	m_bulid->setVisible(false);
+	//---------------------------------------------------
 
 	return true;
 }
@@ -56,7 +61,7 @@ std::vector<Point>GameMap::getWalkPath(const char*key){
 	{
 		myX = pos.asValueMap()["x"].asInt();
 		myY = pos.asValueMap()["y"].asInt();
-		CCLOG("find the pos x:%d\ty:%d", myX, myY);
+		//CCLOG("find the pos x:%d\ty:%d", myX, myY);
 		pathVec.push_back(Point(myX, myY));
 	}
 	return pathVec;
@@ -67,14 +72,15 @@ std::string GameMap::getTowerValue(Point&posIngl){
 	return value;
 }
 
-Point GameMap::worldToTile(Point &pos, TMXTiledMap*map){
-	int x = pos.x / 80;
-	int y = (640 - pos.y) / 80;
+Point GameMap::worldToTile(Point &pos){
+	int x = pos.x / m_tileMap->getTileSize().width;
+	int y = (m_tileMap->getContentSize().height - pos.y) /m_tileMap->getTileSize().height;
+
 	return Point(x, y);
 }
 
 std::string GameMap::getValue(std::string key, Point&posIngl, TMXLayer*layer, TMXTiledMap*map){
-	Point pos = worldToTile(posIngl,map);
+	Point pos = worldToTile(posIngl);
 	int tileGID = layer->getTileGIDAt(pos);
 	if (tileGID)
 	{
