@@ -10,6 +10,8 @@ class MonsterBase : public cocos2d::Layer
 public:
 	MonsterBase(int id);
 	
+	cocos2d::Sprite*createMonster();
+
 	void changeDirection(float dt);
 
 protected:
@@ -19,6 +21,9 @@ protected:
 	cocos2d::Animation*ani_down;
 	cocos2d::Animation*ani_left;
 	cocos2d::Animation*ani_right;
+
+	int m_id;
+	int m_hp;
 };
 
 #endif 

@@ -1,5 +1,6 @@
 #include "Sprite/Components/ComMove.h"
-#include"Sprite/MonsterBase.h"
+#include "Sprite/MonsterBase.h"
+#include "Scene/MainScene.h"
 
 USING_NS_CC;
 
@@ -61,19 +62,21 @@ void ComMove::initPath(std::vector<cocos2d::Point> path)
 		auto act2 = MoveTo::create(time, path.at(i));
 		act.pushBack(act2);
 	}
-	m_moveActions = Sequence::create(act);
 
-	////--------------怪物走到终点 减血并移除怪物
-	//act.pushBack(CallFunc::create([=](){
-	//	auto playground = dynamic_cast<TowerScene*>(getOwner()->getParent());
-	//	auto curLife=playground->changeLife(-2);
-	//	if (curLife <= 0){
-	//		//失败 游戏结束
-	//		playground->endGame(false);
-	//	}
-	//	playground->removeMonster(getOwner());
-	//}));
-	
+	//--------------怪物走到终点 减血并移除怪物
+	act.pushBack(CallFunc::create([=](){
+		auto playground = dynamic_cast<MainScene*>(getOwner()->getParent());
+		auto curLife=HUDLayer::changeLife(-1);
+		if (curLife <= 0){
+			//失败 游戏结束
+			CCLOG("end");
+			playground->endGame(false);
+		}
+		CCLOG("remove one");
+		//playground->removeMonster(getOwner());
+	}));
+
+	m_moveActions = Sequence::create(act);
 }
 
 void ComMove::onEnter(){

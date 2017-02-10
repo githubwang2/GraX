@@ -35,17 +35,17 @@ Layer* TowerBase::createTower(Point pos, GameMap *gameMap){
 	{
 		if (str.compare("True") == 0)
 		{
-			//if (hud->get)		//判断金钱是否足够 不够时金钱变红 无法产生防御塔
-			//{
-			//	auto goldLable = dynamic_cast<Widget*>(getChildByTag(1))->getChildByName("LabelGold");
-			//	auto toRed = TintBy::create(0.5f, -127, -255, -127);
-			//	goldLable->runAction(Sequence::create(toRed, toRed->reverse(), nullptr));
-			//	return layer;//跳出 不运行下面错误的图片
-			//}
-			//else                   ///金钱足够  扣除金钱  创建防御塔
-			//{
+			if (HUDLayer::changeGold(0)<150)		//判断金钱是否足够 不够时金钱变红 无法产生防御塔
+			{
+				auto goldLable = dynamic_cast<Widget*>(HUDLayer::getHud())->getChildByName("LabelGold");
+				auto toRed = TintBy::create(0.5f, -127, -255, -127);
+				goldLable->runAction(Sequence::create(toRed, toRed->reverse(), nullptr));
+				return layer;//跳出 不运行下面错误的图片
+			}
+			else                   ///金钱足够  扣除金钱  创建防御塔
+			{
 
-				//HUDLayer::changeGold(-150);
+				HUDLayer::changeGold(-150);
 
 				Sprite*tower = Sprite::create("Tower/Tower.png");
 				tower->setPosition(blockCenter);
@@ -58,7 +58,7 @@ Layer* TowerBase::createTower(Point pos, GameMap *gameMap){
 				//-----------------
 				layer->addChild(tower);
 				return layer;//跳出 不运行下面错误的图片
-			//}
+			}
 		}
 	}
 		Sprite*errorPos = Sprite::create("Tower/ErrorPos.png");

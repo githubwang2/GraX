@@ -16,17 +16,15 @@
 class PopupLayer : public cocos2d::Layer
 {
 public:
-
-	static cocos2d::Scene* createScene();
 	virtual bool init();
 	CREATE_FUNC(PopupLayer);
 
 	//	0Ê§°Ü //		1Ò»¿ÅÐÇ//	2¶þ¿ÅÐÇ//	3Èý¿ÅÐÇ
-	void setResult(int n,int curLevel);		
+	cocos2d::Layer* setResult(int n,int curLevel);		
 	
 private:
 
-	void initResultLayer();
+	cocos2d::Layer* initResultLayer();
 
 	void showStar(int n);
 	

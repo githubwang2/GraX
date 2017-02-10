@@ -4,13 +4,6 @@ USING_NS_CC;
 using namespace ui;
 using namespace cocostudio;
 
-Scene* PopupLayer::createScene()
-{
-	auto scene = Scene::create();
-	auto layer = PopupLayer::create();
-	scene->addChild(layer);
-	return scene;
-}
 
 bool PopupLayer::init()
 {
@@ -18,22 +11,18 @@ bool PopupLayer::init()
 	{
 		return false;
 	}
-
 	//visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-
-
-	setResult(3,10);
 
 	return true;
 }
 
-void PopupLayer::initResultLayer(){
+Layer* PopupLayer::initResultLayer(){
+	auto layer = Layer::create();
 	popupLayer = dynamic_cast<Widget*>(GUIReader::getInstance()
 		->widgetFromJsonFile("PopupLayer/PopupLayer.json"));
 	popupLayer->setPosition(Point::ZERO);
-	addChild(popupLayer,3);
+	layer->addChild(popupLayer, 3);
 
 	start1 = dynamic_cast<ImageView*>(popupLayer->getChildByName("StarBG")->getChildByName("Star1"));
 	start2 = dynamic_cast<ImageView*>(popupLayer->getChildByName("StarBG")->getChildByName("Star2"));
@@ -51,10 +40,11 @@ void PopupLayer::initResultLayer(){
 	btnNext->addTouchEventListener(this, toucheventselector(PopupLayer::touchButton));
 
 	level = dynamic_cast<TextAtlas*>(popupLayer->getChildByName("levelBG")->getChildByName("Level"));
+
+	return layer;
 }
 
 void PopupLayer::popWin(int n){
-	initResultLayer();
 
 	win->setVisible(true);
 	lost->setVisible(false);
@@ -67,7 +57,6 @@ void PopupLayer::popWin(int n){
 }
 
 void PopupLayer::popLost(){
-	initResultLayer();
 
 	win->setVisible(false);
 	lost->setVisible(true);
@@ -139,7 +128,9 @@ void PopupLayer::touchButton(cocos2d::Ref *object, cocos2d::ui::TouchEventType t
 	}
 }
 
-void PopupLayer::setResult(int n, int curLevel){
+Layer*  PopupLayer::setResult(int n, int curLevel){
+	auto layer = Layer::create();
+	layer->addChild(initResultLayer(), 3);
 	if (n==0)
 	{
 		popLost();
@@ -151,4 +142,5 @@ void PopupLayer::setResult(int n, int curLevel){
 	char num[32] = { 0 };
 	sprintf(num, "%d", curLevel);
 	level->setStringValue(num);
+	return layer;
 }
