@@ -1,7 +1,11 @@
-#include "Scene/MainScene.h"
 #include "DialogLayer/DialogLayer.h"
+#include "Scene/MainScene.h"
+#include "Sprite/MonsterBase.h"
+#include "Sprite/TowerBase.h"
 
 USING_NS_CC;
+using namespace cocostudio;
+using namespace ui;
 
 Scene* MainScene::createScene()
 {
@@ -22,11 +26,12 @@ bool MainScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	//--------------------------------------
 	hud = new HUDLayer();
-	addChild(hud->createHUDLayer());
+	
+	addChild(hud->createHUDLayer() , 3);
 	//------------------------------------------------------------------------
-	SpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("DialogLayer/face1.plist");
-	//auto dialogLayer=DialogLayer::createWithJsonFile("DialogLayer/0-1.json");
-	//this->addChild(dialogLayer, 3);
+	/*SpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("DialogLayer/face1.plist");
+	auto dialogLayer=DialogLayer::createWithJsonFile("DialogLayer/0-1.json");
+	this->addChild(dialogLayer, 3);*/
 
 	initBG();
 
@@ -42,10 +47,11 @@ bool MainScene::init()
 	}
 	attachTowerBuild();
 	
+	MonsterBase*monster = new MonsterBase(1);
+	addChild(monster,1);
+
 	return true;
 }
-
-
 
 void MainScene::attachTowerBuild(){
 	auto listener = EventListenerTouchOneByOne::create();
@@ -53,8 +59,10 @@ void MainScene::attachTowerBuild(){
 	listener->onTouchBegan = [=](Touch *pTouch, Event *pEvent){return true; };
 	listener->onTouchEnded = [=](Touch *pTouch, Event *pEvent){
 		auto touchPos = pTouch->getLocation();
-		std::string str = gameMap->getTowerValue(touchPos);
-		CCLOG("%s", str.c_str());
+		TowerBase*tower = new TowerBase();
+		addChild(tower->createTower(touchPos, gameMap));
+		//std::string str = gameMap->getTowerValue(touchPos);
+		//CCLOG("%s", str.c_str());
 		//--------------------text---------------
 		hud->changeGold(10);
 	};

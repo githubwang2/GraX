@@ -53,10 +53,8 @@ void MenuScene::initMenuBG(){
 
 	imgNep->setOpacity(0);
 	auto nepAct = Sequence::create(DelayTime::create(1.0f),
-		Spawn::create(
-		MoveTo::create(1.0f, Point(-127, -155)),
-		FadeIn::create(1.0f)),
-		nullptr);
+		Spawn::create(MoveTo::create(1.0f, Point(-127, -155)),
+		FadeIn::create(1.0f),nullptr),nullptr);
 	imgNep->runAction(nepAct);
 
 	imgNepBG1->setOpacity(0);

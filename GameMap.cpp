@@ -102,3 +102,7 @@ std::string GameMap::getValue(std::string key, Point&posIngl, TMXLayer*layer, TM
 	}
 }
 
+TMXTiledMap *GameMap::getTileMap(){
+	auto tileMap = m_tileMap;
+	return m_tileMap;
+}

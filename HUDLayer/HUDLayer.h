@@ -6,7 +6,8 @@
 #include "ui/CocosGUI.h"
 
 
-class HUDLayer : public cocos2d::Node
+class HUDLayer : public cocos2d::Layer
+
 {
 public:
 
@@ -19,6 +20,8 @@ public:
 	void changeGold(int num);
 	//生命
 	int changeLife(int num);		//	返回life 因为要判定是否为0
+
+	int getCurGold();
 private:
 	cocos2d::ui::Widget		*		hud;
 	cocos2d::ui::TextAtlas	*		lblGold;

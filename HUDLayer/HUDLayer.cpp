@@ -8,10 +8,12 @@ using namespace ui;
 //TextAtlas	*		HUDLayer::lblGold;
 //TextAtlas	*		HUDLayer::lblRound;
 //TextAtlas	*		HUDLayer::lblLife;
+//TextAtlas	*		HUDLayer::lblAllRound;
 //
 //int HUDLayer::m_curRound = 0;
 //int HUDLayer::m_curGold = 0;
 //int HUDLayer::m_curLife = 0;
+//int HUDLayer::m_allRound = 0;
 
 Layer* HUDLayer::createHUDLayer()
 {
@@ -50,7 +52,7 @@ void HUDLayer::createWaveRusher(){
 	//schedule(schedule_selector(Monster::makeMonster), 0.5f);
 }
  
-void HUDLayer::changeGold(int num){
+void  HUDLayer::changeGold(int num){
 
 	char numStr[32] = { 0 };
 	m_curGold += num;
@@ -65,4 +67,9 @@ int HUDLayer::changeLife(int num){
 	sprintf(numStr, "%d", m_curLife);
 	lblLife->setStringValue(numStr);
 	return m_curLife;
+}
+
+int HUDLayer::getCurGold(){
+	auto curGold = m_curGold;
+	return curGold;
 }

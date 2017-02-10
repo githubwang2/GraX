@@ -13,6 +13,8 @@ public:
 	//可坐标是否可以放置防御塔
 	std::string getTowerValue(cocos2d::Point&posIngl);
 
+	cocos2d::TMXTiledMap *getTileMap();
+
 	virtual bool init(char*tileMap);
 
 private:
@@ -21,7 +23,7 @@ private:
 
 	cocos2d::Point	worldToTile(cocos2d::Point &pos);		//cocos2dx坐标  转化为  Tiled坐标 （y轴相反）
 
-	static  cocos2d::TMXTiledMap				* m_tileMap;
+	static  cocos2d::TMXTiledMap			* m_tileMap;
 	static	cocos2d::TMXLayer				* m_bulid;
 
 };

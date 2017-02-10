@@ -8,12 +8,6 @@
 
 #include"GameMap.h"
 
-USING_NS_CC;
-using namespace cocostudio;
-using namespace ui;
-
-
-
 class MainScene : public cocos2d::Layer
 {
 public:
@@ -30,6 +24,7 @@ private:
 	cocos2d::Size visibleSize;
 
 	GameMap *gameMap;
+
 	HUDLayer*hud;
 };
 
