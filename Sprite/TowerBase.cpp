@@ -1,5 +1,7 @@
 #include "Sprite/TowerBase.h"
+#include"Sprite/Components/ComTower.h"
 #include"HUDLayer/HUDLayer.h"
+
 
 USING_NS_CC;
 using namespace cocostudio;
@@ -50,11 +52,11 @@ Layer* TowerBase::createTower(Point pos, GameMap *gameMap){
 				Sprite*tower = Sprite::create("Tower/Tower.png");
 				tower->setPosition(blockCenter);
 
-				////将comTower挂载到每个tower上
-				//auto comTower = ComTower::create();
-				//tower->addComponent(comTower);
-				////存入FireManager的m_towers list中
-				//m_fireManager->m_towers.push_back(comTower);
+				//将comTower挂载到每个tower上
+				auto comTower = ComTower::create();
+				tower->addComponent(comTower);
+				//存入FireManager的m_towers list中
+				m_fireManager->m_towers.push_back(comTower);
 				//-----------------
 				layer->addChild(tower);
 				return layer;//跳出 不运行下面错误的图片

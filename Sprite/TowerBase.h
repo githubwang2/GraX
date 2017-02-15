@@ -5,6 +5,7 @@
 #include "ui/CocosGUI.h"
 
 #include"GameMap.h"
+#include"FireManager.h"
 
 class TowerBase : public cocos2d::Layer
 {
@@ -16,6 +17,7 @@ public:
 
 	cocos2d::Layer* createTower(cocos2d::Point pos, GameMap *gameMap);
 
+	FireManager*m_fireManager;
 protected:
 };
 
