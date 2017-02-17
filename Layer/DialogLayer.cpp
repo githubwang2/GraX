@@ -1,4 +1,4 @@
-#include"DialogLayer/DialogLayer.h"
+#include"Layer/DialogLayer.h"
 
 USING_NS_CC;
 using namespace cocostudio;

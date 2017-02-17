@@ -1,4 +1,4 @@
-#include"HUDLayer/HUDLayer.h"
+#include"Layer/HUDLayer.h"
 
 USING_NS_CC;
 using namespace cocostudio;

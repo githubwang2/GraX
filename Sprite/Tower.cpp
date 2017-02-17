@@ -1,17 +1,17 @@
-#include "Sprite/TowerBase.h"
+#include "Sprite/Tower.h"
 #include"Sprite/Components/ComTower.h"
-#include"HUDLayer/HUDLayer.h"
+#include"Layer/HUDLayer.h"
 
 
 USING_NS_CC;
 using namespace cocostudio;
 using namespace ui;
 
-TowerBase::TowerBase()
+Tower::Tower()
 {
 }
 
-bool TowerBase::init()
+bool Tower::init()
 {
 	if (!Layer::init())
 	{
@@ -20,7 +20,7 @@ bool TowerBase::init()
 	return true;
 }
 
-Layer* TowerBase::createTower(Point pos, GameMap *gameMap){
+Layer* Tower::createTower(Point pos, GameMap *gameMap){
 	auto layer = Layer::create();
 
 	auto tileMap = gameMap->getTileMap();

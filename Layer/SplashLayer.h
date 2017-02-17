@@ -1,23 +1,16 @@
-//
-//	SplashScene.h
-//
-//	TowerWar
-//
-//	Create by wang2 on	17-1-24
-//
-#ifndef __TowerWar_SplashScene__
-#define __TowerWar_SplashScene__
+#ifndef __TowerWar_SplashLayer__
+#define __TowerWar_SplashLayer__
 
 #include "cocos2d.h"
+#include"Scene/StartScene.h"
 
-class SplashScene : public cocos2d::LayerColor
+class SplashLayer : public cocos2d::LayerColor
 {
 public:
-	static cocos2d::Scene* createScene();
 
 	virtual bool init();
 
-	CREATE_FUNC(SplashScene);
+	CREATE_FUNC(SplashLayer);
 
 private:
 	cocos2d::Sprite* initMoveSprite(char *a, float i);
@@ -26,7 +19,7 @@ private:
 	void moveNSpriteToLeft();
 	void moveASpriteToLeft();
 
-	void gotoLoadingScene();
+	void gotoLoadingLayer();
 	void spriteFadeOut();
 
 	cocos2d::Sprite*W_Sprite;

@@ -1,8 +1,8 @@
-#include "DialogLayer/DialogLayer.h"
+#include "Layer/DialogLayer.h"
 #include "Scene/MainScene.h"
-#include "Sprite/MonsterBase.h"
-#include "Sprite/TowerBase.h"
-#include"PopupLayer/PopupLayer.h"
+//#include "Sprite/Monster.h"
+//#include "Sprite/Tower.h"
+#include"Layer/PopupLayer.h"
 
 USING_NS_CC;
 using namespace cocostudio;
@@ -61,8 +61,8 @@ bool MainScene::init()
 
 void MainScene::addMonster(float dt){
 	//Monster1*monster1=new Monster1();
-	MonsterBase*monster = new MonsterBase(1);
-	addChild(monster->createMonster(),1);
+	//Monster*monster = new Monster(1);
+	//addChild(monster->createMonster(),1);
 }
 
 void MainScene::attachTowerBuild(){
@@ -71,8 +71,8 @@ void MainScene::attachTowerBuild(){
 	listener->onTouchBegan = [=](Touch *pTouch, Event *pEvent){return true; };
 	listener->onTouchEnded = [=](Touch *pTouch, Event *pEvent){
 		auto touchPos = pTouch->getLocation();
-		TowerBase*tower = new TowerBase();
-		addChild(tower->createTower(touchPos, gameMap));
+		//Tower*tower = new Tower();
+		//addChild(tower->createTower(touchPos, gameMap));
 		//std::string str = gameMap->getTowerValue(touchPos);
 		//CCLOG("%s", str.c_str());
 		//--------------------text---------------

@@ -5,8 +5,6 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-
-
 class DialogLayer : public cocos2d::Layer
 {
 public:

@@ -1,4 +1,4 @@
-#include "PopupLayer/PopupLayer.h"
+#include "Layer/PopupLayer.h"
 
 USING_NS_CC;
 using namespace ui;

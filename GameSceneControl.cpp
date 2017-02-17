@@ -1,7 +1,6 @@
 #include "GameSceneControl.h"
-#include"Scene/MenuScene.h"
-#include"Scene/SplashScene/SplashScene.h"
-#include"Scene/StageChooseScene.h"
+#include "Scene/MenuScene.h"
+#include "Scene/StageChooseScene.h"
 
 GameSceneControl::GameState GameSceneControl::m_gameState = MenuSceneState;
 ////初始化单例唯一实例对象m_gameState

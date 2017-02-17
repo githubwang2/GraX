@@ -18,9 +18,11 @@ bool LoadingScene::init()
 	{
 		return false;
 	}
+	_numberOfSprites = 180;
+	_numberOfLoadedSprites = 0;
 
 	visibleSize = Director::getInstance()->getVisibleSize();
-	
+
 	load();
 	
 	return true;
@@ -36,16 +38,16 @@ void LoadingScene::playOP(){
 	char buf[32] = { 0 };
 	for (int i = 1; i < 182; i++)
 	{
-		sprintf(buf, "op/OP%d.JPG", i);
-		
+		sprintf(buf, "op/OP%d.JPG", i); 
+		//sprintf(buf, "op2/OP (%d).JPG", i);
+		//CCLOG("path name is:%s", buf);
 		animation->addSpriteFrameWithFileName(buf);
-		log("path name is:%s", buf);
 	}
-	
+
 	animation->setDelayPerUnit(0.08f);
 	//
-	auto act = Sequence::create(Animate::create(animation), 
-		CallFunc::create(CC_CALLBACK_0(LoadingScene::gotoMenuScene,this)), nullptr);
+	auto act = Sequence::create(Animate::create(animation),
+		CallFunc::create(CC_CALLBACK_0(LoadingScene::gotoMenuScene, this)), nullptr);
 	sprite->runAction(act);
 	sprite->setPosition(visibleSize / 2);
 	addChild(sprite, 1);
@@ -59,7 +61,7 @@ void LoadingScene::load(){
 	auto loadBg = Sprite::create(PROGRESSBAR_BG);				//进度条底图
 	loadBg->setPosition(Point(visibleSize / 2));
 	addChild(loadBg, 0);
-	
+
 	loadProgress = ProgressTimer::create(Sprite::create(PROGRESS_BAR));
 	loadProgress->setBarChangeRate(Point(1, 0));					//设置进程条的变化速率
 	loadProgress->setType(ProgressTimer::Type::BAR);				//设置进程条的类型
@@ -68,11 +70,11 @@ void LoadingScene::load(){
 	loadProgress->setPercentage(0.0f);								//设置初始值为0
 	this->addChild(loadProgress, 1);
 
-	for (int i = 1; i < 182;i++)
+	for (int i = 1; i < 182; i++)
 	{
 		char buf[32] = { 0 };
 		sprintf(buf, "op/OP%d.JPG", i);
-		CCLOG("name is:%s", buf);
+		//CCLOG("name is:%s", buf);
 		Director::getInstance()->getTextureCache()->addImageAsync(buf, CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
 	}
 }
@@ -89,7 +91,7 @@ void LoadingScene::loadingCallBack(cocos2d::Texture2D *texture)
 	sprintf(buf, "Loading.. %d%%", (int)newPercent);
 	loadLabel->setString(buf);
 
-	CCLOG("%d",_numberOfLoadedSprites);
+	//CCLOG("%d", _numberOfLoadedSprites);
 	//图片加载完成
 	if (_numberOfLoadedSprites == _numberOfSprites)
 	{

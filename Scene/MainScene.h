@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
-#include "HUDLayer/HUDLayer.h"
+#include "Layer/HUDLayer.h"
 
 #include"GameMap.h"
 

@@ -1,10 +1,4 @@
-//
-//	PopupLayer.h
-//
-//	TowerWar
-//
-//	Create by wang2 on	17-2-6
-//
+
 #ifndef __TowerWar_PopupLayer__
 #define __TowerWar_PopupLayer__
 #include "cocos2d.h"

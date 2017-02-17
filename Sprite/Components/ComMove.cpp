@@ -1,5 +1,5 @@
 #include "Sprite/Components/ComMove.h"
-#include "Sprite/MonsterBase.h"
+#include "Sprite/Monster.h"
 #include "Scene/MainScene.h"
 
 USING_NS_CC;
