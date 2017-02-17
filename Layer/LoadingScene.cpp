@@ -70,10 +70,10 @@ void LoadingScene::load(){
 	loadProgress->setPercentage(0.0f);								//设置初始值为0
 	this->addChild(loadProgress, 1);
 
-	for (int i = 1; i < 182; i++)
+	for (int i = 0; i < 181; i++)
 	{
 		char buf[32] = { 0 };
-		sprintf(buf, "op/OP%d.JPG", i);
+		sprintf(buf, "op/OP%d.JPG", i+1);
 		//CCLOG("name is:%s", buf);
 		Director::getInstance()->getTextureCache()->addImageAsync(buf, CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
 	}
