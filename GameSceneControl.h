@@ -9,8 +9,6 @@
 #define __TowerWar_GameSceneControl__
 #include "cocos2d.h"
 
-
-
 class GameSceneControl:cocos2d::Object
 {
 public:

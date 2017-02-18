@@ -4,6 +4,7 @@
 #include "GameState.h"
 #include "Layer/PopupLayer.h"
 #include "Scene/MainScene.h"
+#include "Layer/MenuLayer.h"
 #include "GameMap.h"
 #include "Scene/StartScene.h"
 
@@ -30,10 +31,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     director->setAnimationInterval(1.0 / 60);
 
-	//auto scene = SplashLayer::createScene();
-  
-	auto scene = StartScene::create();
-	scene->gameStart();
+	auto layer = MenuLayer::create();
+	auto scene = MenuScene::createScene(layer);
+	director->runWithScene(scene);
+	//auto scene = StartScene::create();
+	//scene->gameStart();
 	
 
     return true;

@@ -1,4 +1,3 @@
-
 #ifndef __TowerWar_PopupLayer__
 #define __TowerWar_PopupLayer__
 #include "cocos2d.h"

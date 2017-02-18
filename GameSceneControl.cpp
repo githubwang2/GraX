@@ -1,5 +1,6 @@
 #include "GameSceneControl.h"
 #include "Scene/MenuScene.h"
+
 #include "Scene/StageChooseScene.h"
 
 GameSceneControl::GameState GameSceneControl::m_gameState = MenuSceneState;
@@ -25,7 +26,8 @@ void GameSceneControl::changeScene(GameState gamestate){
 	case GameState::MenuSceneState:{
 									   CCLOG("btnGameMenu");
 									   m_gameState = MenuSceneState;
-									   auto transScene = cocos2d::TransitionFade::create(1.0f, MenuScene::createScene());
+									   auto layer = MenuLayer::create();
+									   auto transScene = cocos2d::TransitionFade::create(1.0f, MenuScene::createScene(layer));
 									   cocos2d::Director::getInstance()->replaceScene(transScene);
 									   break;
 	}
@@ -39,15 +41,17 @@ void GameSceneControl::changeScene(GameState gamestate){
 	case GameState::SetttingSceneState:{
 										   CCLOG("btnGameSetting");
 										   m_gameState = SetttingSceneState;
-										  // auto transScene = cocos2d::TransitionFade::create(1.0f, MainScene::createScene());
-										   //cocos2d::Director::getInstance()->replaceScene(transScene);
+										   auto layer = SettingLayer::create();
+										   auto transScene = cocos2d::TransitionFade::create(1.0f, MenuScene::createScene(layer));
+										   cocos2d::Director::getInstance()->replaceScene(transScene);
 										   break;
 	}
 	case GameState::AboutSceneState:{
 										CCLOG("btnGameAbout");
 										m_gameState = AboutSceneState;
-										//auto transScene = cocos2d::TransitionFade::create(1.0f, AboutScene::createScene());
-										//cocos2d::Director::getInstance()->replaceScene(transScene);
+										auto layer = AboutLayer::create();
+										auto transScene = cocos2d::TransitionFade::create(1.0f, MenuScene::createScene(layer));
+										cocos2d::Director::getInstance()->replaceScene(transScene);
 										break;
 	}
 	case GameState::EndState:{
