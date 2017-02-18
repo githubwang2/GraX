@@ -18,7 +18,8 @@ public:
 	CREATE_FUNC(SettingLayer);
 
 private:
-	void touchEffect(cocos2d::ui::ImageView*imgHide, cocos2d::ui::ImageView*imgShow);
+	void initSettingButton();
+	void touchEffect(cocos2d::ui::ImageView *imgShow);
 	void touchButton(cocos2d::Ref *pSender);
 	cocos2d::Size visibleSize;
 
@@ -27,6 +28,8 @@ private:
 	cocos2d::ui::ImageView* imgMusicOff;
 	cocos2d::ui::ImageView* imgJP;
 	cocos2d::ui::ImageView* imgCN;
+	cocos2d::ui::ImageView*imgTS;
+
 	bool music_on;
 	bool language_jp;
 };

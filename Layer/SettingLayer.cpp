@@ -19,20 +19,27 @@ bool SettingLayer::init()
 	settingLayer->setPosition(visibleSize / 2);
 	addChild(settingLayer, 1);
 
-	auto imgMusicOn = dynamic_cast<ImageView*>(settingLayer->getChildByName("imgMusicOn"));
-	auto imgMusicOff = dynamic_cast<ImageView*>(settingLayer->getChildByName("imgMusicOff"));
-	auto imgJP = dynamic_cast<ImageView*>(settingLayer->getChildByName("imgJP"));
-	auto imgCN = dynamic_cast<ImageView*>(settingLayer->getChildByName("imgCN"));
+	imgMusicOn = dynamic_cast<ImageView*>(settingLayer->getChildByName("imgMusicOn"));
+	imgMusicOff = dynamic_cast<ImageView*>(settingLayer->getChildByName("imgMusicOff"));
+	imgJP = dynamic_cast<ImageView*>(settingLayer->getChildByName("imgJP"));
+	imgCN = dynamic_cast<ImageView*>(settingLayer->getChildByName("imgCN"));
 
-	imgMusicOn->setScale(0.5);
-	imgMusicOff->setScale(0.5);
-	imgJP->setScale(0.5);
-	imgCN->setScale(0.5);
+	imgMusicOn->setScale(0,0.5);
+	imgMusicOff->setScale(0, 0.5);
+	imgCN->setScale(0, 0.5);
+	imgJP->setScale(0, 0.5);
 
 	auto btn = dynamic_cast<Widget*>(settingLayer->getChildByName("btnGameMenu"));
 	btn->addTouchEventListener(this, toucheventselector(MenuScene::touchButton));
 
-	//-----------------SETTING BUTTON----------
+	initSettingButton();
+
+	return true;
+}
+
+
+void SettingLayer::initSettingButton()
+{
 	music_on = UserDefault::getInstance()->getBoolForKey("music_on_key", true);
 	language_jp = UserDefault::getInstance()->getBoolForKey("language_jp_key", true);
 
@@ -70,7 +77,7 @@ bool SettingLayer::init()
 	MenuItemToggle*itemLanguage;
 	if (language_jp)
 	{
-		itemLanguage=MenuItemToggle::createWithCallback(CC_CALLBACK_1(SettingLayer::touchButton, this),
+		itemLanguage = MenuItemToggle::createWithCallback(CC_CALLBACK_1(SettingLayer::touchButton, this),
 			btnJP, btnCN, nullptr);
 	}
 	else
@@ -82,8 +89,28 @@ bool SettingLayer::init()
 	itemLanguage->setTag(11);
 	menu->addChild(itemLanguage, 2);
 
-	return true;
+	if (language_jp&&music_on)
+	{
+		imgMusicOn->setScale(0.5);
+		imgTS = imgMusicOn;
+	}
+	else if (language_jp&&!music_on)
+	{
+		imgMusicOff->setScale(0.5);
+		imgTS = imgMusicOff;
+	}
+	else if (!language_jp&&music_on)
+	{
+		imgCN->setScale(0.5);
+		imgTS = imgCN;
+	}
+	else
+	{
+		imgJP->setScale(0.5);
+		imgTS = imgJP;
+	}
 }
+
 
 void SettingLayer::touchButton(Ref *pSender){
 	MenuItemToggle*itemToggle = (MenuItemToggle*)pSender;
@@ -93,52 +120,47 @@ void SettingLayer::touchButton(Ref *pSender){
 	case 10:{
 			   if (music_on)
 			   {
-				   music_on = false;
 				   UserDefault::getInstance()->setBoolForKey("music_on_key", false);
-				   touchEffect(imgMusicOn, imgMusicOff);
+				   music_on = false;
+				   touchEffect(imgMusicOff);
 			   }
 			   else
 			   {
-				   music_on = true;
 				   UserDefault::getInstance()->setBoolForKey("music_on_key", true);
-				   touchEffect(imgMusicOff, imgMusicOn);
+				   music_on = true;
+				   touchEffect(imgMusicOn);
 			   }
 			   break;
 	}
 	case 11:{
-			   {
 				   if (language_jp)
 				   {
-					   language_jp = false;
 					   UserDefault::getInstance()->setBoolForKey("language_jp_key", false);
-					   touchEffect(imgJP, imgCN);
+					   language_jp = false;
+					   touchEffect(imgCN);
 				   }
 				   else
 				   {
-					   language_jp = true;
 					   UserDefault::getInstance()->setBoolForKey("language_jp_key", true);
-					   touchEffect(imgCN, imgJP);
+					   language_jp = true;
+					   touchEffect(imgJP);
 				   }
 				   break;
-			   }
 	}
 	default:
 		break;
 	}
 }
 
-void SettingLayer::touchEffect(ImageView*imgHide, ImageView*imgShow)
+void SettingLayer::touchEffect(ImageView *imgShow)
 {
-	ScaleTo* scaleToHide = ScaleTo::create(0.6f, 0.0f, 1.0f);
-
+	ScaleTo* scaleToHide = ScaleTo::create(0.3f, 0.0f, 0.5f);
 	auto funcScaleToShow = [=](){
-		ScaleTo* scaleToShow = ScaleTo::create(0.6f, 1.0f, 1.0f);
+		ScaleTo* scaleToShow = ScaleTo::create(0.3f, 0.5f, 0.5f);
 		imgShow->runAction(scaleToShow);
 	};
-
 	CallFunc* callFuncSpr1 = CallFunc::create(funcScaleToShow);
 	Sequence* sequence = Sequence::create(scaleToHide, callFuncSpr1, nullptr);
-
-	imgHide->runAction(sequence);
-
+	imgTS->runAction(sequence);
+	imgTS = imgShow;
 }
