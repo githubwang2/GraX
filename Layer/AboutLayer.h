@@ -6,7 +6,7 @@
 #include "ui/CocosGUI.h"
 
 #include"Scene/MenuScene.h"
-#include"GameSceneControl.h"
+#include"GameLayerControl.h"
 #include"ConstUtil.h"
 
 class AboutLayer : public cocos2d::Layer

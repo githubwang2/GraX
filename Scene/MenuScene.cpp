@@ -20,23 +20,23 @@ void MenuScene::touchButton(Ref *object, TouchEventType type){
 		auto name = widget->getName();
 		if (name.compare(BTN_START) == 0)
 		{
-			GameSceneControl::changeScene(GameSceneControl::MainSceneState);
+			GameLayerControl::changeScene(GameLayerControl::StageChooseLayerState);
 		}
 		else if (name.compare(BTN_SETTING) == 0)
 		{
-			GameSceneControl::changeScene(GameSceneControl::SetttingSceneState);
+			GameLayerControl::changeScene(GameLayerControl::SetttingLayerState);
 		}
 		else if (name.compare(BTN_ABOUT) == 0)
 		{
-			GameSceneControl::changeScene(GameSceneControl::AboutSceneState);
+			GameLayerControl::changeScene(GameLayerControl::AboutSLayerState);
 		}
 		else if (name.compare(BTN_MENU) == 0)
 		{
-			GameSceneControl::changeScene(GameSceneControl::MenuSceneState);
+			GameLayerControl::changeScene(GameLayerControl::MenuLayerState);
 		}
 		else 
 		{
-			GameSceneControl::changeScene(GameSceneControl::EndState);
+			GameLayerControl::changeScene(GameLayerControl::EndState);
 		}
 	}
 }

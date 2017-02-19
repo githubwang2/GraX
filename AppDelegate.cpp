@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "Scene/MenuScene.h"
-#include "Scene/StageChooseScene.h"
+#include "Scene/LevelSelectScene.h"
 #include "GameState.h"
 #include "Layer/PopupLayer.h"
 #include "Scene/MainScene.h"

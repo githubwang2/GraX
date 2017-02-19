@@ -61,7 +61,7 @@ void AboutLayer::initAboutBG(){
 void AboutLayer::touchButton(Ref *object, TouchEventType type){
 	if (type == TOUCH_EVENT_ENDED)
 	{
-		GameSceneControl::changeScene(GameSceneControl::MenuSceneState);
+		GameLayerControl::changeScene(GameLayerControl::MenuLayerState);
 	}
 }
 

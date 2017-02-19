@@ -1,6 +1,6 @@
 #include "LoadingScene.h"
 #include "Scene/MenuScene.h"
-#include "GameSceneControl.h"
+#include "GameLayerControl.h"
 #include "ConstUtil.h"
 
 USING_NS_CC;
@@ -31,7 +31,7 @@ bool LoadingScene::init()
 
 void LoadingScene::gotoMenuScene(){
 	//Director::sharedDirector()->replaceScene(TransitionFade::create(2, MenuScene::createScene()));
-	GameSceneControl::changeScene(GameSceneControl::MenuSceneState);
+	GameLayerControl::changeScene(GameLayerControl::MenuLayerState);
 }
 
 void LoadingScene::playOP(){

@@ -3,10 +3,8 @@
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
-
-#include "Layer/MenuLayer.h"
-#include "Layer/AboutLayer.h"
-#include "Layer/SettingLayer.h"
+#include "ConstUtil.h"
+#include "GameLayerControl.h"
 
 class MenuScene : public cocos2d::Scene
 {

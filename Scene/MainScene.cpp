@@ -44,7 +44,8 @@ bool MainScene::init()
 	initBG();
 	//-------------------------------------------------------------------------
 	//					Dialog
-	/*SpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("DialogLayer/face1.plist");
+	/*SpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("DialogLayer/
+	.plist");
 	auto dialogLayer=DialogLayer::createWithJsonFile("DialogLayer/0-1.json");
 	this->addChild(dialogLayer, 3);*/
 	//-------------------------------------------------------------------------
