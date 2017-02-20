@@ -8,6 +8,10 @@
 #ifndef  __CONSTUTIL_H__
 #define  __CONSTUTIL_H__
 
+//-----------------------GameState----------------
+const		int						MAX_STAGE = 4;
+const		int						MAX_LEVEL = 3;
+
 //-----------------------SplashScene---------------------
 
 const		double					MOVE_SPLEED = 0.5f;

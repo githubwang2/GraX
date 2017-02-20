@@ -1,28 +1,15 @@
-#include "Layer/DialogLayer.h"
-#include "Scene/MainScene.h"
-//#include "Sprite/Monster.h"
-//#include "Sprite/Tower.h"
-#include"Layer/PopupLayer.h"
+#include"Layer/GameMainLayer.h"
 
 USING_NS_CC;
 using namespace cocostudio;
 using namespace ui;
 
-Scene* MainScene::createScene()
-{
-	auto scene = Scene::create();
-	auto layer = MainScene::create();
-	scene->addChild(layer);
-	return scene;
-}
-
-bool MainScene::init()
+bool GameMainLayer::init()
 {
 	if (!Layer::init())
 	{
 		return false;
 	}
-
 	visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
@@ -34,7 +21,7 @@ bool MainScene::init()
 	//					HUD
 	HUDLayer::createHUDLayer();
 	HUDLayer::setInitHUD(m_beginGold, m_level_WavNum, m_beginHp);
-	addChild(HUDLayer::getHud() , 3);
+	addChild(HUDLayer::getHud(), 3);
 	//------------------------------------------------------------------------
 	//					TileMap
 	gameMap = new GameMap();
@@ -53,20 +40,20 @@ bool MainScene::init()
 	attachTowerBuild();
 	//-------------------------------------------------------------------------
 	//					怪物产生
-	schedule(schedule_selector(MainScene::addMonster), 1.5f);
+	schedule(schedule_selector(GameMainLayer::addMonster), 1.5f);
 
-	
+
 
 	return true;
 }
 
-void MainScene::addMonster(float dt){
+void GameMainLayer::addMonster(float dt){
 	//Monster1*monster1=new Monster1();
 	//Monster*monster = new Monster(1);
 	//addChild(monster->createMonster(),1);
 }
 
-void MainScene::attachTowerBuild(){
+void GameMainLayer::attachTowerBuild(){
 	auto listener = EventListenerTouchOneByOne::create();
 
 	listener->onTouchBegan = [=](Touch *pTouch, Event *pEvent){return true; };
@@ -82,7 +69,7 @@ void MainScene::attachTowerBuild(){
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 }
 
-void MainScene::initBG(){
+void GameMainLayer::initBG(){
 	auto spriteBG = Sprite::create("Tower/background.png");
 	spriteBG->setPosition(visibleSize / 2);
 	spriteBG->setScale(visibleSize.width / spriteBG->getContentSize().width,
@@ -90,25 +77,25 @@ void MainScene::initBG(){
 	addChild(spriteBG, -1);
 }
 
-void MainScene::endGame(bool isWin){
+void GameMainLayer::endGame(bool isWin){
 	auto poppup = new PopupLayer();
 
 	if (isWin)
 	{
 		int starsNum;
-		if (HUDLayer::changeLife(0)==m_beginHp)
+		if (HUDLayer::changeLife(0) == m_beginHp)
 		{
 			starsNum = 3;
 		}
-		else if (m_beginHp/2<HUDLayer::changeLife(0) < m_beginHp)
+		else if (m_beginHp / 2<HUDLayer::changeLife(0) < m_beginHp)
 		{
 			starsNum = 2;
 		}
-		else 
+		else
 		{
 			starsNum = 1;
 		}
-		addChild(poppup->setResult(starsNum, m_level),3);
+		addChild(poppup->setResult(starsNum, m_level), 3);
 		this->unscheduleAllSelectors();
 	}
 	else
@@ -118,7 +105,7 @@ void MainScene::endGame(bool isWin){
 	}
 }
 
-void MainScene::removeMonster(Node* monster)
+void GameMainLayer::removeMonster(Node* monster)
 {//可以考虑移到comMove中去
 	/*auto comMove = dynamic_cast<ComMove*>(monster->getComponent("ComMove"));
 	m_fireManager->m_tmpMonster.push_back(comMove);*/

@@ -7,14 +7,10 @@
 
 #include"ConstUtil.h"
 
-class LevelSelectScene:public cocos2d::Layer
+class LevelSelectScene:public cocos2d::Scene
 {
 public:
-	static cocos2d::Scene*createScene();
-	virtual bool init();
-	CREATE_FUNC(LevelSelectScene);
-
-	
+	static cocos2d::Scene* createScene(cocos2d::Layer*pLayer);
 private:
 	
 };

@@ -1,28 +1,25 @@
+#ifndef __TowerWar_GameMainLayer__
+#define __TowerWar_GameMainLayer__
 
-#ifndef __TowerWar_MainScene__
-#define __TowerWar_MainScene__
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
-#include "Layer/HUDLayer.h"
 
 #include"GameMap.h"
+#include "Layer/HUDLayer.h"
+#include"Layer/PopupLayer.h"
 
-class MainScene : public cocos2d::Layer
+class GameMainLayer : public cocos2d::Layer
 {
 public:
-
-	static cocos2d::Scene* createScene();
 	virtual bool init();
-	
 
-
-	CREATE_FUNC(MainScene);
+	CREATE_FUNC(GameMainLayer);
 
 	void addMonster(float dt);
 
 	void attachTowerBuild();
-	//结束游戏（怪物被杀净或者游戏失败）
+	//结束游戏（怪物被杀完或者游戏失败）
 	void endGame(bool isWin);
 	//移除怪物 
 	void removeMonster(Node* monster);
@@ -39,6 +36,7 @@ private:
 	int		m_level;		//	当前关卡数
 	int     m_level_WavNum;  //	当前关卡怪物总波数
 	bool	m_isWin;		//	
+
 };
 
 #endif 

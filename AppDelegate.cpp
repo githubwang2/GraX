@@ -3,7 +3,7 @@
 #include "Scene/LevelSelectScene.h"
 #include "GameState.h"
 #include "Layer/PopupLayer.h"
-#include "Scene/MainScene.h"
+#include "Scene/GameMainScene.h"
 #include "Layer/MenuLayer.h"
 #include "GameMap.h"
 #include "Scene/StartScene.h"

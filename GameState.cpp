@@ -58,3 +58,24 @@ bool GameState::getIsFirst()
 		return true;
 	}
 }
+
+int GameState::getLevelDate(char *levelName)
+{
+	if (!UserDefault::getInstance()->getIntegerForKey("level1-1"))
+	{
+		for (int s = 1; s <= MAX_STAGE;s++)
+		{
+			for (int l = 1; l <= MAX_LEVEL;l++)
+			{
+				char buf[32] = { 0 };
+				sprintf(buf, "level%d-%d", s, l);
+				CCLOG("level name%s", buf);
+				UserDefault::getInstance()->setIntegerForKey(buf, 0);
+			}
+		}
+		UserDefault::getInstance()->setIntegerForKey("level1-1", 4);
+	}
+	auto isLock = UserDefault::getInstance()->getIntegerForKey(levelName);
+	UserDefault::getInstance()->flush();
+	return isLock;
+}

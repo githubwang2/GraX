@@ -5,21 +5,11 @@ USING_NS_CC;
 using namespace ui;
 using namespace cocostudio;
 
-Scene*LevelSelectScene::createScene(){
+Scene* LevelSelectScene::createScene(Layer*pLayer)
+{
 	auto scene = Scene::create();
-	auto layer =StageChooseLayer::create();
+	Layer* layer = pLayer;
 	scene->addChild(layer);
 	return scene;
 }
-bool LevelSelectScene::init(){
-	if (!Layer::init())
-	{
-		return false;
-	}
-
-	//visibleSize = Director::getInstance()->getWinSize();
-
-	return true;
-}
-
 
