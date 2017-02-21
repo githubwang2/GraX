@@ -26,10 +26,10 @@ void ComLife::onEnter(){
 	//生成血条
 	auto owner = getOwner();
 	m_hpBar = ui::LoadingBar::create();
-	m_hpBar->loadTexture("Tower/Life.png");
+	m_hpBar->loadTexture("GameMain/Life.png");
 	m_hpBar->setPercent(100);
 
-	auto LoadBarBk = Sprite::create("Tower/LifeBk.png");
+	auto LoadBarBk = Sprite::create("GameMain/LifeBk.png");
 	auto bar = Node::create();
 	bar->addChild(LoadBarBk);
 	bar->addChild(m_hpBar);

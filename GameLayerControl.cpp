@@ -1,6 +1,6 @@
 #include "GameLayerControl.h"
 #include "Scene/MenuScene.h"
-#include "Scene/LevelSelectScene.h"
+#include "Scene/LevelChooseScene.h"
 #include "Layer/MenuLayer.h"
 #include "Layer/AboutLayer.h"
 #include "Layer/SettingLayer.h"
@@ -42,16 +42,21 @@ void GameLayerControl::changeScene(GameState gamestate){
 	case GameState::StageChooseLayerState:{
 											  //  m_gameState = StageChooseLayerState;
 											  auto layer = StageChooseLayer::create();
-											  auto transScene = cocos2d::TransitionFade::create(1.0f, LevelSelectScene::createScene(layer));
+											  auto transScene = cocos2d::TransitionFade::create(1.0f, LevelChooseScene::createScene(layer));
 											  cocos2d::Director::getInstance()->replaceScene(transScene);
 											  break;
 	}
 	case GameState::LevelChooseLayerState:{
 											  //  m_gameState = LevelChooseLayerState;
 											  auto layer = LevelChooseLayer::createWithJsonFile();
-											  auto transScene = cocos2d::TransitionFade::create(1.0f, LevelSelectScene::createScene(layer));
+											  auto transScene = cocos2d::TransitionFade::create(1.0f, LevelChooseScene::createScene(layer));
 											  cocos2d::Director::getInstance()->replaceScene(transScene);
 											  break;
+	}
+	case GameState::GameMainScene:{
+									  auto transScene = cocos2d::TransitionFade::create(1.0f, GameMainScene::createScene());
+									  cocos2d::Director::getInstance()->replaceScene(transScene);
+									  break;
 	}
 	default: break;
 	}

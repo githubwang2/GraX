@@ -1,12 +1,14 @@
 #include "AppDelegate.h"
 #include "Scene/MenuScene.h"
-#include "Scene/LevelSelectScene.h"
+#include "Scene/LevelChooseScene.h"
 #include "GameState.h"
 #include "Layer/PopupLayer.h"
 #include "Scene/GameMainScene.h"
 #include "Layer/MenuLayer.h"
 #include "GameMap.h"
 #include "Scene/StartScene.h"
+#include "Scene/GameMainScene.h"
+#include "Layer/GameMainLayer.h"
 
 USING_NS_CC;
 
@@ -24,15 +26,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
     if(!glview) {
         glview = GLView::create("My Game");
+
         director->setOpenGLView(glview);
-    }
+	}
+	//glview->setFrameSize(1280, 720);
+	glview->setDesignResolutionSize(960, 680, ResolutionPolicy::EXACT_FIT);
 
     director->setDisplayStats(true);
-
     director->setAnimationInterval(1.0 / 60);
 
-	auto layer = MenuLayer::create();
-	auto scene = MenuScene::createScene(layer);
+	//auto layer = GameMainLayer::create();
+	auto scene = GameMainScene::createScene();
 	director->runWithScene(scene);
 	//auto scene = StartScene::create();
 	//scene->gameStart();

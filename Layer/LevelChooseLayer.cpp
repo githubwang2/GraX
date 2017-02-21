@@ -4,6 +4,7 @@ USING_NS_CC;
 using namespace ui;
 using namespace cocostudio;
 
+int LevelChooseLayer::s_current_level = 1;
 
 Layer* LevelChooseLayer::createWithJsonFile()
 {
@@ -26,6 +27,8 @@ bool LevelChooseLayer::init()
 		return false;
 	}
 
+	m_currentStage = StageChooseLayer::s_current_stage;
+
 	initLevelLayer();
 	for (int i = 0; i < MAX_LEVEL;i++)
 	{
@@ -43,8 +46,7 @@ void LevelChooseLayer::initLevelLayer()
 
 	auto BG = dynamic_cast<ImageView*>(levelChoose->getChildByName("BG"));
 	char levelBgPath[32] = { 0 };
-	int currentStage = StageChooseLayer::current_stage;
-	sprintf(levelBgPath, "LevelChoose/levelBG0%d.png", currentStage);
+	sprintf(levelBgPath, "LevelChoose/levelBG0%d.png", m_currentStage);
 	BG->loadTexture(levelBgPath);
 
 	auto btnMenu = dynamic_cast<Button*>(levelChoose->getChildByName("btnGameMenu"));
@@ -61,9 +63,8 @@ void LevelChooseLayer::initLevelButton(int levelNum)
 	char UnlevelName[32] = { 0 };
 	sprintf(UnlevelName, "level_unable_%d", levelNum);
 
-	int currentStage = StageChooseLayer::current_stage;
 	char getLevelDate[32] = { 0 };
-	sprintf(getLevelDate, "level%d-%d", currentStage, levelNum);
+	sprintf(getLevelDate, "level%d-%d", m_currentStage, levelNum);
 
 
 	auto level = dynamic_cast<Widget*>(levelChoose->getChildByName(levelNumber)->getChildByName(levelName));
@@ -123,21 +124,24 @@ void LevelChooseLayer::touchButton(cocos2d::Ref *object, cocos2d::ui::TouchEvent
 		auto name = widget->getParent()->getName();
 		if (name.compare("level_1") == 0)
 		{
-			CCLOG("level_1");
-
+			s_current_level = 1;
+			GameLayerControl::changeScene(GameLayerControl::GameMainScene);
 		}
 		else if (name.compare("level_2") == 0)
 		{
-			CCLOG("level_2");
+			s_current_level = 2;
+			GameLayerControl::changeScene(GameLayerControl::GameMainScene);
 		}
 		else if (name.compare("level_3") == 0)
 		{
-			CCLOG("level_3");
+			s_current_level = 3;
+			GameLayerControl::changeScene(GameLayerControl::GameMainScene);
 		}
 		else
 		{
 			CCLOG("no unlocked");
 		}
+		
 	}
 }
 

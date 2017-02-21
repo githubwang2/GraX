@@ -8,6 +8,9 @@
 #include"ConstUtil.h"
 #include"GameState.h"
 #include"Layer/DialogLayer.h"
+#include"GameLayerControl.h"
+
+
 
 class StageChooseLayer : public cocos2d::Layer
 {
@@ -17,7 +20,7 @@ public:
 
 	CREATE_FUNC(StageChooseLayer);
 
-
+	static int s_current_stage;
 private:
 	void isFirst();
 	//
@@ -32,6 +35,7 @@ private:
 	cocos2d::Size				visibleSize;
 	cocos2d::ui::Widget		*	stageChoose;
 	cocos2d::ui::ScrollView	*	scrollView;
+
 };
 
 #endif 

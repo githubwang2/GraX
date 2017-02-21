@@ -12,7 +12,8 @@ public:
 		AboutSLayerState,
 		EndState,
 		StageChooseLayerState,
-		LevelChooseLayerState
+		LevelChooseLayerState,
+		GameMainScene
 	};	
 
 	static void changeScene(GameState gamestate);

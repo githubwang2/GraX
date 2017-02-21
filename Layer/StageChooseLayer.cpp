@@ -4,6 +4,7 @@ USING_NS_CC;
 using namespace ui;
 using namespace cocostudio;
 
+int StageChooseLayer::s_current_stage = 1;
 
 bool StageChooseLayer::init()
 {
@@ -11,6 +12,7 @@ bool StageChooseLayer::init()
 	{
 		return false;
 	}
+
 
 	isFirst();
 
@@ -27,7 +29,6 @@ void StageChooseLayer::isFirst()
 		auto layer = DialogLayer::createWithJsonFile("DialogLayer/0-1.json");
 		this->addChild(layer,2);
 	}
-
 }
 
 void StageChooseLayer::addBackgroundSprite(){
@@ -68,19 +69,27 @@ void StageChooseLayer::touchButton(Ref *object, TouchEventType type){
 		auto name = widget->getName();
 		if (name.compare("Stage1") == 0)
 		{
-			CCLOG("stage1");
+			//CCLOG("stage1");
+			s_current_stage = 1;
+			GameLayerControl::changeScene(GameLayerControl::LevelChooseLayerState);
 		}
 		else if (name.compare("Stage2") == 0)
 		{
-			CCLOG("stage2");
+			//CCLOG("stage2");
+			s_current_stage = 2;
+			GameLayerControl::changeScene(GameLayerControl::LevelChooseLayerState);
 		}
 		else if (name.compare("Stage3") == 0)
 		{
-			CCLOG("stage3");
+			//CCLOG("stage3");
+			s_current_stage = 3;
+			GameLayerControl::changeScene(GameLayerControl::LevelChooseLayerState);
 		}
 		else if (name.compare("Stage4") == 0)
 		{
-			CCLOG("stage4");
+			//CCLOG("stage4");
+			s_current_stage = 4;
+			GameLayerControl::changeScene(GameLayerControl::LevelChooseLayerState);
 		}
 		else
 		{
@@ -118,4 +127,5 @@ void StageChooseLayer::adjustScrollView(float dt){
 		scrollView->scrollToPercentHorizontal(a, ADJUEST_TIME, false);
 	}
 }
+
 

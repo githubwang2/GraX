@@ -1,11 +1,11 @@
-#include"Scene/LevelSelectScene.h"
+#include"Scene/LevelChooseScene.h"
 #include"Layer/StageChooseLayer.h"
 
 USING_NS_CC;
 using namespace ui;
 using namespace cocostudio;
 
-Scene* LevelSelectScene::createScene(Layer*pLayer)
+Scene* LevelChooseScene::createScene(Layer*pLayer)
 {
 	auto scene = Scene::create();
 	Layer* layer = pLayer;

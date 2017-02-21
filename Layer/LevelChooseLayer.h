@@ -8,6 +8,7 @@
 #include"ConstUtil.h"
 #include"GameState.h"
 #include"Scene/MenuScene.h"
+#include"Scene/GameMainScene.h"
 #include"Layer/StageChooseLayer.h"
 
 class LevelChooseLayer : public cocos2d::Layer
@@ -18,7 +19,7 @@ public:
 	virtual bool init();
 
 	//void onEnter();
-
+	static int s_current_level;
 private:
 	void initLevelLayer();
 
@@ -27,6 +28,8 @@ private:
 	cocos2d::ui::Widget* levelChoose;
 
 	void touchButton(cocos2d::Ref *object, cocos2d::ui::TouchEventType type);
+
+	int	m_currentStage;
 };
 
 #endif 

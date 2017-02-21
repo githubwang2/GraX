@@ -7,7 +7,7 @@
 
 #include"ConstUtil.h"
 
-class LevelSelectScene:public cocos2d::Scene
+class LevelChooseScene:public cocos2d::Scene
 {
 public:
 	static cocos2d::Scene* createScene(cocos2d::Layer*pLayer);

@@ -4,26 +4,22 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
+#include "Layer/GameMainLayer.h"
 
 class Monster : public cocos2d::Layer
 {
-public:
-	Monster(int id);
-	
-	cocos2d::Sprite*createMonster();
+public :
+	static Monster*create(int id);
 
+	Monster(int id);
+	bool initMonster();
 	void changeDirection(float dt);
 
 protected:
-	void initAnimation(int id);
-
-	cocos2d::Animation*ani_up;
-	cocos2d::Animation*ani_down;
-	cocos2d::Animation*ani_left;
-	cocos2d::Animation*ani_right;
 
 	int m_id;
 	int m_hp;
+	int m_speed;
 };
 
 #endif 

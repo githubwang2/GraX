@@ -18,7 +18,7 @@ int HUDLayer::m_allRound = 0;
 void HUDLayer::createHUDLayer()
 {
 	auto layer = Layer::create();
-	m_hud = GUIReader::getInstance()->widgetFromJsonFile("Tower/HUD/HUD.json");
+	m_hud = GUIReader::getInstance()->widgetFromJsonFile("GameMain/HUD/HUD.json");
 
 	lblGold = dynamic_cast<TextAtlas*>(m_hud->getChildByName("LabelGold"));
 	lblRound = dynamic_cast<TextAtlas*>(m_hud->getChildByName("LabelWave"));

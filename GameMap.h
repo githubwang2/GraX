@@ -7,7 +7,7 @@ class GameMap : public cocos2d::Layer
 {
 public:
 	//创建瓦片地图
-	GameMap* createTMXTiledMap(char*tileMap);
+	static GameMap* createTMXTiledMap(char*tileMap);
 	//取得移动路径
 	std::vector<cocos2d::Point>	getWalkPath(const char*key);
 	//可坐标是否可以放置防御塔
