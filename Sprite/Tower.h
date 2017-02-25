@@ -5,19 +5,17 @@
 #include "ui/CocosGUI.h"
 
 #include"GameMap.h"
+#include"Layer/GameMainLayer.h"
+#include"Sprite/Components/ComTower.h"
 #include"FireManager.h"
 
 class Tower : public cocos2d::Layer
 {
 public:
-	Tower();
+	static Tower* createTower(cocos2d::Point pos, GameMap *gameMap);
+	virtual bool init(cocos2d::Point pos, GameMap *gameMap);
 
-	virtual bool init();
-	CREATE_FUNC(Tower);
-
-	cocos2d::Layer* createTower(cocos2d::Point pos, GameMap *gameMap);
-
-	FireManager*m_fireManager;
+	//FireManager*m_fireManager;
 protected:
 };
 

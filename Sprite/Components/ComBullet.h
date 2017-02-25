@@ -1,5 +1,5 @@
-#ifndef __Tower_ComBullet__
-#define __Tower_ComBullet__
+#ifndef __TowerWar_ComBullet__
+#define __TowerWar_ComBullet__
 
 #include "cocos2d.h"
 
@@ -23,7 +23,7 @@ public:
 
 	CC_SYNTHESIZE_READONLY(float, m_speedX, SpeedX);					//子弹速度X轴上的分量
 	CC_SYNTHESIZE_READONLY(float, m_speedY, SpeedY);					//子弹速度Y轴上的分量
-	CC_SYNTHESIZE_READONLY(float, m_fireDamage, FireDamage);
+	CC_SYNTHESIZE_READONLY(float, m_fireDamage, FireDamage);            //每颗子弹的伤害
 
 private:
 	float m_speed;

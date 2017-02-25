@@ -4,6 +4,8 @@ USING_NS_CC;
 using namespace cocostudio;
 using namespace ui;
 
+HUDLayer*GameMainLayer::hudLayer;
+FireManager*GameMainLayer::fileManager;
 
 GameMainLayer* GameMainLayer::create()
 {
@@ -32,18 +34,19 @@ bool GameMainLayer::init()
 	m_currentLevel = LevelChooseLayer::s_current_level;
 	
 	
-	/*m_beginHp = 5;
-	m_level = 1;
-	m_level_WavNum = 10;
-	m_beginGold = 300;*/
+	beginHp = 5;
+	level = 1;
+	level_WavNum = 10;
+	beginGold = 300; 
+
 	//-------------------------------------------------------------------------
 	//					background
 	initBG();
 	//------------------------------------------------------------------------
 	//					HUD
-	//HUDLayer::createHUDLayer();
-	//HUDLayer::setInitHUD(m_beginGold, m_level_WavNum, m_beginHp);
-	//addChild(HUDLayer::getHud(), 3);
+	hudLayer = HUDLayer::create();
+	hudLayer->setInitHUD(beginGold, level_WavNum, beginHp);
+	addChild(hudLayer, 3);
 	//------------------------------------------------------------------------
 	//					TileMap
 	char tmxtilePath[50] = { 0 };
@@ -52,10 +55,13 @@ bool GameMainLayer::init()
 	addChild(gameMap);
 	//-------------------------------------------------------------------------
 	//					Tower触摸响应
-	//attachTowerBuild();
+	attachTowerBuild(gameMap);
 	//-------------------------------------------------------------------------
 	//					怪物产生
 	schedule(schedule_selector(GameMainLayer::addMonster), 1.5f);
+	//-------------------------------------------------------------------------
+	//					FileManager
+	fileManager = FireManager::create();
 
 	return true;
 }
@@ -75,21 +81,40 @@ void GameMainLayer::addMonster(float dt){
 	
 }
 
-//void GameMainLayer::attachTowerBuild(){
-//	auto listener = EventListenerTouchOneByOne::create();
-//
-//	listener->onTouchBegan = [=](Touch *pTouch, Event *pEvent){return true; };
-//	listener->onTouchEnded = [=](Touch *pTouch, Event *pEvent){
-//		auto touchPos = pTouch->getLocation();
-//		//Tower*tower = new Tower();
-//		//addChild(tower->createTower(touchPos, gameMap));
-//		//std::string str = gameMap->getTowerValue(touchPos);
-//		//CCLOG("%s", str.c_str());
-//		//--------------------text---------------
-//	};
-//
-//	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
-//}
+void GameMainLayer::attachTowerBuild(GameMap *gameMap){
+	auto listener = EventListenerTouchOneByOne::create();
+
+	listener->onTouchBegan = [=](Touch *pTouch, Event *pEvent){return true; };
+	listener->onTouchEnded = [=](Touch *pTouch, Event *pEvent){
+		auto touchPos = pTouch->getLocation();
+		auto tower = Tower::createTower(touchPos, gameMap);
+		addChild(tower);
+		//std::string str = gameMap->getTowerValue(touchPos);
+		//CCLOG("%s", str.c_str());
+		//--------------------text---------------
+	};
+
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+}
+
+int  GameMainLayer::changeGold(int i)
+{
+	int currentGold= hudLayer->changeGold(i);
+	return currentGold;
+}
+
+int GameMainLayer::changeLife(int num)
+{
+	int currentLife = hudLayer->changeLife(num);
+	return currentLife;
+}
+
+void GameMainLayer::goldWarn()
+{
+	hudLayer->goldWarn();
+}
+
+
 
 //void GameMainLayer::endGame(bool isWin){
 //	auto poppup = new PopupLayer();
@@ -121,6 +146,6 @@ void GameMainLayer::addMonster(float dt){
 
 //void GameMainLayer::removeMonster(Node* monster)
 //{//可以考虑移到comMove中去
-//	/*auto comMove = dynamic_cast<ComMove*>(monster->getComponent("ComMove"));
-//	m_fireManager->m_tmpMonster.push_back(comMove);*/
+//	auto comMove = dynamic_cast<ComMove*>(monster->getComponent("ComMove"));
+//	m_fireManager->m_tmpMonster.push_back(comMove);
 //}

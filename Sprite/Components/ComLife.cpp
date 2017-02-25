@@ -34,7 +34,9 @@ void ComLife::onEnter(){
 	bar->addChild(LoadBarBk);
 	bar->addChild(m_hpBar);
 
-	Size spriteSize = owner->getContentSize();
+	//Size spriteSize = owner->getContentSize();
+	//因为这里没有图片 所以不能从创建精灵那里传  之后修改
+	Size spriteSize = Size(48, 48);
 	bar->setScale(spriteSize.width / m_hpBar->getContentSize().width);
 	bar->setPosition(Point(spriteSize.width / 2, spriteSize.height));
 	owner->addChild(bar);

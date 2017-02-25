@@ -1,5 +1,5 @@
-#ifndef __Tower_ComTower__
-#define __Tower_ComTower__
+#ifndef __TowerWar_ComTower__
+#define __TowerWar_ComTower__
 
 #include "cocos2d.h"
 

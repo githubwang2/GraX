@@ -4,20 +4,13 @@ USING_NS_CC;
 using namespace cocostudio;
 using namespace ui;
 
-Widget		*		HUDLayer::m_hud;
-TextAtlas	*		HUDLayer::lblGold;
-TextAtlas	*		HUDLayer::lblRound;
-TextAtlas	*		HUDLayer::lblLife;
-TextAtlas	*		HUDLayer::lblAllRound;
-
-int HUDLayer::m_curRound = 0;
-int HUDLayer::m_curGold = 0;
-int HUDLayer::m_curLife = 0;
-int HUDLayer::m_allRound = 0;
-
-void HUDLayer::createHUDLayer()
+bool HUDLayer::init()
 {
-	auto layer = Layer::create();
+	if (!Layer::init())
+	{
+		return false;
+	}
+
 	m_hud = GUIReader::getInstance()->widgetFromJsonFile("GameMain/HUD/HUD.json");
 
 	lblGold = dynamic_cast<TextAtlas*>(m_hud->getChildByName("LabelGold"));
@@ -26,19 +19,16 @@ void HUDLayer::createHUDLayer()
 	lblAllRound = dynamic_cast<TextAtlas*>(m_hud->getChildByName("LabelAllWave"));
 
 	m_curRound = 0;
-	setInitHUD(0, 0, 0);
+	m_allRound = 1;
+	m_curGold = 0;		
+	m_curLife = 0;
+	//setInitHUD(0, 0, 0);
 	/*lblGold->setStringValue("0");
 	lblRound->setStringValue("0");
 	lblAllRound->setString("0");
 	lblLife->setStringValue("0");*/
-
-	//layer->addChild(hud);
-	//return layer;
-}
-
-Widget*HUDLayer::getHud(){
-	Widget*hud = m_hud;
-	return hud;
+	addChild(m_hud);
+	return true;
 }
 
 void HUDLayer::setInitHUD(int gold, int allRound, int life){
@@ -77,3 +67,10 @@ int HUDLayer::changeLife(int num){
 	lblLife->setStringValue(numStr);
 	return m_curLife;
 }
+
+void HUDLayer::goldWarn()
+{
+	auto toRed = TintBy::create(0.5f, -127, -255, -127);
+	lblGold->runAction(Sequence::create(toRed, toRed->reverse(), nullptr));
+}
+

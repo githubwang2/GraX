@@ -1,4 +1,3 @@
-
 #include "FireManager.h"
 
 bool FireManager::init(){
@@ -6,7 +5,6 @@ bool FireManager::init(){
 	{
 		return false;
 	}
-
 	schedule(schedule_selector(FireManager::moveBullet));
 
 	return true;

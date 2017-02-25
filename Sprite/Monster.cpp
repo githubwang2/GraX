@@ -13,8 +13,6 @@ Monster::Monster(int id){
 	m_speed = 10;
 }
 
-
-
 Monster* Monster::create(int id)
 {
 	Monster*ret = new Monster(id);
@@ -36,6 +34,7 @@ bool Monster::initMonster(){
 		return false;
 	}
 	//auto monster = Sprite::create("GameMain/Monster.png");
+	//坐标问题
 	auto monster = Sprite::create();
 	//monster->setScale(2.0);
 	//monster->runAction(RepeatForever::create(Animate::create(ani_right)));
@@ -52,8 +51,10 @@ bool Monster::initMonster(){
 	auto comLife = ComLife::create(m_hp);
 	monster->addComponent(comLife);
 
-	////存入FireManager的m_monsters list中
-	//m_fireManager->m_monsters.push_back(comMove);
+	//存入FireManager的m_monsters list中
+	//auto playground = dynamic_cast<GameMainLayer*>(this->getParent());
+	//playground->getFireManager()->m_monsters.push_back(comMove);
+	GameMainLayer::fileManager->m_monsters.push_back(comMove);
 	////-----------------------------------------------------------
 	////--无限模式
 	////每生成一个怪物，该波怪物减一，为0停止产生怪物。

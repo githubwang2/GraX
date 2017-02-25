@@ -21,7 +21,7 @@ private:
 	cocos2d::LabelTTF* loadLabel;
 	///---------------------------------
 	int  _numberOfSprites;						//	总共需要预加载文件数
-	int _numberOfLoadedSprites;				//	已经预加载文件数
+	int _numberOfLoadedSprites;				    //	已经预加载文件数
 };
 
 #endif 

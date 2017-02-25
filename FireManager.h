@@ -1,3 +1,5 @@
+#ifndef __TowerWar_FireManager__
+#define __TowerWar_FireManager__
 #include "Sprite/Components/Constants.h"
 
 USING_NS_CC;
@@ -21,3 +23,4 @@ public:
 	
 };
 
+#endif
