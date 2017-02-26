@@ -46,6 +46,7 @@ bool ComLife::attacked(int damage)
 {
 	bool isDead = false;
 	int after = m_currentHp - damage;
+	//受到攻击  是否死亡
 	if (after>0)
 	{
 		m_currentHp = after;
@@ -53,10 +54,11 @@ bool ComLife::attacked(int damage)
 	}
 	else
 	{
+
 		//-------------------------------------------
-		/*isDead = true;
-		auto playground = dynamic_cast<MainScene*>(getOwner()->getParent());
-		playground->changeGold(30);*/
+		isDead = true;
+		auto playground = dynamic_cast<GameMainLayer*>(getOwner()->getParent());
+		playground->changeGold(30);
 	}
 	return isDead;
 }

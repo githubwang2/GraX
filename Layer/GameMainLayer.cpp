@@ -142,12 +142,6 @@ void GameMainLayer::goldWarn()
 //	}
 //}
 
-//void GameMainLayer::removeMonster(Node* monster)
-//{//可以考虑移到comMove中去
-//	auto comMove = dynamic_cast<ComMove*>(monster->getComponent("ComMove"));
-//	m_fireManager->m_tmpMonster.push_back(comMove);
-//}
-
 void GameMainLayer::removeMonster(Node*monster){
 	auto comMove = dynamic_cast<ComMove*>(monster->getComponent("ComMove"));
 	fileManager->m_tmpMonster.push_back(comMove);

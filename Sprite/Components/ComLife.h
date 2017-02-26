@@ -4,6 +4,8 @@
 #include "cocos2d.h"
 #include"ui/CocosGUI.h"
 
+#include "Layer/GameMainLayer.h"
+
 //怪物的HP组件
 class ComLife :public cocos2d::Component
 {
