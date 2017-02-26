@@ -34,6 +34,8 @@ public:
 	void goldWarn();
 	static HUDLayer*hudLayer;
 	static FireManager*fileManager;
+
+	void removeMonster(Node*monster);
 private:
 
 	void initBG();

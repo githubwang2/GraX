@@ -73,7 +73,7 @@ void ComMove::initPath(std::vector<cocos2d::Point> path)
 		//	playground->endGame(false);
 		//}
 		CCLOG("remove one");
-		getOwner()->removeFromParent();
+		playground->removeMonster(getOwner());
 	}));
 
 	m_moveActions = Sequence::create(act);

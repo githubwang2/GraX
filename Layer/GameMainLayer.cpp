@@ -62,7 +62,7 @@ bool GameMainLayer::init()
 	//-------------------------------------------------------------------------
 	//					FileManager
 	fileManager = FireManager::create();
-
+	addChild(fileManager);
 	return true;
 }
 
@@ -114,8 +114,6 @@ void GameMainLayer::goldWarn()
 	hudLayer->goldWarn();
 }
 
-
-
 //void GameMainLayer::endGame(bool isWin){
 //	auto poppup = new PopupLayer();
 //
@@ -149,3 +147,8 @@ void GameMainLayer::goldWarn()
 //	auto comMove = dynamic_cast<ComMove*>(monster->getComponent("ComMove"));
 //	m_fireManager->m_tmpMonster.push_back(comMove);
 //}
+
+void GameMainLayer::removeMonster(Node*monster){
+	auto comMove = dynamic_cast<ComMove*>(monster->getComponent("ComMove"));
+	fileManager->m_tmpMonster.push_back(comMove);
+}
