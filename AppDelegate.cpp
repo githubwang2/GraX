@@ -2,6 +2,8 @@
 #include "Scene/StartScene.h"
 #include "Scene/GameMainScene.h"
 #include "Layer/GameMainLayer.h"
+#include "Scene/MenuScene.h"
+#include "Layer/MenuLayer.h"
 
 USING_NS_CC;
 
@@ -28,7 +30,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setDisplayStats(true);
     director->setAnimationInterval(1.0 / 60);
 
-	//auto layer = GameMainLayer::create();
+	
 	auto scene = GameMainScene::createScene();
 	director->runWithScene(scene);
 	//auto scene = StartScene::create();

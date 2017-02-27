@@ -19,7 +19,7 @@ public:
 	virtual bool init();
 
 	//void onEnter();
-	static int s_current_level;
+	static int g_current_level;
 private:
 	void initLevelLayer();
 

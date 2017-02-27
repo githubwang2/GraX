@@ -1,5 +1,7 @@
 #include"Layer/HUDLayer.h"
 
+#include "Scene/GameMainScene.h"
+
 USING_NS_CC;
 using namespace cocostudio;
 using namespace ui;
@@ -12,6 +14,9 @@ bool HUDLayer::init()
 	}
 
 	m_hud = GUIReader::getInstance()->widgetFromJsonFile("GameMain/HUD/HUD.json");
+
+	auto btnMenu = dynamic_cast<Button*>(m_hud->getChildByName("btnMenu"));
+	btnMenu->addTouchEventListener(this, toucheventselector(GameMainScene::touchButton));
 
 	lblGold = dynamic_cast<TextAtlas*>(m_hud->getChildByName("LabelGold"));
 	lblRound = dynamic_cast<TextAtlas*>(m_hud->getChildByName("LabelWave"));
@@ -28,6 +33,7 @@ bool HUDLayer::init()
 	lblAllRound->setString("0");
 	lblLife->setStringValue("0");*/
 	addChild(m_hud);
+
 	return true;
 }
 
@@ -42,10 +48,10 @@ void HUDLayer::setInitHUD(int gold, int allRound, int life){
 
 void HUDLayer::createWaveRusher(){
 
+	m_curRound++;
 	char num[32] = { 0 };
 	sprintf(num, "%d", m_curRound);
 	lblRound->setStringValue(num);
-
 	//m_monsterCreateLeft = 1 + m_curRound * 2;
 	//schedule(schedule_selector(Monster::makeMonster), 0.5f);
 }

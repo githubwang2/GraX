@@ -4,7 +4,7 @@ USING_NS_CC;
 using namespace ui;
 using namespace cocostudio;
 
-int LevelChooseLayer::s_current_level = 1;
+int LevelChooseLayer::g_current_level = 1;
 
 Layer* LevelChooseLayer::createWithJsonFile()
 {
@@ -27,7 +27,7 @@ bool LevelChooseLayer::init()
 		return false;
 	}
 
-	m_currentStage = StageChooseLayer::s_current_stage;
+	m_currentStage = StageChooseLayer::g_current_stage;
 
 	initLevelLayer();
 	for (int i = 0; i < MAX_LEVEL;i++)
@@ -124,17 +124,17 @@ void LevelChooseLayer::touchButton(cocos2d::Ref *object, cocos2d::ui::TouchEvent
 		auto name = widget->getParent()->getName();
 		if (name.compare("level_1") == 0)
 		{
-			s_current_level = 1;
+			g_current_level = 1;
 			GameLayerControl::changeScene(GameLayerControl::GameMainScene);
 		}
 		else if (name.compare("level_2") == 0)
 		{
-			s_current_level = 2;
+			g_current_level = 2;
 			GameLayerControl::changeScene(GameLayerControl::GameMainScene);
 		}
 		else if (name.compare("level_3") == 0)
 		{
-			s_current_level = 3;
+			g_current_level = 3;
 			GameLayerControl::changeScene(GameLayerControl::GameMainScene);
 		}
 		else

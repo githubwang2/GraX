@@ -22,6 +22,10 @@ void MenuScene::touchButton(Ref *object, TouchEventType type){
 		{
 			GameLayerControl::changeScene(GameLayerControl::StageChooseLayerState);
 		}
+		else if (name.compare(BTN_RESTART) == 0)
+		{
+			remove(UserDefault::getInstance()->getXMLFilePath().c_str());
+		}
 		else if (name.compare(BTN_SETTING) == 0)
 		{
 			GameLayerControl::changeScene(GameLayerControl::SetttingLayerState);

@@ -20,7 +20,7 @@ public:
 
 	CREATE_FUNC(StageChooseLayer);
 
-	static int s_current_stage;
+	static int g_current_stage;
 private:
 	void isFirst();
 	//

@@ -27,10 +27,25 @@ bool GameMainScene::init()
 	{
 		return false;
 	}
+
 	return true;
-
-	
-
-
 }
-	
+
+void GameMainScene::touchButton(Ref *object, cocos2d::ui::TouchEventType type)
+{
+	if (type == TOUCH_EVENT_ENDED)
+	{
+		/*auto widget = dynamic_cast<Widget*>(object);
+		auto name = widget->getName();
+		if (name.compare(BTN_START) == 0)
+		{
+
+		}
+		else if (name.compare(BTN_SETTING) == 0)
+		{
+
+		}*/
+		GameLayerControl::changeScene(GameLayerControl::MenuLayerState);
+	}
+}
+

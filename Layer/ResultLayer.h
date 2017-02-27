@@ -1,22 +1,20 @@
-#ifndef __TowerWar_PopupLayer__
-#define __TowerWar_PopupLayer__
+#ifndef __TowerWar_ResultLayer__
+#define __TowerWar_ResultLayer__
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
 #include"ConstUtil.h"
 
-class PopupLayer : public cocos2d::Layer
+class ResultLayer : public cocos2d::Layer
 {
 public:
-	virtual bool init();
-	CREATE_FUNC(PopupLayer);
-
 	//	0Ê§°Ü //		1Ò»¿ÅÐÇ//	2¶þ¿ÅÐÇ//	3Èý¿ÅÐÇ
-	cocos2d::Layer* setResult(int n,int curLevel);		
-	
-private:
+	static ResultLayer*createLayer(int n, int curLevel);
 
+	virtual bool init(int n, int curLevel);
+private:
+	cocos2d::Layer *setResult(int n, int curLevel);
 	cocos2d::Layer* initResultLayer();
 
 	void showStar(int n);
@@ -40,6 +38,7 @@ private:
 	cocos2d::ui::Button					* btnNext;
 
 	cocos2d::ui::TextAtlas				* level;
+
 };
 
 #endif 

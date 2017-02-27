@@ -7,14 +7,17 @@ class LoadingScene : public cocos2d::Layer
 public:
 
 	static cocos2d::Scene* createScene();
-	virtual bool init();
+	
 	CREATE_FUNC(LoadingScene);
 
 private:
+	virtual bool init();
+
 	void gotoMenuScene();
 	void playOP();
 	void load();
 	void loadingCallBack(cocos2d::Texture2D *texture);
+	void endOP();
 
 	cocos2d::Size visibleSize;
 	cocos2d::ProgressTimer* loadProgress;

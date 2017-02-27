@@ -13,6 +13,7 @@ GameMainLayer* GameMainLayer::create()
 	if (gameMainLayer && gameMainLayer->init())
 	{
 		gameMainLayer->autorelease();
+		//gameMainLayer->retain();
 	}
 	else
 	{
@@ -30,15 +31,23 @@ bool GameMainLayer::init()
 	visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	m_currentStage = StageChooseLayer::s_current_stage;
-	m_currentLevel = LevelChooseLayer::s_current_level;
-	
-	
+	startGame();
+
+	return true;
+}
+
+void GameMainLayer::startGame()
+{
+	m_currentStage = StageChooseLayer::g_current_stage;
+	m_currentLevel = LevelChooseLayer::g_current_level;
+
 	beginHp = 5;
 	level = 1;
 	level_WavNum = 10;
-	beginGold = 300; 
+	curWacNum = 1;
+	beginGold = 300;
 
+	monsterCreateLeft = 0;
 	//-------------------------------------------------------------------------
 	//					background
 	initBG();
@@ -57,14 +66,17 @@ bool GameMainLayer::init()
 	//					Tower触摸响应
 	attachTowerBuild(gameMap);
 	//-------------------------------------------------------------------------
-	//					怪物产生
-	schedule(schedule_selector(GameMainLayer::addMonster), 1.5f);
+	//					怪物波数刷新
+	createWaveRusher();
 	//-------------------------------------------------------------------------
 	//					FileManager
 	fileManager = FireManager::create();
 	addChild(fileManager);
-	return true;
+
+
+	scheduleUpdate();
 }
+
 
 void GameMainLayer::initBG(){
 	char bgPath[50] = { 0 };
@@ -76,9 +88,51 @@ void GameMainLayer::initBG(){
 	addChild(spriteBG, -1);
 }
 
+void GameMainLayer::update(float dt)
+{
+	auto curLife = changeLife(0);
+	if (curLife<=0)
+	{
+		endGame(false);
+	}
+	if (curWacNum==10)
+	{
+		if (fileManager->m_monsters->getChildrenCount() == 0)
+		{
+			unschedule(schedule_selector(GameMainLayer::addMonster));
+			endGame(true);
+		}
+		return;
+	}
+}
+
+void GameMainLayer::createWaveRusher()
+{
+	//--无限模式
+	monsterCreateLeft = 1 + curWacNum * increase_monste;
+	schedule(schedule_selector(GameMainLayer::addMonster), interval_time);
+	curWacNum++;                        //波数+1
+}
+
 void GameMainLayer::addMonster(float dt){
-	addChild(Monster::create(1),1);
+	monsterCreateLeft--;                //需要产生monster-1
+	if (monsterCreateLeft == 0)
+	{
+		unschedule(schedule_selector(GameMainLayer::addMonster));
+		runAction(Sequence::create(DelayTime::create(3.0f),
+			CallFunc::create([=](){
+			hudLayer->createWaveRusher();       //hud中当前波数+1
+			createWaveRusher();
+		})
+			, nullptr));
+	}
+	addChild(Monster::create(curWacNum), 1);
+
 	
+	if (level_WavNum == curWacNum)
+	{
+		unschedule(schedule_selector(GameMainLayer::addMonster));
+	}
 }
 
 void GameMainLayer::attachTowerBuild(GameMap *gameMap){
@@ -114,33 +168,33 @@ void GameMainLayer::goldWarn()
 	hudLayer->goldWarn();
 }
 
-//void GameMainLayer::endGame(bool isWin){
-//	auto poppup = new PopupLayer();
-//
-//	if (isWin)
-//	{
-//		int starsNum;
-//		if (HUDLayer::changeLife(0) == m_beginHp)
-//		{
-//			starsNum = 3;
-//		}
-//		else if (m_beginHp / 2<HUDLayer::changeLife(0) < m_beginHp)
-//		{
-//			starsNum = 2;
-//		}
-//		else
-//		{
-//			starsNum = 1;
-//		}
-//		addChild(poppup->setResult(starsNum, m_level), 3);
-//		this->unscheduleAllSelectors();
-//	}
-//	else
-//	{
-//		addChild(poppup->setResult(0, m_level), 3);
-//		this->unscheduleAllSelectors();
-//	}
-//}
+void GameMainLayer::endGame(bool isWin){
+	ResultLayer*resultLayer;
+	if (isWin)
+	{
+		int starsNum;
+		if (hudLayer->changeLife(0) == beginHp)
+		{
+			starsNum = 3;
+		}
+		else if (beginHp / 2 < hudLayer->changeLife(0) < beginHp)
+		{
+			starsNum = 2;
+		}
+		else
+		{
+			starsNum = 1;
+		}
+		resultLayer = ResultLayer::createLayer(starsNum, m_currentLevel);
+		this->unscheduleAllSelectors();
+	}
+	else
+	{
+		resultLayer = ResultLayer::createLayer(0, m_currentLevel);
+		this->unscheduleAllSelectors();
+	}
+	addChild(resultLayer, 5);
+}
 
 void GameMainLayer::removeMonster(Node*monster){
 	auto comMove = dynamic_cast<ComMove*>(monster->getComponent("ComMove"));

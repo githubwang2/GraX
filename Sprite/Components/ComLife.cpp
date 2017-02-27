@@ -1,5 +1,7 @@
 #include "Sprite/Components/ComLife.h"
 
+#include "Layer/GameMainLayer.h"
+
 USING_NS_CC;
 
 ComLife::ComLife(int maxLife):m_currentHp(0), m_hpBar(nullptr)
@@ -54,7 +56,6 @@ bool ComLife::attacked(int damage)
 	}
 	else
 	{
-
 		//-------------------------------------------
 		isDead = true;
 		auto playground = dynamic_cast<GameMainLayer*>(getOwner()->getParent());

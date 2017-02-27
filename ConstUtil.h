@@ -30,6 +30,7 @@ const		int						ONE_SECOND = 1;
 //-----------------------MenuScene---------------------
 
 #define		BTN_START				"btnGameStart"
+#define		BTN_RESTART				"btnGameReStart"
 #define		BTN_SETTING				"btnGameSetting"
 #define		BTN_ABOUT				"btnGameAbout"
 #define		BTN_EXIT				"btnGameEnd"

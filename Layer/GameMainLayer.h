@@ -8,7 +8,7 @@
 #include "GameMap.h"
 #include "FireManager.h"
 #include "Layer/HUDLayer.h"
-#include "Layer/PopupLayer.h"
+#include "Layer/ResultLayer.h"
 #include "Layer/LevelChooseLayer.h"
 #include "Layer/StageChooseLayer.h"
 
@@ -21,22 +21,27 @@ public:
 	static GameMainLayer*create();
 	virtual bool init();
 
+	void createWaveRusher();
+
 	void addMonster(float dt);
 
     void attachTowerBuild(GameMap *gameMap);
 	//结束游戏（怪物被杀完或者游戏失败）
-	//void endGame(bool isWin);
+	void endGame(bool isWin);
 	//移除怪物 
 	//void removeMonster(Node* monster);
 	
 	int  changeGold(int i);
 	int  changeLife(int num);
 	void goldWarn();
-	static HUDLayer*hudLayer;
-	static FireManager*fileManager;
+	static HUDLayer * hudLayer;
+	static FireManager * fileManager;
 
 	void removeMonster(Node*monster);
+
+	void update(float dt);
 private:
+	void startGame();
 
 	void initBG();
 
@@ -46,12 +51,15 @@ private:
 	int m_currentStage;
 	int m_currentLevel;
 
-	
+
+
 	int     beginHp;			//	开始时玩家生命值
 	int		beginGold;			//	开始时玩家金钱
 	int		level;				//	当前关卡数
 	int     level_WavNum;		//	当前关卡怪物总波数
-	//bool	m_isWin;		//	
+	int     curWacNum;			//  当前怪物波数
+	int     monsterCreateLeft;  //  该波需要产生的怪物数
+	bool	isWin;				//	
 
 };
 

@@ -47,11 +47,13 @@ void LoadingScene::playOP(){
 	}
 
 	animation->setDelayPerUnit(0.08f);
-	//
 	auto act = Sequence::create(Animate::create(animation),
 		CallFunc::create(CC_CALLBACK_0(LoadingScene::gotoMenuScene, this)), nullptr);
 	sprite->runAction(act);
 	sprite->setPosition(visibleSize / 2);
+
+	endOP();
+
 	addChild(sprite, 1);
 }
 
@@ -100,4 +102,13 @@ void LoadingScene::loadingCallBack(cocos2d::Texture2D *texture)
 		loadLabel->setString("all loaded");
 		playOP();
 	}
+}
+
+void LoadingScene::endOP()
+{
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = [=](Touch *pTouch, Event *pEvent){
+		gotoMenuScene();
+		return true; };
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 }

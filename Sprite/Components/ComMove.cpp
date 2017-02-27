@@ -65,15 +65,18 @@ void ComMove::initPath(std::vector<cocos2d::Point> path)
 
 	//--------------怪物走到终点 减血并移除怪物
 	act.pushBack(CallFunc::create([=](){
-		auto playground = dynamic_cast<GameMainLayer*>(getOwner()->getParent());
+		GameMainLayer* playground = dynamic_cast<GameMainLayer*>(getOwner()->getParent());
 		auto curLife = playground->changeLife(-1);
-		//if (curLife <= 0){
-		//	//失败 游戏结束
-		//	CCLOG("end");
-		//	playground->endGame(false);
-		//}
-		CCLOG("remove one");
-		playground->removeMonster(getOwner());
+		if (curLife <= 0){
+			//失败 游戏结束
+			CCLOG("end");
+		}
+		else
+		{
+			CCLOG("remove one");
+			playground->removeMonster(getOwner());
+		}
+		
 	}));
 
 	m_moveActions = Sequence::create(act);

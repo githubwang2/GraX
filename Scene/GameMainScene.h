@@ -14,6 +14,7 @@ public:
 	static cocos2d::Scene* createScene();
 	virtual bool init();
 
+	void touchButton(Ref *object, cocos2d::ui::TouchEventType type);
 private:
 	
 };

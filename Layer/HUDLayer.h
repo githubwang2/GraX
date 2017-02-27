@@ -5,6 +5,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
+
 class HUDLayer : public cocos2d::Layer
 {
 public:

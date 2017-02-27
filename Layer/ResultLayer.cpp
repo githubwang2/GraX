@@ -1,23 +1,38 @@
-#include "Layer/PopupLayer.h"
+#include "Layer/ResultLayer.h"
 
 USING_NS_CC;
 using namespace ui;
 using namespace cocostudio;
 
 
-bool PopupLayer::init()
+ResultLayer* ResultLayer::createLayer(int n, int curLevel)
+{
+	ResultLayer*resultLayer = new ResultLayer();
+	if (resultLayer && resultLayer->init(n,curLevel))
+	{
+		resultLayer->autorelease();
+	}
+	else
+	{
+		CC_SAFE_DELETE(resultLayer);
+	}
+	return resultLayer;
+}
+
+
+bool ResultLayer::init(int n, int curLevel)
 {
 	if (!Layer::init())
 	{
 		return false;
 	}
-	//visibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+	auto result = setResult(n, curLevel);
+	addChild(result);
 	return true;
 }
 
-Layer* PopupLayer::initResultLayer(){
+Layer* ResultLayer::initResultLayer(){
 	auto layer = Layer::create();
 	popupLayer = dynamic_cast<Widget*>(GUIReader::getInstance()
 		->widgetFromJsonFile("PopupLayer/PopupLayer.json"));
@@ -35,16 +50,16 @@ Layer* PopupLayer::initResultLayer(){
 	btnAgain = dynamic_cast<Button*>(popupLayer->getChildByName("Button")->getChildByName("btnAgain"));
 	btnNext = dynamic_cast<Button*>(popupLayer->getChildByName("Button")->getChildByName("btnNext"));
 
-	btnMenu->addTouchEventListener(this, toucheventselector(PopupLayer::touchButton));
-	btnAgain->addTouchEventListener(this, toucheventselector(PopupLayer::touchButton));
-	btnNext->addTouchEventListener(this, toucheventselector(PopupLayer::touchButton));
+	btnMenu->addTouchEventListener(this, toucheventselector(ResultLayer::touchButton));
+	btnAgain->addTouchEventListener(this, toucheventselector(ResultLayer::touchButton));
+	btnNext->addTouchEventListener(this, toucheventselector(ResultLayer::touchButton));
 
 	level = dynamic_cast<TextAtlas*>(popupLayer->getChildByName("levelBG")->getChildByName("Level"));
 
 	return layer;
 }
 
-void PopupLayer::popWin(int n){
+void ResultLayer::popWin(int n){
 
 	win->setVisible(true);
 	lost->setVisible(false);
@@ -56,7 +71,7 @@ void PopupLayer::popWin(int n){
 	showStar(n);
 }
 
-void PopupLayer::popLost(){
+void ResultLayer::popLost(){
 
 	win->setVisible(false);
 	lost->setVisible(true);
@@ -68,7 +83,7 @@ void PopupLayer::popLost(){
 	showStar(0);
 }
 
-void PopupLayer::showStar(int n){
+void ResultLayer::showStar(int n){
 	switch (n)
 	{
 	case 0:{
@@ -104,7 +119,7 @@ void PopupLayer::showStar(int n){
 	}
 }
 
-void PopupLayer::touchButton(cocos2d::Ref *object, cocos2d::ui::TouchEventType type){
+void ResultLayer::touchButton(cocos2d::Ref *object, cocos2d::ui::TouchEventType type){
 	if (type == TOUCH_EVENT_ENDED)
 	{
 		auto widget = dynamic_cast<Widget*>(object);
@@ -128,7 +143,7 @@ void PopupLayer::touchButton(cocos2d::Ref *object, cocos2d::ui::TouchEventType t
 	}
 }
 
-Layer*  PopupLayer::setResult(int n, int curLevel){
+Layer  *ResultLayer::setResult(int n, int curLevel){
 	auto layer = Layer::create();
 	layer->addChild(initResultLayer(), 3);
 	if (n==0)
