@@ -8,7 +8,6 @@ ComTower::ComTower():m_isFiring(false)
 	setName("ComTower");
 }
 
-
 ComTower*ComTower::create()
 {
 	ComTower*ret = new ComTower();
@@ -24,8 +23,8 @@ ComTower*ComTower::create()
 }
 
 void ComTower::onEnter(){
-	m_range = 100;			//×Óµ¯¹¥»÷·¶Î§
-	m_reloadTime = 0.3;		//×Óµ¯¹¥»÷¼ä¸ôÊ±¼ä
+	m_range = tower_range;
+	m_reloadTime = tower_reloadTime;	
 }
 
 int ComTower::getRange() const

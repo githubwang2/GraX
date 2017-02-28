@@ -3,17 +3,20 @@
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "ConstUtil.h"
 
-#include"ConstUtil.h"
+#include "GameLayerControl.h"
+#include "Layer/LevelChooseLayer.h"
+#include "Layer/StageChooseLayer.h"
 
 class ResultLayer : public cocos2d::Layer
 {
 public:
 	//	0Ê§°Ü //		1Ò»¿ÅÐÇ//	2¶þ¿ÅÐÇ//	3Èý¿ÅÐÇ
 	static ResultLayer*createLayer(int n, int curLevel);
-
-	virtual bool init(int n, int curLevel);
 private:
+	virtual bool init(int n, int curLevel);
+
 	cocos2d::Layer *setResult(int n, int curLevel);
 	cocos2d::Layer* initResultLayer();
 

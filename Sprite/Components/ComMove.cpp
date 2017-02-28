@@ -3,14 +3,15 @@
 
 USING_NS_CC;
 
-ComMove::ComMove(std::vector<Point>path,int id){
+ComMove::ComMove(std::vector<Point>path,int id,int speed){
 	setName("ComMove");
 	m_path = path;
 	m_id = id;
+	m_speed = speed;
 }
 
-ComMove*ComMove::create(std::vector<cocos2d::Point> path,int id){
-	ComMove*ret = new ComMove(path,id);
+ComMove*ComMove::create(std::vector<cocos2d::Point> path, int id, int speed){
+	ComMove*ret = new ComMove(path,id,speed);
 	if (ret!=nullptr && ret->init())
 	{
 		ret->autorelease();
@@ -35,7 +36,7 @@ void ComMove::initPath(std::vector<cocos2d::Point> path)
 	{
 		//	Â·¾¶	
 		float dur = path.at(i - 1).getDistance(path.at(i));
-		float time = dur / 100.0f;
+		float time = dur / m_speed;
 		//	·½Ïò
 		Animation*animation;
 		Vec2 dis = path.at(i) - path.at(i - 1);

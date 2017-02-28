@@ -8,7 +8,6 @@ ComBullet::ComBullet(float fireDamage, float speed){
 	m_speed = speed;
 }
 
-
 ComBullet*ComBullet::create(float fireDamage, float speed){
 	ComBullet*ret = new ComBullet(fireDamage, speed);
 	if (ret!=nullptr&&ret->init())
@@ -27,7 +26,7 @@ void ComBullet::onEnter(){
 }
 
 //----------------------
-//子弹旋转角度
+//子弹旋转角度的计算
 //----------------------
 float ComBullet::setSpeedXY(Point org, Point des){
 	Point diff = des - org;

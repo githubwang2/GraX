@@ -19,7 +19,6 @@ Tower* Tower::createTower(Point pos, GameMap *gameMap){
 	return tower;
 }
 
-
 bool Tower::init(Point pos, GameMap *gameMap)
 {
 	if (!Layer::init())

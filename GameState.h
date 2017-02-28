@@ -13,6 +13,8 @@ public:
 	static bool getIsFirst();
 	//返回值为0 未解锁		1 一颗星	 2 两颗星	3 三颗星		4 无星 
 	static int getLevelDate(char *levelName);
+
+	static void setLevelDate(char *levelName,int startNum);
 private:
 	
 };

@@ -8,18 +8,16 @@
 
 class Monster : public cocos2d::Layer
 {
-public :
+public:
 	static Monster*create(int id);
-
+private:
 	Monster(int id);
 	bool initMonster();
-	void changeDirection(float dt);
-
-protected:
-
 	int m_id;
 	int m_hp;
 	int m_speed;
+
+	void setMonsterMessage(int id);
 };
 
 #endif 

@@ -36,7 +36,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//auto scene = StartScene::create();
 	//scene->gameStart();
 	
-
     return true;
 }
 

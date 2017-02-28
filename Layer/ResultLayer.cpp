@@ -127,14 +127,26 @@ void ResultLayer::touchButton(cocos2d::Ref *object, cocos2d::ui::TouchEventType 
 		if (name.compare("btnMenu") == 0)
 		{
 			CCLOG("btnMenu");
+			GameLayerControl::changeScene(GameLayerControl::MenuLayerState);
 		}
 		else if (name.compare("btnNext") == 0)
 		{
 			CCLOG("btnNext");
+			if (LevelChooseLayer::g_current_level==3)
+			{
+				StageChooseLayer::g_current_stage++;
+				LevelChooseLayer::g_current_level = 1;
+			}
+			else
+			{
+				LevelChooseLayer::g_current_level++;
+			}
+			GameLayerControl::changeScene(GameLayerControl::GameMainScene);
 		}
 		else if (name.compare("btnAgain") == 0)
 		{
 			CCLOG("btnAgain");
+			GameLayerControl::changeScene(GameLayerControl::GameMainScene);
 		}
 		else
 		{

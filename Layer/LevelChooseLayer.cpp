@@ -4,7 +4,7 @@ USING_NS_CC;
 using namespace ui;
 using namespace cocostudio;
 
-int LevelChooseLayer::g_current_level = 1;
+int LevelChooseLayer::g_current_level=1;
 
 Layer* LevelChooseLayer::createWithJsonFile()
 {

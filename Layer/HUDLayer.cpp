@@ -23,7 +23,7 @@ bool HUDLayer::init()
 	lblLife = dynamic_cast<TextAtlas*>(m_hud->getChildByName("LabelLife"));
 	lblAllRound = dynamic_cast<TextAtlas*>(m_hud->getChildByName("LabelAllWave"));
 
-	m_curRound = 0;
+	m_curRound = 1;
 	m_allRound = 1;
 	m_curGold = 0;		
 	m_curLife = 0;
@@ -47,13 +47,10 @@ void HUDLayer::setInitHUD(int gold, int allRound, int life){
 }
 
 void HUDLayer::createWaveRusher(){
-
-	m_curRound++;
 	char num[32] = { 0 };
 	sprintf(num, "%d", m_curRound);
 	lblRound->setStringValue(num);
-	//m_monsterCreateLeft = 1 + m_curRound * 2;
-	//schedule(schedule_selector(Monster::makeMonster), 0.5f);
+	m_curRound++;
 }
  
 int  HUDLayer::changeGold(int num){

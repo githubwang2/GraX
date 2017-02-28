@@ -79,3 +79,9 @@ int GameState::getLevelDate(char *levelName)
 	UserDefault::getInstance()->flush();
 	return isLock;
 }
+
+void GameState::setLevelDate(char *levelName, int startNum)
+{
+	UserDefault::getInstance()->setIntegerForKey(levelName, startNum);
+	UserDefault::getInstance()->flush();
+}

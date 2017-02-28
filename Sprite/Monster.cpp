@@ -9,8 +9,8 @@ using namespace ui;
 
 Monster::Monster(int id){
 	m_id = id;
-	m_hp=30;
-	m_speed = 10;
+	m_hp = 0;
+	m_speed = 0;
 }
 
 Monster* Monster::create(int id)
@@ -27,23 +27,64 @@ Monster* Monster::create(int id)
 	return ret;
 }
 
+void Monster::setMonsterMessage(int id)
+{
+	std::string conversation = FileUtils::getInstance()->getStringFromFile("Monster/monster.json");
+	rapidjson::Document doc;
+	doc.Parse<rapidjson::kParseDefaultFlags>(conversation.c_str());
+
+	rapidjson::Value & array = doc["monster"];
+	if (!array.IsArray())
+	{
+		return;
+	}
+	if (m_id >= array.Size())
+	{
+		CCLOG("no more monster");
+		return;
+	}
+	for (rapidjson::SizeType i = 0; i < array.Size(); i++)
+	{
+		const rapidjson::Value &p = array[i];
+		if (!p.HasMember("entity"))
+		{
+			continue;
+		}
+		const rapidjson::Value &valueEnt = p["entity"];
+		if (valueEnt.HasMember("id") && valueEnt.HasMember("hp") && valueEnt.HasMember("speed"))
+		{
+			const rapidjson::Value &monsterID = valueEnt["id"];
+			int id = monsterID.GetInt();
+			if (id == m_id)
+			{
+				const rapidjson::Value &monsterHp = valueEnt["hp"];
+				int hp = monsterHp.GetInt();
+				const rapidjson::Value &monsterSpeed = valueEnt["speed"];
+				int speed = monsterSpeed.GetInt();
+				m_hp = hp;
+				m_speed = speed;
+				CCLOG("id%d,speed%d,hp%d", id, m_speed, m_hp);
+			}
+		}
+	}
+}
+
 
 bool Monster::initMonster(){
 	if (!Layer::init())
 	{
 		return false;
 	}
-	//auto monster = Sprite::create("GameMain/Monster.png");
-	//坐标问题
+	setMonsterMessage(m_id);
 	auto monster = Sprite::create();
-	//monster->setScale(2.0);
+	monster->setScale(3.0);
 	//monster->runAction(RepeatForever::create(Animate::create(ani_right)));
 
 	GameMap*gameMap = new GameMap();
 	auto path = gameMap->getWalkPath("Walk");
 
 	//挂载怪物移动组件
-	auto comMove = ComMove::create(path,m_id);
+	auto comMove = ComMove::create(path,m_id,m_speed);
 	monster->addComponent(comMove);
 	comMove->startMove();	
 
@@ -52,31 +93,8 @@ bool Monster::initMonster(){
 	monster->addComponent(comLife);
 
 	//存入FireManager的m_monsters list中
-	//auto playground = dynamic_cast<GameMainLayer*>(this->getParent());
-	//playground->getFireManager()->m_monsters.push_back(comMove);
 	GameMainLayer::fileManager->m_monsters.push_back(comMove);
-	////-----------------------------------------------------------
-	////--无限模式
-	////每生成一个怪物，该波怪物减一，为0停止产生怪物。
-	////波数加1
-	//m_monsterCreateLeft--;
-	//if (m_monsterCreateLeft == 0)
-	//{
-	//	unschedule(schedule_selector(MainScene::addMonster));
-	//	runAction(Sequence::create(DelayTime::create(3 + m_curRound),
-	//		CallFunc::create([=](){
-	//		m_curRound++;
-	//		createWaveRusher();
-	//	})
-	//		, nullptr));
-	//}
-
 	addChild(monster);
-
 	return true;
-}
-
-void Monster::changeDirection(float dt){
-	//this->getPosition
 }
 

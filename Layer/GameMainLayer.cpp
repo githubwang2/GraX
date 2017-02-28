@@ -29,7 +29,6 @@ bool GameMainLayer::init()
 		return false;
 	}
 	visibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	startGame();
 
@@ -43,8 +42,8 @@ void GameMainLayer::startGame()
 
 	beginHp = 5;
 	level = 1;
-	level_WavNum = 10;
-	curWacNum = 1;
+	level_WavNum = m_currentLevel*3+m_currentStage*2;
+	curWacNum = 0;
 	beginGold = 300;
 
 	monsterCreateLeft = 0;
@@ -73,14 +72,13 @@ void GameMainLayer::startGame()
 	fileManager = FireManager::create();
 	addChild(fileManager);
 
-
 	scheduleUpdate();
 }
-
 
 void GameMainLayer::initBG(){
 	char bgPath[50] = { 0 };
 	sprintf(bgPath, "GameMain/stage%d/level%d-%d/background.png", m_currentStage, m_currentStage, m_currentLevel);
+	CCLOG("%s", bgPath);
 	auto spriteBG = Sprite::create(bgPath);
 	spriteBG->setPosition(visibleSize / 2);
 	spriteBG->setScale(visibleSize.width / spriteBG->getContentSize().width,
@@ -95,9 +93,9 @@ void GameMainLayer::update(float dt)
 	{
 		endGame(false);
 	}
-	if (curWacNum==10)
+	if (curWacNum >= level_WavNum)
 	{
-		if (fileManager->m_monsters->getChildrenCount() == 0)
+		if (fileManager->m_monsters.size() == 0)
 		{
 			unschedule(schedule_selector(GameMainLayer::addMonster));
 			endGame(true);
@@ -109,30 +107,35 @@ void GameMainLayer::update(float dt)
 void GameMainLayer::createWaveRusher()
 {
 	//--无限模式
-	monsterCreateLeft = 1 + curWacNum * increase_monste;
+	if (curWacNum <level_WavNum)
+	{
+		monsterCreateLeft = 1 + curWacNum * increase_monste;
+		hudLayer->createWaveRusher();       //hud中当前波数+1
 	schedule(schedule_selector(GameMainLayer::addMonster), interval_time);
-	curWacNum++;                        //波数+1
+	}
 }
 
 void GameMainLayer::addMonster(float dt){
 	monsterCreateLeft--;                //需要产生monster-1
-	if (monsterCreateLeft == 0)
+	if (level_WavNum == curWacNum&&monsterCreateLeft == 0)
 	{
 		unschedule(schedule_selector(GameMainLayer::addMonster));
-		runAction(Sequence::create(DelayTime::create(3.0f),
-			CallFunc::create([=](){
-			hudLayer->createWaveRusher();       //hud中当前波数+1
-			createWaveRusher();
-		})
-			, nullptr));
+	}
+	else
+	{
+		if (monsterCreateLeft == 0)
+		{
+			unschedule(schedule_selector(GameMainLayer::addMonster));
+			runAction(Sequence::create(DelayTime::create(wave_interal),
+				CallFunc::create([=](){
+				curWacNum++;                        //波数+1
+				
+				createWaveRusher();
+			})
+				, nullptr));
+		}
 	}
 	addChild(Monster::create(curWacNum), 1);
-
-	
-	if (level_WavNum == curWacNum)
-	{
-		unschedule(schedule_selector(GameMainLayer::addMonster));
-	}
 }
 
 void GameMainLayer::attachTowerBuild(GameMap *gameMap){
@@ -143,9 +146,6 @@ void GameMainLayer::attachTowerBuild(GameMap *gameMap){
 		auto touchPos = pTouch->getLocation();
 		auto tower = Tower::createTower(touchPos, gameMap);
 		addChild(tower);
-		//std::string str = gameMap->getTowerValue(touchPos);
-		//CCLOG("%s", str.c_str());
-		//--------------------text---------------
 	};
 
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
@@ -187,6 +187,10 @@ void GameMainLayer::endGame(bool isWin){
 		}
 		resultLayer = ResultLayer::createLayer(starsNum, m_currentLevel);
 		this->unscheduleAllSelectors();
+		//写入存档
+		char levelName[32] = { 0 };
+		sprintf(levelName, "level%d-%d",m_currentStage,m_currentLevel);
+		GameState::setLevelDate(levelName, starsNum);
 	}
 	else
 	{
