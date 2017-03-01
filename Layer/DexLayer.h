@@ -32,12 +32,12 @@ private:
 	cocos2d::Animation*ani_down;
 	cocos2d::Animation*ani_left;
 	cocos2d::Animation*ani_right;
-	cocos2d::Sprite *spUp;
+	/*cocos2d::Sprite *spUp;
 	cocos2d::Sprite *spDown;
 	cocos2d::Sprite *spLeft;
-	cocos2d::Sprite *spRight;
-
-	cocos2d::Layer*monAni;
+	cocos2d::Sprite *spRight;*/
+	cocos2d::Layer* monAniLayer;
+	int n = 0;
 };
 
 #endif 

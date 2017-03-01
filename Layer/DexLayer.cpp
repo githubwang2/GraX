@@ -20,7 +20,7 @@ bool DexLayer::init()
 	iniyBG();
 	initMonDex();
 	initAnimate();
-
+	
 	scheduleUpdate();
 
 	return true;
@@ -108,9 +108,16 @@ void DexLayer::touchButton(Ref *object, TouchEventType type){
 				}
 			}
 		}
+		initAnimate();
+		
+		if (!n == 0)
+		{
+			monAniLayer->removeAllChildrenWithCleanup(true);
+		}
+		monAniLayer = addAnimate();
+		addChild(monAniLayer);
+		n++;
 	}
-	initAnimate();
-	addChild(addAnimate(),1);
 }
 
 void DexLayer::update(float dt)
@@ -133,6 +140,7 @@ void DexLayer::update(float dt)
 	monsterID->setColor(ccc3(176, 90, 9));
 	monsterHp->setColor(ccc3(176, 90, 9));
 	monsterSpeed->setColor(ccc3(176, 90, 9));
+
 }
 
 void DexLayer::initAnimate()
@@ -182,7 +190,7 @@ void DexLayer::initAnimate()
 
 Layer*  DexLayer::addAnimate()
 {
-	monAni = Layer::create();
+	auto monAni = Layer::create();
 	//monAni->removeAllChildren();
 	//----------------------------------------------------
 	if (m_id < 0)
@@ -191,10 +199,10 @@ Layer*  DexLayer::addAnimate()
 	}
 	else
 	{
-		spUp = Sprite::create();
-		spDown = Sprite::create();
-		spLeft = Sprite::create();
-		spRight = Sprite::create();
+		auto spUp = Sprite::create();
+		auto spDown = Sprite::create();
+		auto spLeft = Sprite::create();
+		auto spRight = Sprite::create();
 		spUp->setScale(2);
 		spDown->setScale(2);
 		spLeft->setScale(2);
