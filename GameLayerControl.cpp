@@ -6,6 +6,7 @@
 #include "Layer/SettingLayer.h"
 #include "Layer/StageChooseLayer.h"
 #include "Layer/LevelChooseLayer.h"
+#include "Layer/DexLayer.h"
 
 void GameLayerControl::changeScene(GameState gamestate){
 	switch (gamestate)
@@ -22,6 +23,14 @@ void GameLayerControl::changeScene(GameState gamestate){
 										   CCLOG("btnGameSetting");
 										   //m_gameState = SetttingLayerState;
 										   auto layer = SettingLayer::create();
+										   auto transScene = cocos2d::TransitionFade::create(1.0f, MenuScene::createScene(layer));
+										   cocos2d::Director::getInstance()->replaceScene(transScene);
+										   break;
+	}
+	case GameState::DexLayerState:{
+										   CCLOG("btnGameDex");
+										   //m_gameState =DexLayerState;
+										   auto layer = DexLayer::create();
 										   auto transScene = cocos2d::TransitionFade::create(1.0f, MenuScene::createScene(layer));
 										   cocos2d::Director::getInstance()->replaceScene(transScene);
 										   break;

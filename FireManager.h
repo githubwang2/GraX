@@ -14,6 +14,8 @@ public:
 	//×Óµ¯ÒÆ¶¯
 	void moveBullet(float dt);
 
+	void createBoom(int x, int y);
+	void endBoom(Node*node);
 public:
 	std::list<ComBullet*>	m_bullets;
 	std::list<ComTower*>	m_towers;;

@@ -15,6 +15,7 @@ public:
 	static int getLevelDate(char *levelName);
 
 	static void setLevelDate(char *levelName,int startNum);
+	static void setStageDate(char *stageName);
 private:
 	
 };

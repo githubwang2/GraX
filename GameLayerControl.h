@@ -8,6 +8,7 @@ public:
 	enum GameState
 	{
 		MenuLayerState = 0,
+		DexLayerState,
 		SetttingLayerState,
 		AboutSLayerState,
 		EndState,

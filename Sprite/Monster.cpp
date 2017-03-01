@@ -77,7 +77,7 @@ bool Monster::initMonster(){
 	}
 	setMonsterMessage(m_id);
 	auto monster = Sprite::create();
-	monster->setScale(3.0);
+	//monster->setScale(1.0);
 	//monster->runAction(RepeatForever::create(Animate::create(ani_right)));
 
 	GameMap*gameMap = new GameMap();

@@ -46,6 +46,7 @@ void FireManager::moveBullet(float dt){
 				auto comLife = dynamic_cast<ComLife*>(monster->getOwner()->getComponent("ComLife"));
 				bool isDead = comLife->attacked(bullet->getFireDamage());
 				hitMonster = true;
+				createBoom(monster->getOwner()->getPositionX(), monster->getOwner()->getPositionY());
 				if (isDead)
 				{
 					monster->getOwner()->removeFromParent();
@@ -107,5 +108,24 @@ void FireManager::moveBullet(float dt){
 	}
 }
 		
+void FireManager::createBoom(int x, int y){
+	Vector<SpriteFrame*>allFrame;
+	for (int a = 0; a < 5; a++)
+	{
+		SpriteFrame*sf = SpriteFrame::create("GameMain/boom.png", Rect(0, 98 * a, 126, 98));
+		allFrame.pushBack(sf);
+	}
+	Animation*ani = Animation::createWithSpriteFrames(allFrame, 0.05f);
+	auto sp = Sprite::create();
+	Action *act = Sequence::create(
+		Animate::create(ani),
+		CallFuncN::create(sp, callfuncN_selector(FireManager::endBoom)), nullptr);
 
+	sp->runAction(act);
+	sp->setPosition(x, y);
+	addChild(sp,1);
+}
+void FireManager::endBoom(Node*node){
+	node->removeFromParentAndCleanup(true);
+}
 

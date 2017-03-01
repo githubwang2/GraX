@@ -18,11 +18,12 @@ bool MenuLayer::init()
 	initMenuBG();
 
 	initMenuBtn(BTN_START);
+	initMenuBtn(BTN_DEX);
 	initMenuBtn(BTN_RESTART);
 	initMenuBtn(BTN_SETTING);
 	initMenuBtn(BTN_ABOUT);
 	initMenuBtn(BTN_EXIT);
-
+	
 	return true;
 }
 

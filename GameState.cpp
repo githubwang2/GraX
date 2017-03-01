@@ -85,3 +85,9 @@ void GameState::setLevelDate(char *levelName, int startNum)
 	UserDefault::getInstance()->setIntegerForKey(levelName, startNum);
 	UserDefault::getInstance()->flush();
 }
+
+void GameState::setStageDate(char *stageName)
+{
+	UserDefault::getInstance()->setBoolForKey(stageName, true);
+	UserDefault::getInstance()->flush();
+}

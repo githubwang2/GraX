@@ -70,7 +70,7 @@ void GameMainLayer::startGame()
 	//-------------------------------------------------------------------------
 	//					FileManager
 	fileManager = FireManager::create();
-	addChild(fileManager);
+	addChild(fileManager,2);
 
 	scheduleUpdate();
 }
@@ -135,7 +135,7 @@ void GameMainLayer::addMonster(float dt){
 				, nullptr));
 		}
 	}
-	addChild(Monster::create(curWacNum), 1);
+	addChild(Monster::create(curWacNum+(m_currentStage-1)*6), 1);
 }
 
 void GameMainLayer::attachTowerBuild(GameMap *gameMap){
@@ -191,6 +191,23 @@ void GameMainLayer::endGame(bool isWin){
 		char levelName[32] = { 0 };
 		sprintf(levelName, "level%d-%d",m_currentStage,m_currentLevel);
 		GameState::setLevelDate(levelName, starsNum);
+		char nextLevelName[32] = { 0 };
+		if (m_currentLevel == MAX_LEVEL)
+		{
+			sprintf(nextLevelName, "level%d-%d", m_currentStage+1, 1);
+			GameState::setLevelDate(nextLevelName, 4);
+		}
+		else
+		{
+			sprintf(nextLevelName, "level%d-%d", m_currentStage , m_currentLevel+1);
+			GameState::setLevelDate(nextLevelName, 4);
+		}
+		if (m_currentLevel == MAX_LEVEL)
+		{
+			char stageNum[32] = { 0 };
+			sprintf(stageNum, "Stage%d", m_currentStage+1);
+			GameState::setStageDate(stageNum);
+		}
 	}
 	else
 	{
