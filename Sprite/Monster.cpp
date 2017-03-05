@@ -71,7 +71,7 @@ void Monster::setMonsterMessage(int id)
 
 
 bool Monster::initMonster(){
-	if (!Layer::init())
+	if (!Sprite::init())
 	{
 		return false;
 	}

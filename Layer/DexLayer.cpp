@@ -12,15 +12,17 @@ bool DexLayer::init()
 	}
 	visibleSize = Director::getInstance()->getVisibleSize();
 
+	m_monstersMessage = new MonstersMessage();
+	
 	m_isVisible = false;
 	m_id = -1;
+	m_name = "???";
 	m_hp = 0;
 	m_speed = 0;
 
 	iniyBG();
 	initMonDex();
 	initAnimate();
-	
 	scheduleUpdate();
 
 	return true;
@@ -40,19 +42,56 @@ void DexLayer::initMonDex()
 	dexLayer->setPosition(visibleSize / 2);
 	addChild(dexLayer, 1);
 
+	auto scrollView = dynamic_cast<ScrollView*>((dexLayer->getChildByName("monImg")));
+
 	auto btnMenu = dynamic_cast<Button*>(dexLayer->getChildByName("btnGameMenu"));
 	btnMenu->addTouchEventListener(this, toucheventselector(MenuScene::touchButton));
+
+	monsterID = dynamic_cast<Text*>(dexLayer->getChildByName("monster_id"));
+	monsterName = dynamic_cast<Text*>(dexLayer->getChildByName("monster_name"));
+	monsterHp = dynamic_cast<Text*>(dexLayer->getChildByName("monster_hp"));
+	monsterSpeed = dynamic_cast<Text*>(dexLayer->getChildByName("monster_speed"));
+	monsterID->setFontSize(40);
+	monsterName->setFontSize(40);
+	monsterHp->setFontSize(40);
+	monsterSpeed->setFontSize(40);
+	monsterID->setColor(ccc3(176, 90, 9));
+	monsterName->setColor(ccc3(176, 90, 9));
+	monsterHp->setColor(ccc3(176, 90, 9));
+	monsterSpeed->setColor(ccc3(176, 90, 9));
+	monsterID->setAnchorPoint(Point::ZERO);
+	monsterName->setAnchorPoint(Point::ZERO);
+	monsterHp->setAnchorPoint(Point::ZERO);
+	monsterSpeed->setAnchorPoint(Point::ZERO);
 
 	btnTag = 200;
 	for (int i = 0; i < 30; i++)
 	{
 		initDexBtn(i);
 	}
+	//自动生成
+	//--------------------------------------------
+	int btnTag2 = 29;
+	int num = m_monstersMessage->getNumOfMonsters();
+	for (int i = 30; i < num; i++){
+		char imgPath[32] = { 0 };
+		sprintf(imgPath, "Monster/m_%d.jpg",i );
+
+		auto btn = Button::create(imgPath);
+		auto btnWidh=btn->getContentSize().width;
+		auto btnHigh = btn->getContentSize().height;
+		btn->setPosition(Point((i)* btnWidh, 0));
+		btn->setAnchorPoint(Point::ZERO);
+		btn->addTouchEventListener(this, toucheventselector(DexLayer::touchButton));
+		scrollView->addChild(btn);
+		scrollView->setInnerContainerSize(Size(num * 960 * 960 / btnWidh - 960 + btnWidh, btnHigh));
+		btnTag2++;
+		btn->setTag(btnTag2);
+	}
 }
 
 void DexLayer::initDexBtn(int monsterId)
 {
-
 	auto btn = dynamic_cast<Button*>(dexLayer->getChildByName("monImg")->getChildByTag(btnTag));
 	btn->setPosition(Point(monsterId * 240, 0));
 	btn->setAnchorPoint(Point::ZERO);
@@ -69,47 +108,15 @@ void DexLayer::touchButton(Ref *object, TouchEventType type){
 	{
 		auto button = dynamic_cast<Button*>(object);
 
-		int id = button->getTag();
-		
-		std::string conversation = FileUtils::getInstance()->getStringFromFile("Monster/monster.json");
-		rapidjson::Document doc;
-		doc.Parse<rapidjson::kParseDefaultFlags>(conversation.c_str());
-		rapidjson::Value & array = doc["monster"];
-		if (!array.IsArray())
-		{
-			return;
-		}
-		if (id >= array.Size())
-		{
-			CCLOG("no more monster");
-			return;
-		}
-		for (rapidjson::SizeType i = 0; i < array.Size(); i++)
-		{
-			const rapidjson::Value &p = array[i];
-			if (!p.HasMember("entity"))
-			{
-				continue;
-			}
-			const rapidjson::Value &valueEnt = p["entity"];
-			if (valueEnt.HasMember("id") && valueEnt.HasMember("hp") && valueEnt.HasMember("speed"))
-			{
-				const rapidjson::Value &monsterID = valueEnt["id"];
-				int mId = monsterID.GetInt();
-				if (id == mId)
-				{
-					const rapidjson::Value &monsterHp = valueEnt["hp"];
-					int hp = monsterHp.GetInt();
-					const rapidjson::Value &monsterSpeed = valueEnt["speed"];
-					int speed = monsterSpeed.GetInt();
-					m_id = id;
-					m_hp = hp;
-					m_speed = speed;
-				}
-			}
-		}
+		int tag = button->getTag();
+
+		m_id = tag;
+		m_name = m_monstersMessage->getNameOfMonsters(tag);
+		m_hp = m_monstersMessage->getHpOfMonsters(tag);
+		m_speed = m_monstersMessage->getSpeedOfMonsters(tag);
+
 		initAnimate();
-		
+
 		if (!n == 0)
 		{
 			monAniLayer->removeAllChildrenWithCleanup(true);
@@ -117,30 +124,26 @@ void DexLayer::touchButton(Ref *object, TouchEventType type){
 		monAniLayer = addAnimate();
 		addChild(monAniLayer);
 		n++;
+		//-----------------------------
+		 
+		char id[8] = { 0 };
+		char name[32] = { 0 };
+		char hp[8] = { 0 };
+		char speed[16] = { 0 };
+		sprintf(id, "ID:\t%d", m_id);
+		sprintf(name, "Name:\t%s", m_name.c_str());
+		sprintf(hp, "HP:\t%d", m_hp);
+		sprintf(speed, "speed:\t%d", m_speed);
+		monsterID->setString(id);
+		monsterName->setString(name);
+		monsterHp->setString(hp);
+		monsterSpeed->setString(speed);
+		
 	}
 }
 
 void DexLayer::update(float dt)
 {
-	auto monsterID = dynamic_cast<Text*>(dexLayer->getChildByName("monster_id"));
-	auto monsterHp = dynamic_cast<Text*>(dexLayer->getChildByName("monster_hp"));
-	auto monsterSpeed = dynamic_cast<Text*>(dexLayer->getChildByName("monster_speed"));
-	char id[8] = { 0 };
-	char hp[8] = { 0 };
-	char speed[16] = { 0 };
-	sprintf(id, "ID:\t%d", m_id);
-	sprintf(hp, "HP:\t%d", m_hp);
-	sprintf(speed, "speed:\t%d", m_speed);
-	monsterID->setString(id);
-	monsterHp->setString(hp);
-	monsterSpeed->setString(speed);
-	monsterID->setFontSize(40);
-	monsterHp->setFontSize(40);
-	monsterSpeed->setFontSize(40);
-	monsterID->setColor(ccc3(176, 90, 9));
-	monsterHp->setColor(ccc3(176, 90, 9));
-	monsterSpeed->setColor(ccc3(176, 90, 9));
-
 }
 
 void DexLayer::initAnimate()

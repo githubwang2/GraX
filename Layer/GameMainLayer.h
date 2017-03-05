@@ -7,10 +7,13 @@
 
 #include "GameMap.h"
 #include "FireManager.h"
+#include "CreateParticle.h"
+#include "WaveMessage.h"
 #include "Layer/HUDLayer.h"
 #include "Layer/ResultLayer.h"
 #include "Layer/LevelChooseLayer.h"
 #include "Layer/StageChooseLayer.h"
+#include "Layer/DialogLayer.h"
 
 #include "Sprite/Monster.h"
 #include "Sprite/Tower.h"
@@ -51,16 +54,14 @@ private:
 	int m_currentStage;
 	int m_currentLevel;
 
-
-
 	int     beginHp;			//	开始时玩家生命值
 	int		beginGold;			//	开始时玩家金钱
-	int		level;				//	当前关卡数
 	int     level_WavNum;		//	当前关卡怪物总波数
 	int     curWacNum;			//  当前怪物波数
 	int     monsterCreateLeft;  //  该波需要产生的怪物数
 	bool	isWin;				//	
 
+	WavesMessage*wavesMessage;
 };
 
 #endif 

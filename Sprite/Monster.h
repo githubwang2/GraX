@@ -6,7 +6,7 @@
 
 #include "Layer/GameMainLayer.h"
 
-class Monster : public cocos2d::Layer
+class Monster : public cocos2d::Sprite
 {
 public:
 	static Monster*create(int id);

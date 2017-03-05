@@ -13,7 +13,6 @@ GameMainLayer* GameMainLayer::create()
 	if (gameMainLayer && gameMainLayer->init())
 	{
 		gameMainLayer->autorelease();
-		//gameMainLayer->retain();
 	}
 	else
 	{
@@ -29,23 +28,30 @@ bool GameMainLayer::init()
 		return false;
 	}
 	visibleSize = Director::getInstance()->getVisibleSize();
+	//-----------------当前stage和level----------------
+	m_currentStage = StageChooseLayer::g_current_stage;
+	m_currentLevel = LevelChooseLayer::g_current_level;
 
+	/*auto _is = FileUtils::getInstance()->isFileExist("DialogLayer/0-1.json");
+	if (_is)
+	{
+		auto dialogLayer = DialogLayer::createWithJsonFile("DialogLayer/0-1.json");
+		addChild(dialogLayer, 3);
+		
+	}
+*/
 	startGame();
-
+	
 	return true;
 }
 
 void GameMainLayer::startGame()
 {
-	m_currentStage = StageChooseLayer::g_current_stage;
-	m_currentLevel = LevelChooseLayer::g_current_level;
-
-	beginHp = 5;
-	level = 1;
-	level_WavNum = m_currentLevel*3+m_currentStage*2;
+	wavesMessage = new WavesMessage(m_currentStage, m_currentLevel);
+	beginHp = wavesMessage->m_beginHp;
+	beginGold = wavesMessage->m_beginGold;
+	level_WavNum =wavesMessage->m_numOfWav;
 	curWacNum = 0;
-	beginGold = 300;
-
 	monsterCreateLeft = 0;
 	//-------------------------------------------------------------------------
 	//					background
@@ -106,13 +112,16 @@ void GameMainLayer::update(float dt)
 
 void GameMainLayer::createWaveRusher()
 {
-	//--无限模式
 	if (curWacNum <level_WavNum)
 	{
-		monsterCreateLeft = 1 + curWacNum * increase_monste;
+		//monsterCreateLeft = 1 + curWacNum * increase_monste;
+		wavesMessage->setCurNo(curWacNum);
+		monsterCreateLeft = wavesMessage->getCurMonsterNum();
+	
 		hudLayer->createWaveRusher();       //hud中当前波数+1
-	schedule(schedule_selector(GameMainLayer::addMonster), interval_time);
+		schedule(schedule_selector(GameMainLayer::addMonster), wavesMessage->getMonsterInterval());
 	}
+	
 }
 
 void GameMainLayer::addMonster(float dt){
@@ -126,16 +135,16 @@ void GameMainLayer::addMonster(float dt){
 		if (monsterCreateLeft == 0)
 		{
 			unschedule(schedule_selector(GameMainLayer::addMonster));
-			runAction(Sequence::create(DelayTime::create(wave_interal),
+			runAction(Sequence::create(DelayTime::create(
+				wavesMessage->getWaveInteval()),
 				CallFunc::create([=](){
 				curWacNum++;                        //波数+1
-				
 				createWaveRusher();
 			})
 				, nullptr));
 		}
 	}
-	addChild(Monster::create(curWacNum+(m_currentStage-1)*6), 1);
+	addChild(Monster::create(wavesMessage->getCurMonsterId()), 1);
 }
 
 void GameMainLayer::attachTowerBuild(GameMap *gameMap){

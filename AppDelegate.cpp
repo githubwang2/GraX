@@ -1,11 +1,7 @@
 #include "AppDelegate.h"
 #include "Scene/StartScene.h"
-#include "Scene/MenuScene.h"
-#include "Layer/DexLayer.h"
 #include "Scene/GameMainScene.h"
 #include "Layer/GameMainLayer.h"
-#include "Scene/MenuScene.h"
-#include "Layer/MenuLayer.h"
 
 USING_NS_CC;
 
@@ -29,11 +25,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//glview->setFrameSize(1280, 720);
 	glview->setDesignResolutionSize(960, 680, ResolutionPolicy::EXACT_FIT);
 
-    director->setDisplayStats(false);
+    director->setDisplayStats(true);
     director->setAnimationInterval(1.0 / 60);
 
-	auto layer = DexLayer::create();
-	auto scene = MenuScene::createScene(layer);
+	auto layer = GameMainLayer::create();
+	auto scene = GameMainScene::createScene();
 	director->runWithScene(scene);
 	//auto scene = StartScene::create();
 	//scene->gameStart();

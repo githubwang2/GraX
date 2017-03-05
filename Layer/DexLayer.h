@@ -5,6 +5,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 #include "Scene/MenuScene.h"
+#include "MonstersMessage.h"
 
 class DexLayer : public cocos2d::Layer
 {
@@ -23,8 +24,14 @@ private:
 	int btnTag;           //从配置文件中读取的button TAG
 	cocos2d::Size visibleSize;
 	cocos2d::ui::Widget*dexLayer;
+	cocos2d::ui::Text * monsterID;
+	cocos2d::ui::Text * monsterName;
+	cocos2d::ui::Text * monsterHp;
+	cocos2d::ui::Text * monsterSpeed;
+
 	bool m_isVisible;
 	int m_id;
+	std::string m_name;
 	int m_hp;
 	int m_speed;
 
@@ -32,12 +39,10 @@ private:
 	cocos2d::Animation*ani_down;
 	cocos2d::Animation*ani_left;
 	cocos2d::Animation*ani_right;
-	/*cocos2d::Sprite *spUp;
-	cocos2d::Sprite *spDown;
-	cocos2d::Sprite *spLeft;
-	cocos2d::Sprite *spRight;*/
 	cocos2d::Layer* monAniLayer;
 	int n = 0;
+
+	MonstersMessage*m_monstersMessage;
 };
 
 #endif 

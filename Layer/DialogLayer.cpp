@@ -44,7 +44,7 @@ void DialogLayer::getDateByIndex(int index){
 		if (i >= array.Size())		//	说明已经显示完全
 		{
 			CCLOG("end Dialog ");
-			this->removeFromParent();
+			this->getParent()->removeChild(this);
 			//官方的BUG  3.3开始已经修改  
 			//releaseUpEvent会出问题 可以用setVisible()之类的将就下
 			//貌似是由于 当触发UIWidget::releaseUpEvent()的时候,
@@ -131,7 +131,6 @@ void DialogLayer::initStudioUI(const char*jsonFile){
 	layout->addTouchEventListener(CC_CALLBACK_2(DialogLayer::touchDownAction, this));
 
 	this->addChild(layout);
-
 }
 
 void DialogLayer::touchDownAction(Ref*sender, Widget::TouchEventType controlEvent){
