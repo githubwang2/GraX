@@ -17,15 +17,16 @@ const		int						MAX_LEVEL = 3;
 const		double					MOVE_SPLEED = 0.5f;
 const		int						ONE_SECOND = 1;
 
-#define		W_IMG					"W.png"
-#define		A_IMG					"A.png"
-#define		N_IMG					"N.png"
-#define		G_IMG					"G.png"
+#define		W_IMG					"StartScene/W.png"
+#define		A_IMG					"StartScene/A.png"
+#define		N_IMG					"StartScene/N.png"
+#define		G_IMG					"StartScene/G.png"
 
 //-----------------------LoadingScene---------------------
 
-#define		PROGRESSBAR_BG			"ProgressBarBG.png"
-#define		PROGRESS_BAR			"ProgressBar.png"
+#define		PROGRESSBAR_BG			"StartScene/ProgressBarBG.png"
+#define		PROGRESS_BAR			"StartScene/ProgressBar.png"
+#define     ADD_CACHE				Director::getInstance()->getTextureCache()->addImageAsync
 
 //-----------------------MenuScene---------------------
 

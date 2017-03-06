@@ -40,13 +40,13 @@ bool LevelChooseLayer::init()
 
 void LevelChooseLayer::initLevelLayer()
 {
-	levelChoose = dynamic_cast<Widget*>(GUIReader::getInstance()->widgetFromJsonFile("LevelChoose/LevelChoose.json"));
+	levelChoose = dynamic_cast<Widget*>(GUIReader::getInstance()->widgetFromJsonFile("LevelChooseScene/LevelChoose.json"));
 	levelChoose->setPosition(Point::ZERO);
 	addChild(levelChoose);
 
 	auto BG = dynamic_cast<ImageView*>(levelChoose->getChildByName("BG"));
 	char levelBgPath[32] = { 0 };
-	sprintf(levelBgPath, "LevelChoose/levelBG0%d.png", m_currentStage);
+	sprintf(levelBgPath, "LevelChooseScene/levelBG0%d.png", m_currentStage);
 	BG->loadTexture(levelBgPath);
 
 	auto btnMenu = dynamic_cast<Button*>(levelChoose->getChildByName("btnGameMenu"));

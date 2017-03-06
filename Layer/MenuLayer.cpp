@@ -4,6 +4,8 @@ USING_NS_CC;
 using namespace ui;
 using namespace cocostudio;
 
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
 
 bool MenuLayer::init()
 {
@@ -23,12 +25,13 @@ bool MenuLayer::init()
 	initMenuBtn(BTN_SETTING);
 	initMenuBtn(BTN_ABOUT);
 	initMenuBtn(BTN_EXIT);
-	
+	GameState::isInitLanguageAndBGM();
+	SoundsControl::setBGM(SoundsControl::BGMState::MenuBGM);
 	return true;
 }
 
 void MenuLayer::initMenuBG(){
-	menuLayer = GUIReader::getInstance()->widgetFromJsonFile("MenuLayer/MenuLayer.json");
+	menuLayer = GUIReader::getInstance()->widgetFromJsonFile("MenuScene/MenuLayer.json");
 	menuLayer->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	menuLayer->setPosition(visibleSize / 2);
 	addChild(menuLayer, 1);

@@ -91,3 +91,14 @@ void GameState::setStageDate(char *stageName)
 	UserDefault::getInstance()->setBoolForKey(stageName, true);
 	UserDefault::getInstance()->flush();
 }
+
+void GameState::isInitLanguageAndBGM()
+{
+	if (!UserDefault::getInstance()->getBoolForKey("music_on_key")
+		&& !UserDefault::getInstance()->getBoolForKey("music_on_key"))
+	{
+		UserDefault::getInstance()->setBoolForKey("music_on_key", true);
+		UserDefault::getInstance()->setBoolForKey("language_jp_key", true);
+		UserDefault::getInstance()->flush();
+	}
+}

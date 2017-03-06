@@ -29,6 +29,7 @@ bool ResultLayer::init(int n, int curLevel)
 
 	auto result = setResult(n, curLevel);
 	addChild(result);
+	
 	return true;
 }
 
@@ -90,24 +91,28 @@ void ResultLayer::showStar(int n){
 			   start1->setVisible(false);
 			   start2->setVisible(false);
 			   start3->setVisible(false);
+			   SoundsControl::setSound(SoundsControl::SoundState::GameOver);
 			   break;
 	}
 	case 1:{
 			   start1->setVisible(true);
 			   start2->setVisible(false);
 			   start3->setVisible(false);
+			   SoundsControl::setSound(SoundsControl::SoundState::OneStar);
 			   break;
 	}
 	case 2:{
 			   start1->setVisible(true);
 			   start2->setVisible(true);
 			   start3->setVisible(false);
+			   SoundsControl::setSound(SoundsControl::SoundState::TwoStars);
 			   break;
 	}
 	case 3:{
 			   start1->setVisible(true);
 			   start2->setVisible(true);
 			   start3->setVisible(true);
+			   SoundsControl::setSound(SoundsControl::SoundState::ThreeStars);
 			   break;
 	}
 	default:

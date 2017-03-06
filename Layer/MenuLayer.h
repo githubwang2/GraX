@@ -5,8 +5,10 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-#include"Scene/MenuScene.h"
-#include"ConstUtil.h"
+#include "GameState.h"
+#include "SoundsControl.h"
+#include "Scene/MenuScene.h"
+#include "ConstUtil.h"
 
 class MenuLayer : public cocos2d::Layer
 {

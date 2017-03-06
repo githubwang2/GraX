@@ -5,6 +5,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
+#include"SoundsControl.h"
 #include"Scene/MenuScene.h"
 #include"GameLayerControl.h"
 #include"ConstUtil.h"

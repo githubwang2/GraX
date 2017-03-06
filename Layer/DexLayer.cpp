@@ -30,14 +30,14 @@ bool DexLayer::init()
 
 void DexLayer::iniyBG()
 {
-	auto bg = Sprite::create("MonsterDexLayer/DexBG.jpg");
+	auto bg = Sprite::create("MenuScene/DexBG.jpg");
 	bg->setPosition(visibleSize / 2);
 	addChild(bg, -1);
 }
 
 void DexLayer::initMonDex()
 {
-	dexLayer = GUIReader::getInstance()->widgetFromJsonFile("MonsterDexLayer/MonsterDexLayer.json");
+	dexLayer = GUIReader::getInstance()->widgetFromJsonFile("MenuScene/MonsterDexLayer.json");
 	dexLayer->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	dexLayer->setPosition(visibleSize / 2);
 	addChild(dexLayer, 1);

@@ -1,7 +1,7 @@
 #ifndef __TowerWar_GameLayerControl__
 #define __TowerWar_GameLayerControl__
 #include "cocos2d.h"
-
+#include "SoundsControl.h"
 class GameLayerControl :cocos2d::Object
 {
 public:

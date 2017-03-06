@@ -38,26 +38,26 @@ void CreateParticle::snow()
 {
 	ParticleSnow *snow = ParticleSnow::create();
 	snow->setPosition(Point(visibleSize.width / 2, visibleSize.height));
-	snow->setTexture(TextureCache::sharedTextureCache()->addImage("fire.png"));
+	snow->setTexture(TextureCache::sharedTextureCache()->addImage("Particle/fire.png"));
 	addChild(snow);
 }
 
 void CreateParticle::rain()
 {
 	ParticleSystem* particleSystem = ParticleRain::create();
-	particleSystem->setTexture(TextureCache::sharedTextureCache()->addImage("fire.png"));
+	particleSystem->setTexture(TextureCache::sharedTextureCache()->addImage("Particle/fire.png"));
 	addChild(particleSystem);
 }
 
 void CreateParticle::clear()
 {
-	ParticleSystemQuad*particle = ParticleSystemQuad::create("slowLight.plist");
+	ParticleSystemQuad*particle = ParticleSystemQuad::create("Particle/slowLight.plist");
 	addChild(particle);
 }
 
 void CreateParticle::setting()
 {
-	ParticleSystemQuad*particle2 = ParticleSystemQuad::create("particle.plist");
+	ParticleSystemQuad*particle2 = ParticleSystemQuad::create("Particle/particle.plist");
 	addChild(particle2);
 
 }

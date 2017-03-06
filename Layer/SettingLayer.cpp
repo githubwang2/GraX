@@ -14,7 +14,7 @@ bool SettingLayer::init()
 	visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	settingLayer = GUIReader::getInstance()->widgetFromJsonFile("SettingLayer/SettingLayer.json");
+	settingLayer = GUIReader::getInstance()->widgetFromJsonFile("MenuScene/SettingLayer.json");
 	settingLayer->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	settingLayer->setPosition(visibleSize / 2);
 	addChild(settingLayer, 1);
@@ -123,12 +123,14 @@ void SettingLayer::touchButton(Ref *pSender){
 				   UserDefault::getInstance()->setBoolForKey("music_on_key", false);
 				   music_on = false;
 				   touchEffect(imgMusicOff);
+				   SoundsControl::stopBGM();
 			   }
 			   else
 			   {
 				   UserDefault::getInstance()->setBoolForKey("music_on_key", true);
 				   music_on = true;
 				   touchEffect(imgMusicOn);
+				   SoundsControl::startBGM();
 			   }
 			   break;
 	}

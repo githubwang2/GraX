@@ -16,6 +16,7 @@ public:
 
 	static void setLevelDate(char *levelName,int startNum);
 	static void setStageDate(char *stageName);
+	static void isInitLanguageAndBGM();
 private:
 	
 };

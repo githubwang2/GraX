@@ -25,7 +25,7 @@ bool DialogLayer::init(std::string str){
 	//vecLength = 0;
 
 	getDateByIndex(m_index);
-
+	SoundsControl::setBGM(SoundsControl::BGMState::DiologBGM);
 	return true;
 }
 void DialogLayer::getDateByIndex(int index){

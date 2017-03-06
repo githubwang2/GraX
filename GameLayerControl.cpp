@@ -9,6 +9,7 @@
 #include "Layer/DexLayer.h"
 
 void GameLayerControl::changeScene(GameState gamestate){
+	SoundsControl::setSound(SoundsControl::SoundState::BtnSelect);
 	switch (gamestate)
 	{
 	case GameState::MenuLayerState:{

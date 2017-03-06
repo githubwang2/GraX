@@ -32,7 +32,7 @@ void StageChooseLayer::isFirst()
 }
 
 void StageChooseLayer::addBackgroundSprite(){
-	stageChoose = dynamic_cast<Widget*>(GUIReader::getInstance()->widgetFromJsonFile("StageChoose/StageChoose.json"));
+	stageChoose = dynamic_cast<Widget*>(GUIReader::getInstance()->widgetFromJsonFile("LevelChooseScene/StageChoose.json"));
 	stageChoose->setPosition(Point::ZERO);
 	addChild(stageChoose);
 

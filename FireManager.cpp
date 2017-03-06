@@ -120,10 +120,11 @@ void FireManager::createBoom(int x, int y){
 	Action *act = Sequence::create(
 		Animate::create(ani),
 		CallFuncN::create(sp, callfuncN_selector(FireManager::endBoom)), nullptr);
-
+	
 	sp->runAction(act);
 	sp->setPosition(x, y);
 	addChild(sp,1);
+	SoundsControl::setSound(SoundsControl::SoundState::BuyItem);
 }
 void FireManager::endBoom(Node*node){
 	node->removeFromParentAndCleanup(true);

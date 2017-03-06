@@ -1,7 +1,7 @@
 #ifndef __TowerWar_FireManager__
 #define __TowerWar_FireManager__
 #include "Sprite/Components/Constants.h"
-
+#include "SoundsControl.h"
 USING_NS_CC;
 
 //防御塔子弹管理(移动和碰撞)

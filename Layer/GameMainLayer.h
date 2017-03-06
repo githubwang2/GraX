@@ -5,6 +5,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
+#include "SoundsControl.h"
 #include "GameMap.h"
 #include "FireManager.h"
 #include "CreateParticle.h"

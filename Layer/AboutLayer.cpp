@@ -21,7 +21,7 @@ bool AboutLayer::init()
 }
 
 void AboutLayer::initAboutBG(){
-	aboutLayer = GUIReader::getInstance()->widgetFromJsonFile("AboutLayer/AboutLayer.json");
+	aboutLayer = GUIReader::getInstance()->widgetFromJsonFile("MenuScene/AboutLayer.json");
 	aboutLayer->setAnchorPoint(Point::ANCHOR_MIDDLE);
 	aboutLayer->setPosition(visibleSize / 2);
 	addChild(aboutLayer, 1);

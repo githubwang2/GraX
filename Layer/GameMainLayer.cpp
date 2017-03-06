@@ -47,6 +47,7 @@ bool GameMainLayer::init()
 
 void GameMainLayer::startGame()
 {
+	SoundsControl::setBGM(SoundsControl::BGMState::MainGameBGM);
 	wavesMessage = new WavesMessage(m_currentStage, m_currentLevel);
 	beginHp = wavesMessage->m_beginHp;
 	beginGold = wavesMessage->m_beginGold;
@@ -155,6 +156,7 @@ void GameMainLayer::attachTowerBuild(GameMap *gameMap){
 		auto touchPos = pTouch->getLocation();
 		auto tower = Tower::createTower(touchPos, gameMap);
 		addChild(tower);
+		SoundsControl::setSound(SoundsControl::SoundState::BuyItem);
 	};
 
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
@@ -186,7 +188,7 @@ void GameMainLayer::endGame(bool isWin){
 		{
 			starsNum = 3;
 		}
-		else if (beginHp / 2 < hudLayer->changeLife(0) < beginHp)
+		else if (beginHp / 2 < hudLayer->changeLife(0) && hudLayer->changeLife(0)< beginHp)
 		{
 			starsNum = 2;
 		}
