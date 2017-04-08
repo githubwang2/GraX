@@ -1,4 +1,4 @@
-#include "LoadingScene.h"
+#include "LoadingLayer.h"
 #include "Scene/MenuScene.h"
 #include "GameLayerControl.h"
 #include "ConstUtil.h"
@@ -8,15 +8,7 @@ using namespace CocosDenshion;
 
 USING_NS_CC;
 
-Scene* LoadingScene::createScene()
-{
-	auto scene = Scene::create();
-	auto layer = LoadingScene::create();
-	scene->addChild(layer);
-	return scene;
-}
-
-bool LoadingScene::init()
+bool LoadingLayer::init()
 {
 	if (!Layer::init())
 	{
@@ -37,27 +29,25 @@ bool LoadingScene::init()
 	return true;
 }
 
-void LoadingScene::gotoMenuScene(){
+void LoadingLayer::gotoMenuScene(){
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
 #endif
 	GameLayerControl::changeScene(GameLayerControl::MenuLayerState);
 }
 
-void LoadingScene::playOP(){
+void LoadingLayer::playOP(){
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	experimental::ui::VideoPlayer* videoPlayer = experimental::ui::VideoPlayer::create();
 
-	videoPlayer->setPosition(Point(visibleSize.width / 2, 0));
-	videoPlayer->setAnchorPoint(Point(visibleSize.width/2,0));
+	videoPlayer->setPosition(Point(visibleSize.width / 2, visibleSize.height/2));
+	videoPlayer->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	videoPlayer->setContentSize(Size(visibleSize.width, visibleSize.height));
-	this->addChild(videoPlayer);
-	if (videoPlayer)
-	{
-		videoPlayer->setFileName("Videos/op.mp4");
-		videoPlayer->play();
-	}
-	videoPlayer->addEventListener(CC_CALLBACK_2(LoadingScene::videoEventCallback, this));  
+	videoPlayer->setFileName("Videos/op.mp4");
+	videoPlayer->play();
+	this->addChild(videoPlayer,5);
+	videoPlayer->addEventListener(CC_CALLBACK_2(LoadingLayer::videoEventCallback, this));  
+	endOP();
 #endif
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	SimpleAudioEngine::getInstance()->preloadBackgroundMusic("op/op.mp3");
@@ -74,7 +64,7 @@ void LoadingScene::playOP(){
 
 	animation->setDelayPerUnit(0.08f);
 	auto act = Sequence::create(Animate::create(animation),
-		CallFunc::create(CC_CALLBACK_0(LoadingScene::gotoMenuScene, this)), nullptr);
+		CallFunc::create(CC_CALLBACK_0(LoadingLayer::gotoMenuScene, this)), nullptr);
 	sprite->runAction(act);
 	sprite->setPosition(visibleSize / 2);
 	SimpleAudioEngine::getInstance()->playBackgroundMusic("op/op.mp3");
@@ -84,7 +74,7 @@ void LoadingScene::playOP(){
 #endif
 }
 
-void LoadingScene::load(){
+void LoadingLayer::load(){
 	loadLabel = LabelTTF::create("Loading..", "Arial", 20);			//创建显示Loading: 的label
 	loadLabel->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2 + 30));
 	this->addChild(loadLabel, 1);
@@ -107,27 +97,36 @@ void LoadingScene::load(){
 		char buf[32] = { 0 };
 		sprintf(buf, "op/OP%d.JPG", i + 1);
 		//CCLOG("name is:%s", buf);
-		Director::getInstance()->getTextureCache()->addImageAsync(buf, CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
+		Director::getInstance()->getTextureCache()->addImageAsync(buf, CC_CALLBACK_1(LoadingLayer::loadingCallBack, this));
 	}
 #endif
 	
-	ADD_CACHE("MenuScene/key_1.png", CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
-	ADD_CACHE("MenuScene/key_2.png", CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
-	ADD_CACHE("MenuScene/key_3.png", CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
-	ADD_CACHE("MenuScene/key_4.png", CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
-	ADD_CACHE("MenuScene/key_bg.jpg", CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
-	ADD_CACHE("MenuScene/key_bg_50.png", CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
-	ADD_CACHE("MenuScene/GameAbout.png", CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
-	ADD_CACHE("MenuScene/GameEnd.png", CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
-	ADD_CACHE("MenuScene/restart.png", CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
-	ADD_CACHE("MenuScene/return.png", CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
-	ADD_CACHE("MenuScene/GameStart.png", CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
-	ADD_CACHE("MenuScene/dex.png", CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
-	ADD_CACHE("MenuScene/Setting.png", CC_CALLBACK_1(LoadingScene::loadingCallBack, this));
-
+	ADD_CACHE("MenuScene/key_1.png", CC_CALLBACK_1(LoadingLayer::loadingCallBack, this));
+	ADD_CACHE("MenuScene/key_2.png", CC_CALLBACK_1(LoadingLayer::loadingCallBack, this));
+	ADD_CACHE("MenuScene/key_3.png", CC_CALLBACK_1(LoadingLayer::loadingCallBack, this));
+	ADD_CACHE("MenuScene/key_4.png", CC_CALLBACK_1(LoadingLayer::loadingCallBack, this));
+	ADD_CACHE("MenuScene/key_bg.jpg", CC_CALLBACK_1(LoadingLayer::loadingCallBack, this));
+	ADD_CACHE("MenuScene/key_bg_50.png", CC_CALLBACK_1(LoadingLayer::loadingCallBack, this));
+	ADD_CACHE("MenuScene/GameAbout.png", CC_CALLBACK_1(LoadingLayer::loadingCallBack, this));
+	ADD_CACHE("MenuScene/GameEnd.png", CC_CALLBACK_1(LoadingLayer::loadingCallBack, this));
+	ADD_CACHE("MenuScene/restart.png", CC_CALLBACK_1(LoadingLayer::loadingCallBack, this));
+	ADD_CACHE("MenuScene/return.png", CC_CALLBACK_1(LoadingLayer::loadingCallBack, this));
+	ADD_CACHE("MenuScene/GameStart.png", CC_CALLBACK_1(LoadingLayer::loadingCallBack, this));
+	ADD_CACHE("MenuScene/dex.png", CC_CALLBACK_1(LoadingLayer::loadingCallBack, this));
+	ADD_CACHE("MenuScene/Setting.png", CC_CALLBACK_1(LoadingLayer::loadingCallBack, this));
+	//SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sounds/BG_1.mid");
+	//SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sounds/BG_3.mid");
+	//SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sounds/BG_6.mid");
+	//SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/MenuSelect.mp3");
+	//SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/BuyItem.mp3");
+	//SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/Bomb.mp3");
+	//SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/ME_1.mid");
+	//SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/ME_2.mid");
+	//SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/ME_3.mid");
+	//SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/ME_4.mid");
 }
 
-void LoadingScene::loadingCallBack(cocos2d::Texture2D *texture)
+void LoadingLayer::loadingCallBack(cocos2d::Texture2D *texture)
 {
 	++_numberOfLoadedSprites;
 
@@ -148,7 +147,7 @@ void LoadingScene::loadingCallBack(cocos2d::Texture2D *texture)
 	}
 }
 
-void LoadingScene::endOP()
+void LoadingLayer::endOP()
 {
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = [=](Touch *pTouch, Event *pEvent){
@@ -158,7 +157,7 @@ void LoadingScene::endOP()
 }
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID )
-void LoadingScene::videoEventCallback(Ref* sender, experimental::ui::VideoPlayer::EventType eventType){
+void LoadingLayer::videoEventCallback(Ref* sender, experimental::ui::VideoPlayer::EventType eventType){
 	switch (eventType) {
 	case cocos2d::experimental::ui::VideoPlayer::EventType::PLAYING:
 		break;

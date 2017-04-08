@@ -6,7 +6,6 @@ bool FireManager::init(){
 		return false;
 	}
 	schedule(schedule_selector(FireManager::moveBullet));
-
 	return true;
 }
 
@@ -84,7 +83,7 @@ void FireManager::moveBullet(float dt){
 			{
 				if (towerPos.getDistance(monster->getOwner()->getPosition()) <= fireRange)
 				{
-					Sprite* bullet = Sprite::create("GameMain/Bullet.png");
+					Sprite* bullet = Sprite::create(Bullet1_IMG);
 					bullet->setPosition(owner->getPosition());
 					auto comBullet = ComBullet::create(bullet_damage, bullet_speed);
 					bullet->addComponent(comBullet);
@@ -108,6 +107,11 @@ void FireManager::moveBullet(float dt){
 	}
 }
 		
+void FireManager::endMoveBullet()
+{
+	unschedule(schedule_selector(FireManager::moveBullet));
+}
+
 void FireManager::createBoom(int x, int y){
 	Vector<SpriteFrame*>allFrame;
 	for (int a = 0; a < 5; a++)
@@ -124,7 +128,7 @@ void FireManager::createBoom(int x, int y){
 	sp->runAction(act);
 	sp->setPosition(x, y);
 	addChild(sp,1);
-	SoundsControl::setSound(SoundsControl::SoundState::BuyItem);
+	SoundsControl::setSound(SoundsControl::SoundState::Bomb);
 }
 void FireManager::endBoom(Node*node){
 	node->removeFromParentAndCleanup(true);

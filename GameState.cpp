@@ -92,13 +92,43 @@ void GameState::setStageDate(char *stageName)
 	UserDefault::getInstance()->flush();
 }
 
-void GameState::isInitLanguageAndBGM()
+void GameState::initGameState()
 {
-	if (!UserDefault::getInstance()->getBoolForKey("music_on_key")
-		&& !UserDefault::getInstance()->getBoolForKey("music_on_key"))
+	if (!UserDefault::getInstance()->getBoolForKey("is_init"))
 	{
 		UserDefault::getInstance()->setBoolForKey("music_on_key", true);
 		UserDefault::getInstance()->setBoolForKey("language_jp_key", true);
-		UserDefault::getInstance()->flush();
+		for (int s = 1; s <= MAX_STAGE; s++)
+		{
+			for (int l = 1; l <= MAX_LEVEL; l++)
+			{
+				char buf[32] = { 0 };
+				sprintf(buf, "level%d-%d", s, l);
+				CCLOG("level name%s", buf);
+				UserDefault::getInstance()->setIntegerForKey(buf, 0);
+			}
+		}
+		UserDefault::getInstance()->setIntegerForKey("level1-1", 4);
+		UserDefault::getInstance()->setBoolForKey("Stage1", true);
+		UserDefault::getInstance()->setBoolForKey("Stage2", false);
+		UserDefault::getInstance()->setBoolForKey("Stage3", false);
+		UserDefault::getInstance()->setBoolForKey("Stage4", false);
+		UserDefault::getInstance()->setBoolForKey("is_first", false);
+	}
+	UserDefault::getInstance()->setBoolForKey("is_init", true);
+	UserDefault::getInstance()->flush();
+}
+
+
+std::string GameState::getLanguage()
+{
+	bool _language = UserDefault::getInstance()->getBoolForKey("language_jp_key");
+	if (!_language)
+	{
+		return "cn";
+	}
+	else
+	{
+		return "jp";
 	}
 }

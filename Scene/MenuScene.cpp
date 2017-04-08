@@ -7,11 +7,11 @@ using namespace cocostudio;
 Scene* MenuScene::createScene(Layer*pLayer)
 {
 	auto scene = Scene::create();
-	Layer* layer = pLayer;
-	scene->addChild(layer);
+	if ( nullptr!=pLayer){
+		scene->addChild(pLayer);
+	}
 	return scene;
 }
-
 
 void MenuScene::touchButton(Ref *object, TouchEventType type){
 	if (type == TOUCH_EVENT_ENDED)
@@ -28,7 +28,8 @@ void MenuScene::touchButton(Ref *object, TouchEventType type){
 		}
 		else if (name.compare(BTN_RESTART) == 0)
 		{
-			remove(UserDefault::getInstance()->getXMLFilePath().c_str());
+			UserDefault::getInstance()->setBoolForKey("is_init", false);
+			GameState::initGameState();
 		}
 		else if (name.compare(BTN_SETTING) == 0)
 		{

@@ -7,7 +7,7 @@ class GameLayerControl :cocos2d::Object
 public:
 	enum GameState
 	{
-		MenuLayerState = 0,
+		MenuLayerState=0,
 		DexLayerState,
 		SetttingLayerState,
 		AboutSLayerState,
@@ -19,7 +19,6 @@ public:
 
 	static void changeScene(GameState gamestate);
 private:
-
 	GameState m_gameState;
 };
 

@@ -13,7 +13,6 @@ bool StageChooseLayer::init()
 		return false;
 	}
 
-
 	isFirst();
 
 	addBackgroundSprite();
@@ -26,7 +25,10 @@ void StageChooseLayer::isFirst()
 {
 	if (!GameState::getIsFirst())
 	{
-		auto layer = DialogLayer::createWithJsonFile("DialogLayer/0-1.json");
+		char buf[32] = {0};
+		std::string language = GameState::getLanguage();
+		sprintf(buf, "DialogLayer/%s/0-1.json", language.c_str());
+		auto layer = DialogLayer::createWithJsonFile(buf);
 		this->addChild(layer,2);
 	}
 }

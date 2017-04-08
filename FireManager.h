@@ -2,18 +2,21 @@
 #define __TowerWar_FireManager__
 #include "Sprite/Components/Constants.h"
 #include "SoundsControl.h"
+#include "ConstUtil.h"
 USING_NS_CC;
 
 //防御塔子弹管理(移动和碰撞)
 class FireManager:public Layer
 {
 public:
-	virtual bool init();
-	CREATE_FUNC(FireManager);
 
+	CREATE_FUNC(FireManager);
 	//子弹移动
 	void moveBullet(float dt);
-
+	//停止攻击
+	void endMoveBullet();
+private:
+	virtual bool init();
 	void createBoom(int x, int y);
 	void endBoom(Node*node);
 public:

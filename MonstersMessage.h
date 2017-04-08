@@ -7,7 +7,8 @@ class MonstersMessage
 public:
 	MonstersMessage();
 	int getNumOfMonsters();
-	std::string getNameOfMonsters(int id);
+	std::string getJPNameOfMonsters(int id);
+	std::string getCNNameOfMonsters(int id);
 	int getSpeedOfMonsters(int id);
 	int getHpOfMonsters(int id);
 
@@ -18,7 +19,8 @@ private:
 	int m_hp;
 	int m_id;
 	int m_speed;
-	std::string m_name;
+	std::string m_nameCn;
+	std::string m_nameJp;
 };
 
 

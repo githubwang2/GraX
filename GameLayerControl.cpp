@@ -1,6 +1,8 @@
 #include "GameLayerControl.h"
+#include "Scene/StartScene.h"
 #include "Scene/MenuScene.h"
 #include "Scene/LevelChooseScene.h"
+#include "Layer/LoadingLayer.h"
 #include "Layer/MenuLayer.h"
 #include "Layer/AboutLayer.h"
 #include "Layer/SettingLayer.h"

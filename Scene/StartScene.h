@@ -3,16 +3,17 @@
 #include "cocos2d.h"
 
 #include"Layer/SplashLayer.h"
-
+#include"Layer/LoadingLayer.h"
 class StartScene : public cocos2d::Scene
 {
 public:
-
-	void gameStart();
-	//virtual bool init();
 	CREATE_FUNC(StartScene);
-
+	//游戏开始
+	void gameStart();
+	//游戏预加载
+	void gameLoading();
 private:
+	
 };
 
 #endif 

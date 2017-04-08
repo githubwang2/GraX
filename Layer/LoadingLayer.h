@@ -4,13 +4,10 @@
 #include "ui/UIVideoPlayer.h"
 #include "ui/CocosGUI.h"
 
-class LoadingScene : public cocos2d::Layer
+class LoadingLayer : public cocos2d::Layer
 {
 public:
-
-	static cocos2d::Scene* createScene();
-	
-	CREATE_FUNC(LoadingScene);
+	CREATE_FUNC(LoadingLayer);
 
 private:
 	virtual bool init();

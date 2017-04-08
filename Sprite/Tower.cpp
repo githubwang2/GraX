@@ -1,6 +1,6 @@
 #include "Sprite/Tower.h"
 #include"Sprite/Components/ComTower.h"
-#include"Layer/HUDLayer.h"
+#include "Layer/HUDLayer.h"
 
 USING_NS_CC;
 using namespace cocostudio;
@@ -48,9 +48,8 @@ bool Tower::init(Point pos, GameMap *gameMap)
 			}
 			else                   ///金钱足够  扣除金钱  创建防御塔
 			{
-
 				playground->changeGold(-150);
-				Sprite*tower = Sprite::create("GameMain/Tower.png");
+				Sprite*tower = Sprite::create(Tower1_IMG);
 				tower->setPosition(blockCenter);
 
 				//将comTower挂载到每个tower上
@@ -60,11 +59,12 @@ bool Tower::init(Point pos, GameMap *gameMap)
 				GameMainLayer::fileManager->m_towers.push_back(comTower);
 				//-----------------
 				addChild(tower);
+				SoundsControl::setSound(SoundsControl::SoundState::BuyItem);
 				return true;//跳出 不运行下面错误的图片
 			}
 		}
 	}
-	Sprite*errorPos = Sprite::create("GameMain/ErrorPos.png");
+	Sprite*errorPos = Sprite::create("Tower/ErrorPos.png");
 	errorPos->setPosition(blockCenter);
 	addChild(errorPos);
 	auto action = Sequence::create(FadeOut::create(3), CallFunc::create([=]{

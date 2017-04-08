@@ -62,8 +62,10 @@ float WavesMessage::getWaveInteval()
 
 void WavesMessage::getMessage()
 {
-	std::string conversation = FileUtils::getInstance()
-		->getStringFromFile("GameMain/stage1/level1-1/wave.json");
+	char buf[64] = { 0 };
+	sprintf(buf, "GameMain/stage%d/level%d-%d/wave.json",
+		m_stage,m_stage,m_level);
+	std::string conversation = FileUtils::getInstance()->getStringFromFile(buf);
 	rapidjson::Document doc;
 	doc.Parse<rapidjson::kParseDefaultFlags>(conversation.c_str());
 	rapidjson::Value & array = doc["levelMessage"];
@@ -116,8 +118,10 @@ void WavesMessage::getMessage()
 
 void WavesMessage::getBeginMessage()
 {
-	std::string conversation = FileUtils::getInstance()
-		->getStringFromFile("GameMain/stage1/level1-1/wave.json");
+	char buf[64] = { 0 };
+	sprintf(buf, "GameMain/stage%d/level%d-%d/wave.json",
+		m_stage, m_stage, m_level);
+	std::string conversation = FileUtils::getInstance()->getStringFromFile(buf);
 	rapidjson::Document doc;
 	doc.Parse<rapidjson::kParseDefaultFlags>(conversation.c_str());
 	rapidjson::Value & array = doc["levelMessage"];

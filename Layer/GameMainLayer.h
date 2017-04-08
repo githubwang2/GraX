@@ -16,8 +16,10 @@
 #include "Layer/StageChooseLayer.h"
 #include "Layer/DialogLayer.h"
 
+
 #include "Sprite/Monster.h"
 #include "Sprite/Tower.h"
+#include "Sprite/TowerButton.h"
 
 class GameMainLayer : public cocos2d::Layer
 {
@@ -30,9 +32,9 @@ public:
 	void addMonster(float dt);
 
     void attachTowerBuild(GameMap *gameMap);
-	//½áÊøÓÎÏ·£¨¹ÖÎï±»É±Íê»òÕßÓÎÏ·Ê§°Ü£©
+	//ç»“æŸæ¸¸æˆï¼ˆæ€ªç‰©è¢«æ€å®Œæˆ–è€…æ¸¸æˆå¤±è´¥ï¼‰
 	void endGame(bool isWin);
-	//ÒÆ³ı¹ÖÎï 
+	//ç§»é™¤æ€ªç‰© 
 	//void removeMonster(Node* monster);
 	
 	int  changeGold(int i);
@@ -40,6 +42,7 @@ public:
 	void goldWarn();
 	static HUDLayer * hudLayer;
 	static FireManager * fileManager;
+	
 
 	void removeMonster(Node*monster);
 
@@ -55,14 +58,15 @@ private:
 	int m_currentStage;
 	int m_currentLevel;
 
-	int     beginHp;			//	¿ªÊ¼Ê±Íæ¼ÒÉúÃüÖµ
-	int		beginGold;			//	¿ªÊ¼Ê±Íæ¼Ò½ğÇ®
-	int     level_WavNum;		//	µ±Ç°¹Ø¿¨¹ÖÎï×Ü²¨Êı
-	int     curWacNum;			//  µ±Ç°¹ÖÎï²¨Êı
-	int     monsterCreateLeft;  //  ¸Ã²¨ĞèÒª²úÉúµÄ¹ÖÎïÊı
+	int		beginHp;			//	å¼€å§‹æ—¶ç©å®¶ç”Ÿå‘½å€¼
+	int		beginGold;			//	å¼€å§‹æ—¶ç©å®¶é‡‘é’±
+	int		level_WavNum;		//	å½“å‰å…³å¡æ€ªç‰©æ€»æ³¢æ•°
+	int		curWacNum;			//  å½“å‰æ€ªç‰©æ³¢æ•°
+	int		monsterCreateLeft;  //  è¯¥æ³¢éœ€è¦äº§ç”Ÿçš„æ€ªç‰©æ•°
 	bool	isWin;				//	
 
-	WavesMessage*wavesMessage;
+	WavesMessage *	wavesMessage;
+
 };
 
 #endif 

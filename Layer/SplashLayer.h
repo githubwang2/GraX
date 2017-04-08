@@ -7,20 +7,18 @@
 class SplashLayer : public cocos2d::LayerColor
 {
 public:
-
+	CREATE_FUNC(SplashLayer);
+private:
 	virtual bool init();
 
-	CREATE_FUNC(SplashLayer);
-
-private:
 	cocos2d::Sprite* initMoveSprite(char *a, float i);
 
 	void startMoveSprite(float dt);
 	void moveNSpriteToLeft();
 	void moveASpriteToLeft();
 
-	void gotoLoadingLayer();
 	void spriteFadeOut();
+	void gotoLoadingLayer();
 
 	cocos2d::Sprite*W_Sprite;
 	cocos2d::Sprite*A_Sprite;

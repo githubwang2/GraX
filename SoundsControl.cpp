@@ -24,8 +24,8 @@ void SoundsControl::setBGM(BGMState soundState)
 			//先判断当前在放什么BGM
 			return;
 		}
-		SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sounds/BG_1.mid");
-		SimpleAudioEngine::getInstance()->playBackgroundMusic("Sounds/BG_1.mid",true);
+		SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sounds/BG_1.mp3");
+		SimpleAudioEngine::getInstance()->playBackgroundMusic("Sounds/BG_1.mp3",true);
 		curBGMState = CurBGMState::curMenuState;
 		break;
 	case BGMState::MainGameBGM:
@@ -33,8 +33,8 @@ void SoundsControl::setBGM(BGMState soundState)
 		{
 			return;
 		}
-		SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sounds/BG_3.mid");
-		SimpleAudioEngine::getInstance()->playBackgroundMusic("Sounds/BG_3.mid",true);
+		SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sounds/BG_3.mp3");
+		SimpleAudioEngine::getInstance()->playBackgroundMusic("Sounds/BG_3.mp3",true);
 		curBGMState = CurBGMState::curMainGame;
 		break;
 	case BGMState::DiologBGM:
@@ -42,8 +42,8 @@ void SoundsControl::setBGM(BGMState soundState)
 		{
 			return;
 		}
-		SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sounds/BG_6.mid");
-		SimpleAudioEngine::getInstance()->playBackgroundMusic("Sounds/BG_6.mid", true);
+		SimpleAudioEngine::getInstance()->preloadBackgroundMusic("Sounds/BG_6.mp3");
+		SimpleAudioEngine::getInstance()->playBackgroundMusic("Sounds/BG_6.mp3", true);
 		curBGMState = CurBGMState::curDiologBGM;
 		break;
 	default:
@@ -55,7 +55,7 @@ void SoundsControl::stopBGM()
 {
 	curBGMState = curNull;
 	SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(true);
-	SimpleAudioEngine::sharedEngine()->setEffectsVolume(0);
+	//SimpleAudioEngine::sharedEngine()->stopAllEffects();
 }
 
 void SoundsControl::startBGM()
@@ -69,32 +69,32 @@ void SoundsControl::setSound(SoundState soundState)
 	switch (soundState)
 	{
 	case SoundsControl::BtnSelect:
-		SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/MenuSelect.mp3");
-		SimpleAudioEngine::sharedEngine()->playEffect("Sounds/MenuSelect.mp3", false);
+		SimpleAudioEngine::sharedEngine()->preloadEffect(MENU_SELECTl_VOI);
+		SimpleAudioEngine::sharedEngine()->playEffect(MENU_SELECTl_VOI, false);
 		break;
 	case SoundsControl::BuyItem:
-		SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/BuyItem.mp3");
-		SimpleAudioEngine::sharedEngine()->playEffect("Sounds/BuyItem.mp3", false);
+		SimpleAudioEngine::sharedEngine()->preloadEffect(BUY_ITEM_VOI);
+		SimpleAudioEngine::sharedEngine()->playEffect(BUY_ITEM_VOI, false);
 		break;
 	case SoundsControl::Bomb:
-		SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/Bomb.mp3");
-		SimpleAudioEngine::sharedEngine()->playEffect("Sounds/Bomb.mp3", false);
+		SimpleAudioEngine::sharedEngine()->preloadEffect(BOMB_VOI);
+		SimpleAudioEngine::sharedEngine()->playEffect(BOMB_VOI, false);
 		break;
 	case SoundsControl::OneStar:
-		SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/ME_1.mid");
-		SimpleAudioEngine::sharedEngine()->playEffect("Sounds/ME_1.mid", false);
+		SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/ME_1.mp3");
+		SimpleAudioEngine::sharedEngine()->playEffect("Sounds/ME_1.mp3", false);
 		break;
 	case SoundsControl::TwoStars:
-		SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/ME_2.mid");
-		SimpleAudioEngine::sharedEngine()->playEffect("Sounds/ME_2.mid", false);
+		SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/ME_2.mp3");
+		SimpleAudioEngine::sharedEngine()->playEffect("Sounds/ME_2.mp3", false);
 		break;
 	case SoundsControl::ThreeStars:
-		SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/ME_3.mid");
-		SimpleAudioEngine::sharedEngine()->playEffect("Sounds/ME_3.mid", false);
+		SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/ME_3.mp3");
+		SimpleAudioEngine::sharedEngine()->playEffect("Sounds/ME_3.mp3", false);
 		break;
 	case SoundsControl::GameOver:
-		SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/ME_4.mid");
-		SimpleAudioEngine::sharedEngine()->playEffect("Sounds/ME_4.mid", false);
+		SimpleAudioEngine::sharedEngine()->preloadEffect("Sounds/ME_4.mp3");
+		SimpleAudioEngine::sharedEngine()->playEffect("Sounds/ME_4.mp3", false);
 		break;
 	default:
 		break;

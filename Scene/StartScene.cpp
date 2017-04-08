@@ -12,14 +12,13 @@ void StartScene::gameStart()
 	}
 }
 
-
-//bool StartScene::init()
-//{
-//	if (!Scene::init())
-//	{
-//		return false;
-//	}
-//	splashLayer = SplashLayer::create();
-//	return true;
-//}
-
+void StartScene::gameLoading()
+{
+	auto layer = LoadingLayer::create();
+	if (nullptr != layer)
+	{
+		this->removeAllChildren();
+		this->addChild(layer);
+		Director::getInstance()->replaceScene(this);
+	}
+}

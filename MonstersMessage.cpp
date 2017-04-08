@@ -1,9 +1,10 @@
 #include "MonstersMessage.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+
 USING_NS_CC;
-using namespace ui;
 using namespace cocostudio;
+using namespace ui;
 
 MonstersMessage::MonstersMessage()
 {
@@ -21,11 +22,19 @@ int MonstersMessage::getNumOfMonsters()
 	return num;
 }
 
-std::string MonstersMessage::getNameOfMonsters(int id)
+std::string MonstersMessage::getJPNameOfMonsters(int id)
 {
 	m_id = id;
 	getMessage();
-	std::string name = m_name;
+	std::string name = m_nameJp;
+	return name;
+}
+
+std::string MonstersMessage::getCNNameOfMonsters(int id)
+{
+	m_id = id;
+	getMessage();
+	std::string name = m_nameCn;
 	return name;
 }
 
@@ -68,7 +77,9 @@ void MonstersMessage::getMessage()
 			continue;
 		}
 		const rapidjson::Value &valueEnt = p["entity"];
-		if (valueEnt.HasMember("id") && valueEnt.HasMember("hp") && valueEnt.HasMember("speed"))
+		if (valueEnt.HasMember("id") && valueEnt.HasMember("hp") &&
+			valueEnt.HasMember("speed") && valueEnt.HasMember("name_jp")
+			&& valueEnt.HasMember("name_cn"))
 		{
 			const rapidjson::Value &monsterID = valueEnt["id"];
 			int mId = monsterID.GetInt();
@@ -76,16 +87,27 @@ void MonstersMessage::getMessage()
 			{
 				const rapidjson::Value &monsterHp = valueEnt["hp"];
 				int hp = monsterHp.GetInt();
-				const rapidjson::Value &monsterName = valueEnt["name"];
-				std::string name = monsterName.GetString();
+				const rapidjson::Value &monsterNameJp = valueEnt["name_jp"];
+				std::string name_jp = monsterNameJp.GetString();
+				const rapidjson::Value &monsterNameCn = valueEnt["name_cn"];
+				std::string name_cn = monsterNameCn.GetString();
 				const rapidjson::Value &monsterSpeed = valueEnt["speed"];
 				int speed = monsterSpeed.GetInt();
 				m_id = mId;
-				m_name = name;
+				m_nameCn = name_cn;
+				m_nameJp = name_jp;
 				m_hp = hp;
 				m_speed = speed;
 				m_numOfMonsters = array.Size();
 			}
+		}
+		else
+		{
+			m_id = 999;
+			m_nameCn = "Î´½âËø";
+			m_nameJp = "¥¢¥ó¥í¥Ã¥¯";
+			m_hp = 0;
+			m_speed = 0;
 		}
 	}
 }

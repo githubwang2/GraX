@@ -12,15 +12,10 @@
 class AboutLayer : public cocos2d::Layer
 {
 public:
-
-	virtual bool init();
-
 	CREATE_FUNC(AboutLayer);
-
 private:
+	virtual bool init();
 	void initAboutBG();
-
-	void touchButton(Ref *object, cocos2d::ui::TouchEventType type);
 
 	cocos2d::ui::Widget*aboutLayer;
 	cocos2d::Size visibleSize;

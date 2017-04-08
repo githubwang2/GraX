@@ -14,7 +14,6 @@ bool DexLayer::init()
 
 	m_monstersMessage = new MonstersMessage();
 	
-	m_isVisible = false;
 	m_id = -1;
 	m_name = "???";
 	m_hp = 0;
@@ -23,7 +22,6 @@ bool DexLayer::init()
 	iniyBG();
 	initMonDex();
 	initAnimate();
-	scheduleUpdate();
 
 	return true;
 }
@@ -107,11 +105,17 @@ void DexLayer::touchButton(Ref *object, TouchEventType type){
 	if (type == TOUCH_EVENT_ENDED)
 	{
 		auto button = dynamic_cast<Button*>(object);
-
 		int tag = button->getTag();
-
 		m_id = tag;
-		m_name = m_monstersMessage->getNameOfMonsters(tag);
+		std::string s = GameState::getLanguage();
+		if (GameState::getLanguage().compare("jp")==0)
+		{
+			m_name = m_monstersMessage->getJPNameOfMonsters(tag);
+		}
+		else
+		{
+			m_name = m_monstersMessage->getCNNameOfMonsters(tag);
+		}
 		m_hp = m_monstersMessage->getHpOfMonsters(tag);
 		m_speed = m_monstersMessage->getSpeedOfMonsters(tag);
 
@@ -133,17 +137,12 @@ void DexLayer::touchButton(Ref *object, TouchEventType type){
 		sprintf(id, "ID:\t%d", m_id);
 		sprintf(name, "Name:\t%s", m_name.c_str());
 		sprintf(hp, "HP:\t%d", m_hp);
-		sprintf(speed, "speed:\t%d", m_speed);
+		sprintf(speed, "Speed:\t%d", m_speed);
 		monsterID->setString(id);
 		monsterName->setString(name);
 		monsterHp->setString(hp);
 		monsterSpeed->setString(speed);
-		
 	}
-}
-
-void DexLayer::update(float dt)
-{
 }
 
 void DexLayer::initAnimate()
@@ -211,10 +210,10 @@ Layer*  DexLayer::addAnimate()
 		spLeft->setScale(2);
 		spRight->setScale(2);
 
-		spUp->setPosition(300, 200);
-		spDown->setPosition(400, 200);
-		spLeft->setPosition(500, 200);
-		spRight->setPosition(600, 200);
+		spUp->setPosition(400, 100);
+		spDown->setPosition(500, 100);
+		spLeft->setPosition(600, 100);
+		spRight->setPosition(700, 100);
 
 		monAni->addChild(spUp, 1);
 		monAni->addChild(spDown, 1);

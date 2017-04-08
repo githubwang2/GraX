@@ -11,10 +11,9 @@ class DialogLayer : public cocos2d::Layer
 public:
 	//需要读取的对话文件位置
 	static DialogLayer*createWithJsonFile(const char*fileName);
-	
-	virtual bool init(std::string str);
+
 private:
-	
+	bool init(std::string str);
 	//字符串拼接 使其一个一个字的显示
 	//void MultUpdate(float dt);
 	//将某一个对话的内容保存在容器中

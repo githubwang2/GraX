@@ -69,15 +69,17 @@ void GameMainLayer::startGame()
 	auto gameMap = GameMap::createTMXTiledMap(tmxtilePath);
 	addChild(gameMap);
 	//-------------------------------------------------------------------------
-	//					Tower触摸响应
+	//					TowerButton
+	TowerButton*towerButton = TowerButton::getInstance();
+	addChild(towerButton, 3);
 	attachTowerBuild(gameMap);
 	//-------------------------------------------------------------------------
 	//					怪物波数刷新
-	createWaveRusher();
+	//createWaveRusher();
 	//-------------------------------------------------------------------------
 	//					FileManager
 	fileManager = FireManager::create();
-	addChild(fileManager,2);
+	addChild(fileManager,2);//因为autorealse的关系  所以一开始没调用自动-1 这里+1
 
 	scheduleUpdate();
 }
@@ -154,9 +156,12 @@ void GameMainLayer::attachTowerBuild(GameMap *gameMap){
 	listener->onTouchBegan = [=](Touch *pTouch, Event *pEvent){return true; };
 	listener->onTouchEnded = [=](Touch *pTouch, Event *pEvent){
 		auto touchPos = pTouch->getLocation();
-		auto tower = Tower::createTower(touchPos, gameMap);
-		addChild(tower);
-		SoundsControl::setSound(SoundsControl::SoundState::BuyItem);
+		//auto tower = Tower::createTower(touchPos, gameMap);
+		//addChild(tower);
+		TowerButton*towerButton = TowerButton::getInstance();
+		
+		//towerButton->setGameMap(gameMap);
+		towerButton->ableToCreat(touchPos, gameMap);
 	};
 
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
@@ -180,6 +185,16 @@ void GameMainLayer::goldWarn()
 }
 
 void GameMainLayer::endGame(bool isWin){
+	//先停下所有
+	fileManager->endMoveBullet();
+	fileManager->unscheduleAllSelectors();
+	this->unscheduleAllSelectors();
+	for (auto monster:fileManager->m_monsters)
+	{
+		monster->getOwner()->stopAllActions();
+	}
+	//fileManager->unschedule(schedule_selector(FireManager::moveBullet));
+
 	ResultLayer*resultLayer;
 	if (isWin)
 	{
@@ -196,6 +211,7 @@ void GameMainLayer::endGame(bool isWin){
 		{
 			starsNum = 1;
 		}
+		
 		resultLayer = ResultLayer::createLayer(starsNum, m_currentLevel);
 		this->unscheduleAllSelectors();
 		//写入存档

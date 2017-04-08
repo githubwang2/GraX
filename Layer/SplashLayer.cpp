@@ -1,6 +1,7 @@
 #include"ConstUtil.h"
 #include"Layer/SplashLayer.h"
-#include"Layer/LoadingScene.h"
+#include"Layer/LoadingLayer.h"
+#include"GameLayerControl.h"
 
 USING_NS_CC;
 
@@ -72,5 +73,6 @@ void SplashLayer::spriteFadeOut(){
 }
 
 void SplashLayer::gotoLoadingLayer(){
-	Director::getInstance()->replaceScene(LoadingScene::createScene());
+	auto scene = StartScene::create();
+	scene->gameLoading();
 }

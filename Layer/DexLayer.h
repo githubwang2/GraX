@@ -10,9 +10,9 @@
 class DexLayer : public cocos2d::Layer
 {
 public:
-	virtual bool init();
 	CREATE_FUNC(DexLayer);
 private:
+	virtual bool init();
 	void iniyBG();
 	void initMonDex();
 	void initDexBtn(int monsterId);
@@ -20,7 +20,6 @@ private:
 	cocos2d::Layer* addAnimate();
 	void touchButton(cocos2d::Ref *object, cocos2d::ui::TouchEventType type);
 
-	void update(float dt);
 	int btnTag;           //从配置文件中读取的button TAG
 	cocos2d::Size visibleSize;
 	cocos2d::ui::Widget*dexLayer;
@@ -29,7 +28,6 @@ private:
 	cocos2d::ui::Text * monsterHp;
 	cocos2d::ui::Text * monsterSpeed;
 
-	bool m_isVisible;
 	int m_id;
 	std::string m_name;
 	int m_hp;

@@ -16,16 +16,17 @@ bool MenuLayer::init()
 
 	visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	Director::getInstance()->getTextureCache()->removeUnusedTextures();
+#endif
 	initMenuBG();
-
 	initMenuBtn(BTN_START);
 	initMenuBtn(BTN_DEX);
 	initMenuBtn(BTN_RESTART);
 	initMenuBtn(BTN_SETTING);
 	initMenuBtn(BTN_ABOUT);
 	initMenuBtn(BTN_EXIT);
-	GameState::isInitLanguageAndBGM();
+	GameState::initGameState();
 	SoundsControl::setBGM(SoundsControl::BGMState::MenuBGM);
 	return true;
 }
