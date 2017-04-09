@@ -14,8 +14,8 @@
 class TowerButton : public cocos2d::Sprite
 {
 public:
-	static TowerButton*getInstance();
-
+	//static TowerButton*getInstance();
+	CREATE_FUNC(TowerButton);
 	virtual bool init();
 
 	void ableToCreat(cocos2d::Point pos, GameMap *gameMap);	//判断该位置是否能建造防御塔
@@ -23,7 +23,7 @@ public:
 	void buttonReset();
 
 private:
-	static TowerButton* m_towerButton;
+	//static TowerButton* m_towerButton;
 
 	void initTowerButton();
 

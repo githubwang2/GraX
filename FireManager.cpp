@@ -20,7 +20,6 @@ void FireManager::moveBullet(float dt){
 		m_tmpMonster.clear();
 	}
 
-
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	bool hitMonster = false;			//子弹是否已经打中怪物
@@ -134,3 +133,26 @@ void FireManager::endBoom(Node*node){
 	node->removeFromParentAndCleanup(true);
 }
 
+void FireManager::createFunBoom(int x, int y)
+{
+	Vector<SpriteFrame*>allFrame;
+	Animation * animation = Animation::create();
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(PFan01_IMG));
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(PFan02_IMG));
+	animation->setDelayPerUnit(0.1f);
+	animation->setRestoreOriginalFrame(true);
+	auto sp = Sprite::create();
+	Action *act = Sequence::create(
+		Animate::create(animation),
+		CallFuncN::create(sp, callfuncN_selector(FireManager::endBoom)), nullptr);
+
+	sp->runAction(act);
+	sp->setPosition(x, y);
+	addChild(sp, 1);
+	SoundsControl::setSound(SoundsControl::SoundState::Bomb);
+}
+
+void FireManager::endFunBoom(Node*node)
+{
+	node->removeFromParentAndCleanup(true);
+}

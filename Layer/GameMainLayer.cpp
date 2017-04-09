@@ -70,9 +70,10 @@ void GameMainLayer::startGame()
 	addChild(gameMap);
 	//-------------------------------------------------------------------------
 	//					TowerButton
-	 auto towerButton = TowerButton::getInstance();
+	/*auto towerButton = TowerButton::getInstance();
 	this->addChild(towerButton, 3);
 	towerButton->buttonReset();
+	 towerButton = TowerButton::getInstance();*/
 	attachTowerBuild(gameMap);
 	//-------------------------------------------------------------------------
 	//					怪物波数刷新
@@ -152,16 +153,19 @@ void GameMainLayer::addMonster(float dt){
 }
 
 void GameMainLayer::attachTowerBuild(GameMap *gameMap){
-	auto listener = EventListenerTouchOneByOne::create();
+	//该函数只在init时执行
+	auto towerButton = TowerButton::create();
+	addChild(towerButton, 3);
 
+	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = [=](Touch *pTouch, Event *pEvent){return true; };
 	listener->onTouchEnded = [=](Touch *pTouch, Event *pEvent){
 		auto touchPos = pTouch->getLocation();
 		//auto tower = Tower::createTower(touchPos, gameMap);
 		//addChild(tower);
-		TowerButton*towerButton = TowerButton::getInstance();
-		
-		//towerButton->setGameMap(gameMap);
+		//TowerButton*towerButton = TowerButton::getInstance();
+		//towerButton->ableToCreat(touchPos, gameMap);
+
 		towerButton->ableToCreat(touchPos, gameMap);
 	};
 

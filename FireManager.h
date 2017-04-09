@@ -19,6 +19,8 @@ private:
 	virtual bool init();
 	void createBoom(int x, int y);
 	void endBoom(Node*node);
+	void createFunBoom(int x, int y);
+	void endFunBoom(Node*node);
 public:
 	std::list<ComBullet*>	m_bullets;
 	std::list<ComTower*>	m_towers;;

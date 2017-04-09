@@ -5,26 +5,26 @@ using namespace cocostudio;
 using namespace ui;
 
 
-TowerButton* TowerButton::m_towerButton = nullptr;
+//TowerButton* TowerButton::m_towerButton = nullptr;
 
-TowerButton* TowerButton::getInstance(){
-	 if (m_towerButton==nullptr)
-	{
-		 m_towerButton = new TowerButton();
-
-		 if (m_towerButton && m_towerButton->init())
-		 {
-			// m_towerButton->autorelease();
-			 m_towerButton->retain(); 
-			 //这个自己管
-		 }
-		 else
-		 {
-			 CC_SAFE_DELETE(m_towerButton);
-		 }
-	 }
-	 return m_towerButton;
-}
+//TowerButton* TowerButton::getInstance(){
+//	 if (m_towerButton==nullptr)
+//	{
+//		 m_towerButton = new TowerButton();
+//
+//		 if (m_towerButton && m_towerButton->init())
+//		 {
+//			// m_towerButton->autorelease();
+//			 m_towerButton->retain(); 
+//			 //这个自己管
+//		 }
+//		 else
+//		 {
+//			 CC_SAFE_DELETE(m_towerButton);
+//		 }
+//	 }
+//	 return m_towerButton;
+//}
 
 bool TowerButton::init()
 {
@@ -88,13 +88,12 @@ void TowerButton::changeVisible()
 	towerButton->setVisible(_isVisible);
 }
 
-
 void TowerButton::buttonReset()
 {
+	//m_towerButton->release();
 	_isVisible = true;
 	changeVisible();
 }
-
 
 void TowerButton::ableToCreat(cocos2d::Point pos, GameMap *gameMap)
 {

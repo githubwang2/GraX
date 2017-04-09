@@ -16,7 +16,7 @@ public:
 
 	void touchButton(Ref *object, cocos2d::ui::TouchEventType type);
 private:
-
+	
 };
 
 #endif

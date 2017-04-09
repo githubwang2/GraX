@@ -33,6 +33,7 @@ void GameMainScene::touchButton(Ref *object, cocos2d::ui::TouchEventType type)
 {
 	if (type == TOUCH_EVENT_ENDED)
 	{
+
 		GameLayerControl::changeScene(GameLayerControl::MenuLayerState);
 	}
 }
