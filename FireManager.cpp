@@ -83,7 +83,7 @@ void FireManager::moveBullet(float dt){
 			{
 				if (towerPos.getDistance(monster->getOwner()->getPosition()) <= fireRange)
 				{
-					Sprite* bullet = Sprite::create(Bullet1_IMG);
+					Sprite* bullet = Sprite::createWithSpriteFrameName(PRocket1_IMG);
 					bullet->setPosition(owner->getPosition());
 					auto comBullet = ComBullet::create(bullet_damage, bullet_speed);
 					bullet->addComponent(comBullet);

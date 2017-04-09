@@ -66,7 +66,6 @@ private:
 	bool	isWin;				//	
 
 	WavesMessage *	wavesMessage;
-
 };
 
 #endif 

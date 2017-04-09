@@ -46,13 +46,37 @@ const float ADJUEST_TIME = 0.3f;		//	滑动校正时间
 
 //-----------------------Tower---------------------
 
-#define		Tower1_IMG				"Tower/Tower1.png"
-#define		Tower2_IMG				"Tower/Tower1.png"
-#define		Tower3_IMG				"Tower/Tower1.png"
-#define		Tower4_IMG				"Tower/Tower1.png"
-
-#define		Bullet1_IMG				"Tower/Bullet1.png"
-#define		Bullet2_IMG				"Tower/Bullet1.png"
+//p子弹  从缓存中读取 所以不用Tower/
+//火箭
+#define		Rocket1_IMG				"Rocket-1.png"
+#define		Rocket2_IMG				"Rocket-2.png"
+#define		Rocket3_IMG				"Rocket-3.png"
+#define		Rocket4_IMG				"Rocket-4.png"
+#define		PRocket1_IMG			"PRocket1.png"
+#define		PRocket2_IMG			"PRocket2.png"
+#define		PRocket3_IMG			"PRocket3.png"
+#define		PRocket4_IMG			"PRocket4.png"
+//弓箭
+#define		Arrow1_IMG				"Arrow-1.png"
+#define		Arrow2_IMG				"Arrow-2.png"
+#define		Arrow3_IMG				"Arrow-3.png"
+#define		PArrow_IMG				"PArrow1.png"
+//炮
+#define		Bottle1_IMG				"Bottle-1.png"
+#define		Bottle2_IMG				"Bottle-2.png"
+#define		Bottle3_IMG				"Bottle-3.png"
+#define		PBottle1_IMG			"PBottle1.png"
+#define		PBottle2_IMG			"PBottle2.png"
+#define		PBottle3_IMG			"PBottle3.png"
+//风扇
+#define		Fan1_IMG				"Fan-1.png"
+#define		Fan2_IMG				"Fan-2.png"
+#define		Fan3_IMG				"Fan-3.png" 
+#define		PFan1_IMG				"PFan1.png"
+#define		PFan2_IMG				"PFan2.png"
+#define		PFan3_IMG				"PFan3.png"
+#define		PFan01_IMG				"PFan01.png"//风扇爆炸
+#define		PFan02_IMG				"PFan02.png"
 
 //-----------------------SoundsControl---------------------
 

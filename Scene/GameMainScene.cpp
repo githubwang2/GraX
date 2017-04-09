@@ -13,7 +13,6 @@ Scene* GameMainScene::createScene()
 	}
 	else
 	{
-
 		CC_SAFE_DELETE(gameMainScene);
 	}
 	auto layer = GameMainLayer::create();
@@ -27,7 +26,6 @@ bool GameMainScene::init()
 	{
 		return false;
 	}
-
 	return true;
 }
 

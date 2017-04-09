@@ -14,14 +14,15 @@ TowerButton* TowerButton::getInstance(){
 
 		 if (m_towerButton && m_towerButton->init())
 		 {
-			 m_towerButton->autorelease();
+			// m_towerButton->autorelease();
+			 m_towerButton->retain(); 
+			 //这个自己管
 		 }
 		 else
 		 {
 			 CC_SAFE_DELETE(m_towerButton);
 		 }
 	 }
-	
 	 return m_towerButton;
 }
 
@@ -33,7 +34,9 @@ bool TowerButton::init()
 	}
 	_isVisible = false;
 	m_gameMap = nullptr;
-	m_pos = Point(0, 0);
+	m_pos = Point(0, 0); 
+
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Tower/Tower.plist");
 
 	initTowerButton();
 	return true;
@@ -77,7 +80,6 @@ void TowerButton::changeVisible()
 		btnBottle->runAction(MoveTo::create(0.2f, Point(0, 0)));
 
 		_isVisible = false;
-	
 	}
 	else
 	{
@@ -85,6 +87,14 @@ void TowerButton::changeVisible()
 	}
 	towerButton->setVisible(_isVisible);
 }
+
+
+void TowerButton::buttonReset()
+{
+	_isVisible = true;
+	changeVisible();
+}
+
 
 void TowerButton::ableToCreat(cocos2d::Point pos, GameMap *gameMap)
 {
@@ -136,26 +146,64 @@ void TowerButton::touchButton(Ref *object, TouchEventType type)
 	{
 		auto widget = dynamic_cast<Widget*>(object);
 		auto name = widget->getName();
+
+		auto playground = dynamic_cast<GameMainLayer*>(this->getParent());
+		auto curGold = playground->changeGold(0);
+		//---------------------------------------------
 		if (name.compare("btnFan") == 0)
 		{
-			
-		}
-		else if (name.compare("btnAgain") == 0)
-		{
-		}
-		else if (name.compare("btnRocket") == 0)
-		{
-			auto playground = dynamic_cast<GameMainLayer*>(this->getParent());
-			auto curGold = playground->changeGold(0);
-			if (curGold < 150)		//判断金钱是否足够 不够时金钱变红 无法产生防御塔
+			if (curGold < 160)		
 			{
 				playground->goldWarn();
-				return ;//跳出 不运行下面错误的图片
+			}
+			else                   
+			{
+				playground->changeGold(-160);
+				Sprite*fan1 = Sprite::createWithSpriteFrameName(Fan1_IMG);
+				fan1->setPosition(m_pos);
+				Sprite*pFan1 = Sprite::createWithSpriteFrameName(PFan1_IMG);
+				pFan1->setPosition(m_pos+Point(0,10));
+				pFan1->runAction(RepeatForever::create(RotateBy::create(1,360)));
+				
+				auto comTower = ComTower::create();
+				fan1->addComponent(comTower);
+				GameMainLayer::fileManager->m_towers.push_back(comTower);
+				addChild(fan1);
+				addChild(pFan1);
+				SoundsControl::setSound(SoundsControl::SoundState::BuyItem);
+			}
+		}
+		//---------------------------------------------
+		else if (name.compare("btnArrow") == 0)
+		{
+			if (curGold < 220)
+			{
+				playground->goldWarn();
+			}
+			else
+			{
+				playground->changeGold(-220);
+				Sprite*arrow = Sprite::createWithSpriteFrameName(Arrow1_IMG);
+				arrow->setPosition(m_pos);
+
+				auto comTower = ComTower::create();
+				arrow->addComponent(comTower);
+				GameMainLayer::fileManager->m_towers.push_back(comTower);
+				addChild(arrow);
+				SoundsControl::setSound(SoundsControl::SoundState::BuyItem);
+			}
+		}
+		//---------------------------------------------
+		else if (name.compare("btnRocket") == 0)
+		{
+			if (curGold < 220)		//判断金钱是否足够 不够时金钱变红 无法产生防御塔
+			{
+				playground->goldWarn();
 			}
 			else                   ///金钱足够  扣除金钱  创建防御塔
 			{
-				playground->changeGold(-150);
-				Sprite*tower = Sprite::create(Tower1_IMG);
+				playground->changeGold(-220);
+				Sprite*tower = Sprite::createWithSpriteFrameName(Rocket1_IMG);
 				tower->setPosition(m_pos);
 
 				//将comTower挂载到每个tower上
@@ -166,11 +214,27 @@ void TowerButton::touchButton(Ref *object, TouchEventType type)
 				//-----------------
 				addChild(tower);
 				SoundsControl::setSound(SoundsControl::SoundState::BuyItem);
-				return ;//跳出 不运行下面错误的图片
 			}
 		}
+		//---------------------------------------------
 		else if (name.compare("btnBottle") == 0)
 		{
+			if (curGold < 100)
+			{
+				playground->goldWarn();
+			}
+			else
+			{
+				playground->changeGold(-100);
+				Sprite*bottle = Sprite::createWithSpriteFrameName(Bottle1_IMG);
+				bottle->setPosition(m_pos);
+
+				auto comTower = ComTower::create();
+				bottle->addComponent(comTower);
+				GameMainLayer::fileManager->m_towers.push_back(comTower);
+				addChild(bottle);
+				SoundsControl::setSound(SoundsControl::SoundState::BuyItem);
+			}
 		}
 		else
 		{
@@ -178,6 +242,4 @@ void TowerButton::touchButton(Ref *object, TouchEventType type)
 		changeVisible();
 	}
 }
-
-
 

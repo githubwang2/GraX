@@ -20,7 +20,7 @@ void TowersMessage::createRocket(cocos2d::Point pos)
 	else                   ///金钱足够  扣除金钱  创建防御塔
 	{
 		playground->changeGold(-150);
-		Sprite*tower = Sprite::create(Tower1_IMG);
+		Sprite*tower = Sprite::create(Rocket1_IMG);
 		tower->setPosition(pos);
 
 		//将comTower挂载到每个tower上

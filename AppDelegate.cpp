@@ -27,7 +27,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setDisplayStats(true);
     director->setAnimationInterval(1.0 / 60);
 
-	//auto layer = GameMainLayer::create();
 	auto scene = GameMainScene::createScene();
 	director->runWithScene(scene);
 	//auto scene = StartScene::create();
@@ -35,7 +34,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	
     return true;
 }
-
 
 void AppDelegate::applicationDidEnterBackground() {
     Director::getInstance()->stopAnimation();

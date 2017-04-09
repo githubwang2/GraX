@@ -20,6 +20,8 @@ public:
 
 	void ableToCreat(cocos2d::Point pos, GameMap *gameMap);	//判断该位置是否能建造防御塔
 
+	void buttonReset();
+
 private:
 	static TowerButton* m_towerButton;
 

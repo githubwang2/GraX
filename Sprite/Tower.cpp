@@ -25,7 +25,7 @@ bool Tower::init(Point pos, GameMap *gameMap)
 	{
 		return false;
 	}
-
+	SpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("Tower/Tower.plist");
 	auto tileMap = gameMap->getTileMap();
 	int offestX = -(int)pos.x % (int)tileMap->getTileSize().width +
 		tileMap->getTileSize().width / 2;
@@ -49,7 +49,7 @@ bool Tower::init(Point pos, GameMap *gameMap)
 			else                   ///金钱足够  扣除金钱  创建防御塔
 			{
 				playground->changeGold(-150);
-				Sprite*tower = Sprite::create(Tower1_IMG);
+				Sprite*tower = Sprite::create(Rocket1_IMG);
 				tower->setPosition(blockCenter);
 
 				//将comTower挂载到每个tower上

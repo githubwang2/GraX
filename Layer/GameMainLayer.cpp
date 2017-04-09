@@ -70,12 +70,13 @@ void GameMainLayer::startGame()
 	addChild(gameMap);
 	//-------------------------------------------------------------------------
 	//					TowerButton
-	TowerButton*towerButton = TowerButton::getInstance();
-	addChild(towerButton, 3);
+	 auto towerButton = TowerButton::getInstance();
+	this->addChild(towerButton, 3);
+	towerButton->buttonReset();
 	attachTowerBuild(gameMap);
 	//-------------------------------------------------------------------------
 	//					¹ÖÎï²¨ÊıË¢ĞÂ
-	//createWaveRusher();
+	createWaveRusher();
 	//-------------------------------------------------------------------------
 	//					FileManager
 	fileManager = FireManager::create();
