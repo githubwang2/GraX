@@ -76,6 +76,11 @@ void GameMainLayer::startGame()
 	 towerButton = TowerButton::getInstance();*/
 	attachTowerBuild(gameMap);
 	//-------------------------------------------------------------------------
+	//					MagicButton
+	auto magicButton = MagicButton::create();
+	magicButton->setGameMap(gameMap);
+	addChild(magicButton, 3);
+	//-------------------------------------------------------------------------
 	//					¹ÖÎï²¨ÊıË¢ĞÂ
 	createWaveRusher();
 	//-------------------------------------------------------------------------

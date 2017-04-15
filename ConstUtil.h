@@ -65,9 +65,7 @@ const float ADJUEST_TIME = 0.3f;		//	滑动校正时间
 #define		Bottle1_IMG				"Bottle-1.png"
 #define		Bottle2_IMG				"Bottle-2.png"
 #define		Bottle3_IMG				"Bottle-3.png"
-#define		PBottle1_IMG			"PBottle1.png"
-#define		PBottle2_IMG			"PBottle2.png"
-#define		PBottle3_IMG			"PBottle3.png"
+#define		PBottle1_IMG			"PBottle3.png"
 //风扇
 #define		Fan1_IMG				"Fan-1.png"
 #define		Fan2_IMG				"Fan-2.png"

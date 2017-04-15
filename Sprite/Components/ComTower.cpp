@@ -2,14 +2,16 @@
 
 USING_NS_CC;
 
-ComTower::ComTower():m_isFiring(false)
+ComTower::ComTower(int towerID, int towerLevel) :m_isFiring(false)
 {
 	setName("ComTower");
+	m_towerID = towerID;
+	m_towerLevel = towerLevel;
 }
 
-ComTower*ComTower::create()
+ComTower*ComTower::create(int towerID, int towerLevel)
 {
-	ComTower*ret = new ComTower();
+	ComTower*ret = new ComTower(towerID,towerLevel);
 	if (ret!=nullptr&&ret->init())
 	{
 		ret->autorelease();
@@ -22,11 +24,15 @@ ComTower*ComTower::create()
 }
 
 void ComTower::onEnter(){
-	m_range = tower_range;
-	m_reloadTime = tower_reloadTime;	
+	auto tower=new TowersMessage(m_towerID,m_towerLevel);
+	m_range = tower->getTowerRange();
+	m_reloadTime = tower->getTowerReloadTime();
+	m_bulletDamage = tower->getBulletDamage();
+	m_bulletSpeed = tower->getBulletSpeed();
 }
 
 int ComTower::getRange() const
 {
 	return m_range;
 }
+

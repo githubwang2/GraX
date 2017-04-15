@@ -164,9 +164,9 @@ void TowerButton::touchButton(Ref *object, TouchEventType type)
 				pFan1->setPosition(m_pos+Point(0,10));
 				pFan1->runAction(RepeatForever::create(RotateBy::create(1,360)));
 				
-				auto comTower = ComTower::create();
+				auto comTower = ComTower::create(0,1);
 				fan1->addComponent(comTower);
-				GameMainLayer::fileManager->m_towers.push_back(comTower);
+				GameMainLayer::fileManager->m_fanTowers.push_back(comTower);
 				addChild(fan1);
 				addChild(pFan1);
 				SoundsControl::setSound(SoundsControl::SoundState::BuyItem);
@@ -185,9 +185,9 @@ void TowerButton::touchButton(Ref *object, TouchEventType type)
 				Sprite*arrow = Sprite::createWithSpriteFrameName(Arrow1_IMG);
 				arrow->setPosition(m_pos);
 
-				auto comTower = ComTower::create();
+				auto comTower = ComTower::create(1,1);
 				arrow->addComponent(comTower);
-				GameMainLayer::fileManager->m_towers.push_back(comTower);
+				GameMainLayer::fileManager->m_arrowTowers.push_back(comTower);
 				addChild(arrow);
 				SoundsControl::setSound(SoundsControl::SoundState::BuyItem);
 			}
@@ -206,10 +206,10 @@ void TowerButton::touchButton(Ref *object, TouchEventType type)
 				tower->setPosition(m_pos);
 
 				//将comTower挂载到每个tower上
-				auto comTower = ComTower::create();
+				auto comTower = ComTower::create(2,1);
 				tower->addComponent(comTower);
 				//存入FireManager的m_towers list中
-				GameMainLayer::fileManager->m_towers.push_back(comTower);
+				GameMainLayer::fileManager->m_rocketTower.push_back(comTower);
 				//-----------------
 				addChild(tower);
 				SoundsControl::setSound(SoundsControl::SoundState::BuyItem);
@@ -228,9 +228,9 @@ void TowerButton::touchButton(Ref *object, TouchEventType type)
 				Sprite*bottle = Sprite::createWithSpriteFrameName(Bottle1_IMG);
 				bottle->setPosition(m_pos);
 
-				auto comTower = ComTower::create();
+				auto comTower = ComTower::create(3,1);
 				bottle->addComponent(comTower);
-				GameMainLayer::fileManager->m_towers.push_back(comTower);
+				GameMainLayer::fileManager->m_bottleTowers.push_back(comTower);
 				addChild(bottle);
 				SoundsControl::setSound(SoundsControl::SoundState::BuyItem);
 			}

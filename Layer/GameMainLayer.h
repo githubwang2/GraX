@@ -20,6 +20,7 @@
 #include "Sprite/Monster.h"
 #include "Sprite/Tower.h"
 #include "Sprite/TowerButton.h"
+#include "Sprite/MagicButton.h"
 
 class GameMainLayer : public cocos2d::Layer
 {

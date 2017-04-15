@@ -8,11 +8,10 @@
 class ComBullet :public cocos2d::Component
 {
 protected:
-	//子弹伤害，子弹速度
 	ComBullet(float fireDamage, float speed);
 
 public:
-	
+	//子弹伤害，子弹速度
 	static ComBullet*create(float fireDamage, float speed);
 
 	virtual void onEnter() override;
