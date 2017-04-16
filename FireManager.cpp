@@ -372,8 +372,8 @@ void FireManager::moveBullet(float dt){
 	//tower
 	 towers();
 	 //magic
-	 //anchorAttackType();
-	 //anchorBulletManager();
+	 anchorAttackType();
+	 anchorBulletManager();
 }
 		
 void FireManager::endMoveBullet()
@@ -487,6 +487,34 @@ void FireManager::endIce(Node*node)
 	node->removeFromParentAndCleanup(true);
 }
 
+void FireManager::createStars(int x, int y)
+{
+	Vector<SpriteFrame*>allFrame;
+	Animation * animation = Animation::create();
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("PAnchor01.png"));
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("PAnchor02.png"));
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("PAnchor03.png"));
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("PAnchor04.png"));
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("PAnchor05.png"));
+	animation->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("PAnchor06.png"));
+
+	animation->setDelayPerUnit(0.1f);
+	animation->setRestoreOriginalFrame(true);
+	auto sp = Sprite::create();
+	Action *act = Sequence::create(
+		Repeat::create(Animate::create(animation), 1),
+		CallFuncN::create(sp, callfuncN_selector(FireManager::endFire)), nullptr);
+
+	sp->runAction(act);
+	sp->setPosition(x, y);
+	addChild(sp, 1);
+}
+
+void FireManager::endStars(Node*node)
+{
+	node->removeFromParentAndCleanup(true);
+}
+
 void FireManager::anchorAttackType()
 {
 	for (auto tower : m_anchorTowers)
@@ -504,17 +532,13 @@ void FireManager::anchorAttackType()
 			//	CallFunc::create(CC_CALLBACK_0(FireManager::anchorBulletManager, this)), nullptr);
 			//runAction(act);
 			for (auto monster : m_monsters)
-			{
+			{		
 				auto anchorFalling = Sprite::createWithSpriteFrameName("pAnchor311.png");
 				anchorFalling->setScale(2.0);
-				addChild(anchorFalling);
-
 				anchorFalling->setPosition(owner->getPositionX(), 900);
-				auto comBullet = ComBullet::create(500, 50);//¸Ä
+				auto comBullet = ComBullet::create(50, 5);//¸Ä
 				anchorFalling->addComponent(comBullet);
 				m_anchorBullets.push_back(comBullet);
-
-				float angle = comBullet->setSpeedXY(owner->getPosition(), monster->getOwner()->getPosition());
 
 				owner->getParent()->addChild(anchorFalling, 2);
 				tower->setIsFire(true);
@@ -523,43 +547,49 @@ void FireManager::anchorAttackType()
 				}), nullptr));
 
 				break;
-
 			}
 		}
 	}
 }
-
 void FireManager::anchorBulletManager()
 {
-	
 	for (auto bullet : m_anchorBullets)
 	{
 		hitMonster = false;
 		auto owner = bullet->getOwner();
-		Point realPos = Point(  owner->getPositionX(),-10 + owner->getPositionY());
+		Point realPos = Point(owner->getPositionX(), -5 + owner->getPositionY());
 		for (auto monster : m_monsters)
 		{
 			auto distance = realPos.getDistance(monster->getOwner()->getPosition());
-			if (distance < monster->getOwner()->getContentSize().width / 2)
-			{ 
+
+			auto monsterSize = monster->getOwner()->getBoundingBox().size;
+			Rect monsterRect(monster->getOwner()->getPositionX(), monster->getOwner()->getPositionY(),
+				monsterSize.width, monsterSize.height);
+			auto bulletSize = bullet->getOwner()->getBoundingBox().size;
+			Rect bulletRect(bullet->getOwner()->getPositionX(), bullet->getOwner()->getPositionY()-10,
+				bulletSize.width, bulletSize.height-20);
+			if (monsterRect.intersectsRect(bulletRect))
+
+				//if (distance < monster->getOwner()->getContentSize().width / 2)
+			{
 				auto comLife = dynamic_cast<ComLife*>(monster->getOwner()->getComponent("ComLife"));
 				bool isDead = comLife->attacked(bullet->getFireDamage());
 				hitMonster = true;
-				//createBoom(monster->getOwner()->getPositionX(), monster->getOwner()->getPositionY());
 
 				if (isDead)
 				{
+					createStars(monster->getOwner()->getPositionX(), monster->getOwner()->getPositionY());
 					monster->getOwner()->removeFromParent();
 					m_monsters.remove(monster);
 					break;
 				}
 			}
 		}
-	 
-		if ( 0>realPos.y)
+
+		if (0 > realPos.y)
 		{
 			owner->removeFromParent();
-			m_rocketBullets.remove(bullet);
+			m_anchorBullets.remove(bullet);
 			break;
 		}
 		else

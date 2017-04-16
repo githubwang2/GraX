@@ -40,6 +40,8 @@ private:
 	void endFire(Node*node);
 	void createIce(int x, int y);
 	void endIce(Node*node);
+	void createStars(int x, int y);
+	void endStars(Node*node);
 
 public:
 	std::list<ComBullet*>	m_bullets;
