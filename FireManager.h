@@ -6,7 +6,7 @@
 USING_NS_CC;
 
 //·ÀÓùËþ×Óµ¯¹ÜÀí(ÒÆ¶¯ºÍÅö×²)
-class FireManager:public Layer
+class FireManager :public Layer
 {
 public:
 
@@ -16,8 +16,10 @@ public:
 	//Í£Ö¹¹¥»÷
 	void endMoveBullet();
 private:
-	void bullets();
 	void towers();
+	void bullets();
+	void magic();
+
 	void FanAttackType();
 	void ArrowAttackType();
 	void RocketAttackType();
@@ -28,8 +30,14 @@ private:
 	void RocketBulletManager();
 	void BottleBulletManager();
 
+	void anchorAttackType();
+	void anchorBulletManager();
+
+	void FBottleAttackType();
+	void FBottleBulletManager();
+
 	cocos2d::Size visibleSize;
-	bool hitMonster; 
+	bool hitMonster;
 
 	virtual bool init();
 	void createBoom(int x, int y);
@@ -47,23 +55,29 @@ public:
 	std::list<ComBullet*>	m_bullets;
 	std::list<ComTower*>	m_towers;
 
+	//tower
 	std::list<ComTower*>	m_fanTowers;
 	std::list<ComTower*>    m_arrowTowers;
 	std::list<ComTower*>    m_rocketTower;
 	std::list<ComTower*>    m_bottleTowers;
-
+	//bullet
 	std::list<ComBullet*>	m_fanBullets;
 	std::list<ComBullet*>	m_arrowBullets;
 	std::list<ComBullet*>	m_rocketBullets;
 	std::list<ComBullet*>	m_bottleBullets;
-
+	//monster
 	std::list<ComMove*>		m_monsters;
 	std::list<ComMove*>		m_tmpMonster;
 
-	void anchorAttackType();
-	void anchorBulletManager();
+	//maigc
 	std::list<ComTower*>    m_anchorTowers;
 	std::list<ComBullet*>    m_anchorBullets;
+
+	std::list<ComMagic*>    m_FBottleMagic;
+	std::list<ComBullet*>    m_FBottleBullets;
+
+	std::list<ComMagic*>    m_sunMagic;
+	std::list<ComMagic*>    m_snowMagic;
 };
 
 #endif

@@ -13,7 +13,7 @@ public:
 
 	virtual void onEnter() override;
 	
-	bool attacked(int damage);
+	bool attacked(float damage);
 
 private:
 	ComLife(int maxLife);

@@ -135,7 +135,6 @@ void TowerButton::ableToCreat(cocos2d::Point pos, GameMap *gameMap)
 				errorPos->removeFromParent(); }), NULL);
 				errorPos->runAction(action);
 		}
-		
 	}
 }
 

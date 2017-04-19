@@ -3,6 +3,9 @@
 #include "Scene/GameMainScene.h"
 #include "Layer/GameMainLayer.h"
 
+#include "Layer/SkillLayer.h"
+#include "Scene/MenuScene.h"
+
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -32,6 +35,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//auto scene = StartScene::create();
 	//scene->gameStart();
 	
+	//auto layer = SkillLayer::create();
+	//auto scene = MenuScene::createScene(layer);
+	//director->runWithScene(scene);
+
     return true;
 }
 

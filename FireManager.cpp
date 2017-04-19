@@ -1,5 +1,13 @@
 #include "FireManager.h"
 
+void FireManager::towers()
+{
+	FanAttackType();
+	ArrowAttackType();
+	RocketAttackType();
+	BottleAttackType();
+}
+
 void FireManager::bullets()
 {
 	FanBulletManager();
@@ -8,12 +16,12 @@ void FireManager::bullets()
 	BottleBulletManager();
 }
 
-void FireManager::towers()
+void FireManager::magic()
 {
-	FanAttackType();
-	ArrowAttackType();
-	RocketAttackType();
-	BottleAttackType();
+	anchorAttackType();
+	anchorBulletManager();
+	FBottleAttackType();
+	FBottleBulletManager();
 }
 
 void FireManager::FanAttackType()
@@ -318,7 +326,7 @@ void FireManager::BottleBulletManager()
 			if (distance < monster->getOwner()->getContentSize().width / 2)
 			{
 				auto comLife = dynamic_cast<ComLife*>(monster->getOwner()->getComponent("ComLife"));
-				bool isDead = comLife->attacked(bullet->getFireDamage());
+				bool isDead = comLife->attacked(bullet->getFireDamage()/5);//因为火频率太高。。
 				hitMonster = true;
 				createBoom(monster->getOwner()->getPositionX(), monster->getOwner()->getPositionY());
 
@@ -372,8 +380,7 @@ void FireManager::moveBullet(float dt){
 	//tower
 	 towers();
 	 //magic
-	 anchorAttackType();
-	 anchorBulletManager();
+	 magic();
 }
 		
 void FireManager::endMoveBullet()
@@ -509,7 +516,6 @@ void FireManager::createStars(int x, int y)
 	sp->setPosition(x, y);
 	addChild(sp, 1);
 }
-
 void FireManager::endStars(Node*node)
 {
 	node->removeFromParentAndCleanup(true);
@@ -536,7 +542,7 @@ void FireManager::anchorAttackType()
 				auto anchorFalling = Sprite::createWithSpriteFrameName("pAnchor311.png");
 				anchorFalling->setScale(2.0);
 				anchorFalling->setPosition(owner->getPositionX(), 900);
-				auto comBullet = ComBullet::create(50, 5);//改
+				auto comBullet = ComBullet::create(5, 5);//改  下落锚点的攻击
 				anchorFalling->addComponent(comBullet);
 				m_anchorBullets.push_back(comBullet);
 
@@ -566,16 +572,19 @@ void FireManager::anchorBulletManager()
 			Rect monsterRect(monster->getOwner()->getPositionX(), monster->getOwner()->getPositionY(),
 				monsterSize.width, monsterSize.height);
 			auto bulletSize = bullet->getOwner()->getBoundingBox().size;
-			Rect bulletRect(bullet->getOwner()->getPositionX(), bullet->getOwner()->getPositionY()-10,
-				bulletSize.width, bulletSize.height-20);
+			Rect bulletRect(bullet->getOwner()->getPositionX(), bullet->getOwner()->getPositionY(),
+				bulletSize.width, bulletSize.height );
 			if (monsterRect.intersectsRect(bulletRect))
-
-				//if (distance < monster->getOwner()->getContentSize().width / 2)
 			{
 				auto comLife = dynamic_cast<ComLife*>(monster->getOwner()->getComponent("ComLife"));
+			/*	if (hitMonster == false)
+				{
+					isDead = comLife->attacked(bullet->getFireDamage());
+					hitMonster = true;
+					runAction(Sequence::create(DelayTime::create(2.0f),
+						CallFunc::create([=](){hitMonster = false; }), nullptr));
+				}	*/
 				bool isDead = comLife->attacked(bullet->getFireDamage());
-				hitMonster = true;
-
 				if (isDead)
 				{
 					createStars(monster->getOwner()->getPositionX(), monster->getOwner()->getPositionY());
@@ -585,7 +594,6 @@ void FireManager::anchorBulletManager()
 				}
 			}
 		}
-
 		if (0 > realPos.y)
 		{
 			owner->removeFromParent();
@@ -598,3 +606,82 @@ void FireManager::anchorBulletManager()
 		}
 	}
 }
+
+void FireManager::FBottleAttackType()
+{
+	for (auto tower : m_FBottleMagic)
+	{
+		Sprite* bullet = Sprite::createWithSpriteFrameName("PFBottle3.png");
+		auto owner = tower->getOwner();
+		if (tower->getIsFire())
+		{
+			bullet->setVisible(false);
+			continue;
+		}
+		else
+		{
+			int fireRange = 50;//tower->getRange();
+			Point towerPos = tower->getOwner()->getPosition();
+			for (auto monster : m_monsters)
+			{
+				if (towerPos.getDistance(monster->getOwner()->getPosition()) <= fireRange)
+				{ 
+					auto comBullet = ComBullet::create(/*tower->getBulletDamage(), tower->getBulletSpeed()*/1,50);
+					bullet->addComponent(comBullet);
+					m_FBottleBullets.push_back(comBullet);
+
+					float angle = comBullet->setSpeedXY(owner->getPosition(), monster->getOwner()->getPosition()); 
+					owner->getParent()->addChild(bullet, 2);
+					tower->setIsFire(true);
+					runAction(Sequence::create(DelayTime::create(tower->getRelodTime()),
+						CallFunc::create([=]{
+						tower->setIsFire(false);
+					}), nullptr));
+					bullet->setAnchorPoint(Point::ZERO);
+					bullet->setPosition(owner->getPosition() + Point(comBullet->getSpeedX(), comBullet->getSpeedY()));
+					bullet->setRotation(angle);				 
+					owner->setRotation(angle); 
+					break;
+				}
+			}
+		}
+	}
+}
+void FireManager::FBottleBulletManager()
+{
+	for (auto bullet : m_FBottleBullets)
+	{
+		hitMonster = false;
+		auto owner = bullet->getOwner();
+		Point realPos = Point(owner->getPositionX(),owner->getPositionY());
+		for (auto monster : m_monsters)
+		{
+			auto distance = realPos.getDistance(monster->getOwner()->getPosition());
+			if (distance < monster->getOwner()->getContentSize().width / 2)
+			{
+				auto comLife = dynamic_cast<ComLife*>(monster->getOwner()->getComponent("ComLife"));
+				bool isDead = comLife->attacked(bullet->getFireDamage() / 5);//因为火频率太高。。
+				hitMonster = true;
+				createFire(monster->getOwner()->getPositionX(), monster->getOwner()->getPositionY());
+
+				if (isDead)
+				{
+					monster->getOwner()->removeFromParent();
+					m_monsters.remove(monster);
+					break;
+				}
+			}
+		}
+		if (hitMonster)
+		{
+			owner->removeFromParent();
+			m_FBottleBullets.remove(bullet);
+			break;
+		}
+		else
+		{
+			owner->setPosition(realPos);
+		}
+	}
+}
+

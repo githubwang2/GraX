@@ -114,6 +114,11 @@ void GameState::initGameState()
 		UserDefault::getInstance()->setBoolForKey("Stage3", false);
 		UserDefault::getInstance()->setBoolForKey("Stage4", false);
 		UserDefault::getInstance()->setBoolForKey("is_first", false);
+
+		UserDefault::getInstance()->setBoolForKey("btnArrow1", true);
+		UserDefault::getInstance()->setBoolForKey("btnFan1", true);
+		UserDefault::getInstance()->setBoolForKey("btnBottle1", true);
+		UserDefault::getInstance()->setBoolForKey("btnRocket1", true);
 	}
 	UserDefault::getInstance()->setBoolForKey("is_init", true);
 	UserDefault::getInstance()->flush();
@@ -131,4 +136,19 @@ std::string GameState::getLanguage()
 	{
 		return "jp";
 	}
+}
+
+bool GameState::getSkillDate(char * skillName)
+{
+	if (!UserDefault::getInstance()->getBoolForKey(skillName))
+	{
+		UserDefault::getInstance()->setBoolForKey(skillName, false);
+		return false;
+	}
+	return true;
+}
+
+void GameState::studySkillDate(char * skillName)
+{
+	UserDefault::getInstance()->setBoolForKey(skillName, true);
 }

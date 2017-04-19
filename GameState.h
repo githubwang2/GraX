@@ -18,6 +18,9 @@ public:
 	static void setStageDate(char *stageName);
 	static void initGameState();
 	static std::string getLanguage();
+
+	static bool getSkillDate(char * skillName);
+	static void studySkillDate(char * skillName);
 private:
 	
 };

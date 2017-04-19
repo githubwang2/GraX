@@ -44,10 +44,10 @@ void ComLife::onEnter(){
 	owner->addChild(bar);
 }
 
-bool ComLife::attacked(int damage)
+bool ComLife::attacked(float damage)
 {
 	bool isDead = false;
-	int after = m_currentHp - damage;
+	float after = m_currentHp - damage;
 	//受到攻击  是否死亡
 	if (after>0)
 	{

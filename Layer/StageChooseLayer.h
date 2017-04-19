@@ -10,8 +10,6 @@
 #include"Layer/DialogLayer.h"
 #include"GameLayerControl.h"
 
-
-
 class StageChooseLayer : public cocos2d::Layer
 {
 public:

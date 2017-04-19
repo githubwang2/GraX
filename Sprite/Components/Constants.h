@@ -1,6 +1,7 @@
 #ifndef  __CONSTANTS__
 #define  __CONSTANTS__
 
+#include "Sprite/Components/ComMagic.h"
 #include "Sprite/Components/ComTower.h"
 #include "Sprite/Components/ComMove.h"
 #include "Sprite/Components/ComLife.h"
