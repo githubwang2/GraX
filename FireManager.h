@@ -78,6 +78,7 @@ public:
 
 	std::list<ComMagic*>    m_sunMagic;
 	std::list<ComMagic*>    m_snowMagic;
+	std::list<ComMagic*>    m_starMagic;
 };
 
 #endif

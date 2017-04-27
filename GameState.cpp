@@ -152,3 +152,38 @@ void GameState::studySkillDate(char * skillName)
 {
 	UserDefault::getInstance()->setBoolForKey(skillName, true);
 }
+
+int GameState::getNumOfStars()
+{
+	int NumOfStars = 0;
+	if (!UserDefault::getInstance()->getIntegerForKey("level1-1"))
+	{
+		return 0;	
+	}
+	for (int s = 1; s <= MAX_STAGE; s++)
+	{
+		for (int l = 1; l <= MAX_LEVEL; l++)
+		{
+			char buf[32] = { 0 };
+			sprintf(buf, "level%d-%d", s, l);
+			CCLOG("level name%s", buf);
+			if (!UserDefault::getInstance()->getIntegerForKey(buf))
+			{
+				NumOfStars = NumOfStars + 0;
+			}
+			else
+			{
+				NumOfStars = NumOfStars + UserDefault::getInstance()->getIntegerForKey(buf);
+			}
+		}
+	}
+	char maxLevel[32] = { 0 };
+	sprintf(maxLevel, "level%d-%d", MAX_STAGE, MAX_LEVEL);
+	if (UserDefault::getInstance()->getIntegerForKey(maxLevel) == 1 
+		|| UserDefault::getInstance()->getIntegerForKey(maxLevel) == 2
+		|| UserDefault::getInstance()->getIntegerForKey(maxLevel) == 3)
+	{
+		return NumOfStars;
+	}
+	return NumOfStars - 4;
+}

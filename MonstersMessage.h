@@ -11,7 +11,6 @@ public:
 	std::string getCNNameOfMonsters(int id);
 	int getSpeedOfMonsters(int id);
 	int getHpOfMonsters(int id);
-
 private:
 	void getMessage();
 

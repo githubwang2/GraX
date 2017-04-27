@@ -30,14 +30,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setDisplayStats(true);
     director->setAnimationInterval(1.0 / 60);
 
-	auto scene = GameMainScene::createScene();
-	director->runWithScene(scene);
+	//auto scene = GameMainScene::createScene();
+	//director->runWithScene(scene);
 	//auto scene = StartScene::create();
 	//scene->gameStart();
 	
-	//auto layer = SkillLayer::create();
-	//auto scene = MenuScene::createScene(layer);
-	//director->runWithScene(scene);
+	auto layer = SkillLayer::create();
+	auto scene = MenuScene::createScene(layer);
+	director->runWithScene(scene);
 
     return true;
 }

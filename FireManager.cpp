@@ -609,37 +609,38 @@ void FireManager::anchorBulletManager()
 
 void FireManager::FBottleAttackType()
 {
-	for (auto tower : m_FBottleMagic)
+	for (auto magic : m_FBottleMagic)
 	{
-		Sprite* bullet = Sprite::createWithSpriteFrameName("PFBottle3.png");
-		auto owner = tower->getOwner();
-		if (tower->getIsFire())
+		 auto bulletFireBottle = Sprite::createWithSpriteFrameName("PFBottle3.png");
+		auto owner = magic->getOwner();
+		if (magic->getIsFire())
 		{
-			bullet->setVisible(false);
+			//bulletFireBottle->setVisible(false);
 			continue;
 		}
 		else
 		{
-			int fireRange = 50;//tower->getRange();
-			Point towerPos = tower->getOwner()->getPosition();
+			int fireRange = magic->getRange();//100;
+			Point towerPos = magic->getOwner()->getPosition();
 			for (auto monster : m_monsters)
 			{
 				if (towerPos.getDistance(monster->getOwner()->getPosition()) <= fireRange)
 				{ 
-					auto comBullet = ComBullet::create(/*tower->getBulletDamage(), tower->getBulletSpeed()*/1,50);
-					bullet->addComponent(comBullet);
+					//************
+					auto comBullet = ComBullet::create(/*tower->getBulletDamage(), tower->getBulletSpeed()*/1, 60);
+					bulletFireBottle->addComponent(comBullet);
 					m_FBottleBullets.push_back(comBullet);
 
 					float angle = comBullet->setSpeedXY(owner->getPosition(), monster->getOwner()->getPosition()); 
-					owner->getParent()->addChild(bullet, 2);
-					tower->setIsFire(true);
-					runAction(Sequence::create(DelayTime::create(tower->getRelodTime()),
+					owner->getParent()->addChild(bulletFireBottle, 2);
+					magic->setIsFire(true);
+					runAction(Sequence::create(DelayTime::create(magic->getRelodTime()),
 						CallFunc::create([=]{
-						tower->setIsFire(false);
+						magic->setIsFire(false);
 					}), nullptr));
-					bullet->setAnchorPoint(Point::ZERO);
-					bullet->setPosition(owner->getPosition() + Point(comBullet->getSpeedX(), comBullet->getSpeedY()));
-					bullet->setRotation(angle);				 
+					bulletFireBottle->setAnchorPoint(Point::ZERO);
+					bulletFireBottle->setPosition(owner->getPosition() + Point(comBullet->getSpeedX(), comBullet->getSpeedY()));
+					bulletFireBottle->setRotation(angle);				 
 					owner->setRotation(angle); 
 					break;
 				}
@@ -653,11 +654,13 @@ void FireManager::FBottleBulletManager()
 	{
 		hitMonster = false;
 		auto owner = bullet->getOwner();
-		Point realPos = Point(owner->getPositionX(),owner->getPositionY());
+		Point realPos = Point(/*bullet->getSpeedX()*/ +owner->getPositionX(),
+			/*bullet->getSpeedY() */+owner->getPositionY());
 		for (auto monster : m_monsters)
 		{
 			auto distance = realPos.getDistance(monster->getOwner()->getPosition());
-			if (distance < monster->getOwner()->getContentSize().width / 2)
+			//因为火焰不产生位移  所以距离应为怪物半径+火焰长度 
+			if (distance < /*80-monster->getOwner()->getContentSize().width / 2*/monster->getOwner()->getContentSize().width / 2+50)
 			{
 				auto comLife = dynamic_cast<ComLife*>(monster->getOwner()->getComponent("ComLife"));
 				bool isDead = comLife->attacked(bullet->getFireDamage() / 5);//因为火频率太高。。

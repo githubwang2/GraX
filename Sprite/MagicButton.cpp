@@ -40,7 +40,7 @@ void MagicButton::initMagicRange()
 	addChild(sunSprite);
 	sunSprite->setVisible(false);
 
-	iceSprite = Sprite::createWithSpriteFrameName("PSnow05.png");
+	iceSprite = Sprite::createWithSpriteFrameName("Snow-1.png");
 	addChild(iceSprite);
 	iceSprite->setVisible(false);
 
@@ -409,7 +409,7 @@ void MagicButton::createSunAttack()
 		sunMagic->setPosition(m_pos);
 		addChild(sunMagic);
 		//------------------------------------------------
-		auto comMagic = ComMagic::create(4);
+		auto comMagic = ComMagic::create(0);
 		sunMagic->addComponent(comMagic);
 		GameMainLayer::fileManager->m_sunMagic.push_back(comMagic);
 
@@ -442,6 +442,12 @@ void MagicButton::sunAttackType()
 				}
 			}
 		}
+		/*if (hitMonster)
+		{
+			owner->removeFromParent();
+			m_bottleBullets.remove(bullet);
+			break;
+		}*/
 	}
 }
 void MagicButton::createSunAttackEffects(cocos2d::Point pos)
@@ -506,12 +512,12 @@ void MagicButton::createSnowAttack()
 		snowMagic->setPosition(m_pos);
 		addChild(snowMagic);
 		//------------------------------------------------
-		auto comMagic = ComMagic::create(2);
+		auto comMagic = ComMagic::create(1);
 		snowMagic->addComponent(comMagic);
 		GameMainLayer::fileManager->m_snowMagic.push_back(comMagic);
 
 		this->runAction(Repeat::create(
-			CallFunc::create(CC_CALLBACK_0(MagicButton::SnowAttackType, this)), 1));
+			CallFunc::create(CC_CALLBACK_0(MagicButton::SnowAttackType, this)), 3));
 	}
 }
 void MagicButton::SnowAttackType()
@@ -530,7 +536,7 @@ void MagicButton::SnowAttackType()
 			if (magicSnowRect.intersectsRect(monsterRect))
 			{
 				auto comLife = dynamic_cast<ComLife*>(monster->getOwner()->getComponent("ComLife"));
-				bool isDead = comLife->attacked(20);//¸Ä ±ù¶³µÄ¹¥»÷
+				bool isDead = comLife->attacked(30);//¸Ä ±ù¶³µÄ¹¥»÷
 				if (isDead)
 				{
 					monster->getOwner()->removeFromParent();
@@ -565,6 +571,7 @@ void MagicButton::createSnowAttackEffects(cocos2d::Point pos)
 
 		m_pos = pos;
 		sp->setPosition(pos);
+		sp->setScale(2.0);
 		addChild(sp, 1);
 	}
 }

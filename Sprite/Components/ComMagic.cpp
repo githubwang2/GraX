@@ -23,15 +23,12 @@ ComMagic* ComMagic::create(int magicID)
 }
 
 void ComMagic::onEnter(){
-	/*auto tower = new TowersMessage(m_towerID, m_towerLevel);
-	m_range = tower->getTowerRange();
-	m_reloadTime = tower->getTowerReloadTime();
-	m_bulletDamage = tower->getBulletDamage();
-	m_bulletSpeed = tower->getBulletSpeed();*/
-	m_range =100;
-	m_reloadTime = 0.0f;
-	m_bulletDamage =1;
-	m_bulletSpeed = 30;
+	auto maigc = new MagicMessage(m_magicID );
+	m_range = maigc->getMagicRange();
+	m_magicDamage = maigc->getMagicDamage();
+	m_reloadTime = maigc->getMagicReloadTime();
+	m_bulletDamage= maigc->getMagicBulletDamage();
+	m_bulletSpeed= maigc->getMagicBulletSpeed();
 }
 
 int ComMagic::getRange() const

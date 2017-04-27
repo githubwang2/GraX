@@ -21,6 +21,7 @@ public:
 
 	static bool getSkillDate(char * skillName);
 	static void studySkillDate(char * skillName);
+	static int getNumOfStars();
 private:
 	
 };
